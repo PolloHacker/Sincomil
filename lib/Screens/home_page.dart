@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sincomil/Classes/Student.dart';
-import 'package:sincomil/Classes/nav_handler.dart';
 import 'package:sincomil/constants.dart';
 
 List<String> initList(List<Student> data) {
