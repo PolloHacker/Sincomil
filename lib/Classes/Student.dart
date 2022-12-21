@@ -1,4 +1,3 @@
-
 class Student {
   //id do aluno na base de dados
   final int id;
@@ -31,33 +30,46 @@ class Student {
   final bool orphan;
   final bool especial;
 
-  const Student({
-    required this.id,
-    required this.parentId,
-    required this.codigo,
-    required this.foto,
-    required this.nome,
-    required this.nomeGuerra,
-    required this.numero,
-    required this.email,
-    required this.cpf,
-    required this.telefone,
-    required this.nascimento,
-    required this.nacionalidade,
-    required this.naturalidade,
-    required this.identidade,
-    required this.cor,
-    required this.sexo,
-    required this.orphan,
-    required this.especial
-  });
+  const Student(
+      {required this.id,
+      required this.parentId,
+      required this.codigo,
+      required this.foto,
+      required this.nome,
+      required this.nomeGuerra,
+      required this.numero,
+      required this.email,
+      required this.cpf,
+      required this.telefone,
+      required this.nascimento,
+      required this.nacionalidade,
+      required this.naturalidade,
+      required this.identidade,
+      required this.cor,
+      required this.sexo,
+      required this.orphan,
+      required this.especial});
 
   factory Student.fromJson(Map<String, dynamic> json) {
-    //TODO: implement fromJson method
-    var i = 0;
-    for (i in (json['student'])){
-      print(i);
-    }
-    return ;
+    return Student(
+        id: json['id'],
+        parentId: json['parente_id'],
+        codigo: json['codigo'],
+        foto: json['foto'],
+        nome: json['nome'],
+        nomeGuerra: json['nomeGuerra'],
+        numero: json['numero'],
+        email: json['email'],
+        cpf: json['cpf'],
+        telefone: json['telefone'],
+        nascimento: json['nascimento'],
+        nacionalidade: json['nacionalidade'],
+        naturalidade: json['naturalidade'],
+        identidade: json['identidade'],
+        cor: json['cor'],
+        sexo: json['sexo'],
+        orphan: json['orphan'],
+        especial: json['especial']
+    );
   }
 }

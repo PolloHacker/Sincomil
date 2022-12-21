@@ -7,7 +7,7 @@ import 'Student.dart';
 class NavHandler {
   const NavHandler();
 
-  Future<Student> check(BuildContext context, String email, String pass) async {
+  Future<List<Student>> check(BuildContext context, String email, String pass) async {
     final msg = json.encode(<String, String>{
       'email': email,
       'password': pass,
@@ -20,9 +20,14 @@ class NavHandler {
       body: msg,
     );
     if (result.statusCode == 200) {
-      print(result.body);
-      var student = Student.fromJson(jsonDecode(result.body));
-      return student;
+      var data = jsonDecode(result.body);
+      print(data);
+      var students = <Student>[];
+      for (var i = 0; i < data['student'].length; i++) {
+        print(data['student'][i]);
+        students.add(Student.fromJson(data['student'][i]));
+      }
+      return students;
     } else {
       throw Exception('Failed to load student');
     }

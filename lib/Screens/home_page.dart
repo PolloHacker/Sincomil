@@ -4,23 +4,46 @@ import 'package:sincomil/Classes/Student.dart';
 import 'package:sincomil/Classes/nav_handler.dart';
 import 'package:sincomil/constants.dart';
 
-const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+List<String> initList(List<Student> data) {
+  final List<String> list = [];
+  for (var i = 0; i < data.length; i++) {
+    list.add(data[i].nome);
+  }
+  return list;
+}
 
 class HomePage extends StatefulWidget {
-  final Student data;
+  final List<Student> data;
   final String foto;
-  const HomePage({super.key, required this.data, required this.foto});
+  final List<String> list;
+  final String dropdrownValue;
+  const HomePage(
+      {super.key,
+      required this.data,
+      required this.foto,
+      required this.list,
+      required this.dropdrownValue});
 
   @override
-  State<HomePage> createState() => _HomePageState(data, foto);
+  State<HomePage> createState() =>
+      _HomePageState(data, foto, list, dropdrownValue);
 }
 
 class _HomePageState extends State<HomePage> {
-  _HomePageState(this.data, this.foto);
-  final Student data;
+  _HomePageState(this.data, this.foto, this.list, this.dropdownValue);
+  final List<Student> data;
   String foto;
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
-  String dropdownValue = list.first;
+  List<String> list;
+  String dropdownValue;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    list = initList(data);
+    dropdownValue = list.first;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,33 +52,34 @@ class _HomePageState extends State<HomePage> {
       child: ListView(
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.all(10),
-            alignment: Alignment.center,
-            child: DropdownButton(
-              value: dropdownValue,
-              icon: const Icon(Icons.arrow_drop_down),
-              elevation: 16,
-              style: const TextStyle(color: Colors.deepPurple),
-              underline: Container(
-                height: 2,
-                color: Colors.deepPurpleAccent,
-              ),
-              onChanged: (String? value) async {
-                // This is called when the user selects an item.
-                foto = await const NavHandler().getPic(context, data.nome, data.numero);
-                setState(() {
-                  dropdownValue = value!;
-                });
-              },
+              padding: const EdgeInsets.all(10),
+              alignment: Alignment.center,
+              child: DropdownButton(
+                value: dropdownValue,
+                icon: const Icon(Icons.arrow_drop_down),
+                elevation: 16,
+                style: const TextStyle(color: Colors.deepPurple),
+                underline: Container(
+                  height: 2,
+                  color: Colors.deepPurpleAccent,
+                ),
+                onChanged: (String? value) async {
+                  // This is called when the user selects an item.
+                  foto = await const NavHandler().getPic(
+                      context,
+                      data[list.indexOf(dropdownValue)].nome,
+                      data[list.indexOf(dropdownValue)].numero);
+                  setState(() {
+                    dropdownValue = value!;
+                  });
+                },
                 items: list.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
                   );
                 }).toList(),
-
-            )
-          ),
+              )),
           Container(
             padding:
                 const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 0),
@@ -83,113 +107,169 @@ class _HomePageState extends State<HomePage> {
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text("Código único", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Text("Código único",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
                             const Spacer(),
-                            Text(data.codigo, style: const TextStyle(fontSize: 20)),
+                            Text(data[list.indexOf(dropdownValue)].codigo,
+                                style: const TextStyle(fontSize: 20)),
                           ]),
                       const Divider(color: dividerColor),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text("Nome", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Text("Nome",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
                             const Spacer(),
-                            Text(data.nome, style: const TextStyle(fontSize: 20)),
+                            Text(data[list.indexOf(dropdownValue)].nome,
+                                style: const TextStyle(fontSize: 20)),
                           ]),
                       const Divider(color: dividerColor),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text("Nome de Guerra", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Text("Nome de Guerra",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
                             const Spacer(),
-                            Text(data.nomeGuerra, style: const TextStyle(fontSize: 20)),
+                            Text(data[list.indexOf(dropdownValue)].nomeGuerra,
+                                style: const TextStyle(fontSize: 20)),
                           ]),
                       const Divider(color: dividerColor),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text("Número", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Text("Número",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
                             const Spacer(),
-                            Text(data.numero.toString(), style: const TextStyle(fontSize: 20)),
+                            Text(
+                                data[list.indexOf(dropdownValue)]
+                                    .numero
+                                    .toString(),
+                                style: const TextStyle(fontSize: 20)),
                           ]),
                       const Divider(color: dividerColor),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text("E-mail", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Text("E-mail",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
                             const Spacer(),
-                            Text(data.email, style: const TextStyle(fontSize: 20)),
+                            Text(data[list.indexOf(dropdownValue)].email,
+                                style: const TextStyle(fontSize: 20)),
                           ]),
                       const Divider(color: dividerColor),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text("Telefone", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Text("Telefone",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
                             const Spacer(),
-                            Text(data.telefone, style: const TextStyle(fontSize: 20)),
+                            Text(data[list.indexOf(dropdownValue)].telefone,
+                                style: const TextStyle(fontSize: 20)),
                           ]),
                       const Divider(color: dividerColor),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text("Data de Nascimento", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Text("Data de Nascimento",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
                             const Spacer(),
-                            Text(data.nascimento, style: const TextStyle(fontSize: 20)),
+                            Text(data[list.indexOf(dropdownValue)].nascimento,
+                                style: const TextStyle(fontSize: 20)),
                           ]),
                       const Divider(color: dividerColor),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text("CPF", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Text("CPF",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
                             const Spacer(),
-                            Text(data.cpf.toString(), style: const TextStyle(fontSize: 20)),
+                            Text(
+                                data[list.indexOf(dropdownValue)]
+                                    .cpf
+                                    .toString(),
+                                style: const TextStyle(fontSize: 20)),
                           ]),
                       const Divider(color: dividerColor),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text("Nacionalidade", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Text("Nacionalidade",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
                             const Spacer(),
-                            Text(data.nacionalidade, style: const TextStyle(fontSize: 20)),
+                            Text(
+                                data[list.indexOf(dropdownValue)].nacionalidade,
+                                style: const TextStyle(fontSize: 20)),
                           ]),
                       const Divider(color: dividerColor),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text("Naturalidade", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Text("Naturalidade",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
                             const Spacer(),
-                            Text(data.naturalidade, style: const TextStyle(fontSize: 20)),
+                            Text(data[list.indexOf(dropdownValue)].naturalidade,
+                                style: const TextStyle(fontSize: 20)),
                           ]),
                       const Divider(color: dividerColor),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text("Raça/Cor/Etnia", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Text("Raça/Cor/Etnia",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
                             const Spacer(),
-                            Text(data.cor, style: const TextStyle(fontSize: 20)),
-                          ]),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Sexo", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(data.sexo, style: const TextStyle(fontSize: 20)),
-                          ]),
-                      const Divider(color: dividerColor),
-                      const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Aluno Órfão", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(data.orphan ? 'Sim': 'Não', style: const TextStyle(fontSize: 20)),
+                            Text(data[list.indexOf(dropdownValue)].cor,
+                                style: const TextStyle(fontSize: 20)),
                           ]),
                       const Divider(color: dividerColor),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text("Aluno Especial", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Text("Sexo",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
                             const Spacer(),
-                            Text(data.especial ? 'Sim': 'Não', style: const TextStyle(fontSize: 20)),
+                            Text(data[list.indexOf(dropdownValue)].sexo,
+                                style: const TextStyle(fontSize: 20)),
+                          ]),
+                      const Divider(color: dividerColor),
+                      const Divider(color: dividerColor),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Text("Aluno Órfão",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Spacer(),
+                            Text(
+                                data[list.indexOf(dropdownValue)].orphan
+                                    ? 'Sim'
+                                    : 'Não',
+                                style: const TextStyle(fontSize: 20)),
+                          ]),
+                      const Divider(color: dividerColor),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Text("Aluno Especial",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Spacer(),
+                            Text(
+                                data[list.indexOf(dropdownValue)].especial
+                                    ? 'Sim'
+                                    : 'Não',
+                                style: const TextStyle(fontSize: 20)),
                           ]),
                       const Divider(color: dividerColor),
                     ],

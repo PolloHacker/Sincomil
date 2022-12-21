@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../Classes/Student.dart';
 
 class PaymentsPage extends StatefulWidget {
-  final Student data;
+  final List<Student> data;
   const PaymentsPage({super.key, required this.data});
 
   @override

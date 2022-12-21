@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                               final String pass = passwordController.text;
                               final data = await const NavHandler().check(context, email, pass);
                               if (!mounted) return;
-                              final foto = await const NavHandler().getPic(context, data.nome, data.numero);
+                              final foto = await const NavHandler().getPic(context, data[0].nome, data[0].numero);
                               if (!mounted) return;
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
