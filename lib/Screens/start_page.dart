@@ -10,18 +10,18 @@ import 'home_page.dart';
 
 class StartPage extends StatefulWidget {
   final List<Student> data;
-  final String foto;
-  const StartPage({super.key, required this.data, required this.foto});
+  final List<String> fotos;
+  const StartPage({super.key, required this.data, required this.fotos});
 
   @override
-  State<StartPage> createState() => _StartPageState(data, foto);
+  State<StartPage> createState() => _StartPageState(data, fotos);
 }
 
 class _StartPageState extends State<StartPage> {
   int _page = 0;
-  _StartPageState(this.data, this.foto);
+  _StartPageState(this.data, this.fotos);
   final List<Student> data;
-  final String foto;
+  final List<String> fotos;
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   @override
@@ -33,7 +33,7 @@ class _StartPageState extends State<StartPage> {
         backgroundColor: navigationBarBG,
       ),
       body: <Widget>[
-        HomePage(data: data, foto: foto, list: const [], dropdrownValue: ''),
+        HomePage(data: data, fotos: fotos, list: const [], dropdrownValue: ''),
         PaymentsPage(data: data),
         GradesPage(data: data),
         AccountPage(data: data),

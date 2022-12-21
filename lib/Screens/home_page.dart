@@ -14,32 +14,31 @@ List<String> initList(List<Student> data) {
 
 class HomePage extends StatefulWidget {
   final List<Student> data;
-  final String foto;
+  final List<String> fotos;
   final List<String> list;
   final String dropdrownValue;
   const HomePage(
       {super.key,
       required this.data,
-      required this.foto,
+      required this.fotos,
       required this.list,
       required this.dropdrownValue});
 
   @override
   State<HomePage> createState() =>
-      _HomePageState(data, foto, list, dropdrownValue);
+      _HomePageState(data, fotos, list, dropdrownValue);
 }
 
 class _HomePageState extends State<HomePage> {
-  _HomePageState(this.data, this.foto, this.list, this.dropdownValue);
+  _HomePageState(this.data, this.fotos, this.list, this.dropdownValue);
   final List<Student> data;
-  String foto;
+  List<String> fotos;
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
   List<String> list;
   String dropdownValue;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     list = initList(data);
     dropdownValue = list.first;
@@ -65,10 +64,6 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onChanged: (String? value) async {
                   // This is called when the user selects an item.
-                  foto = await const NavHandler().getPic(
-                      context,
-                      data[list.indexOf(dropdownValue)].nome,
-                      data[list.indexOf(dropdownValue)].numero);
                   setState(() {
                     dropdownValue = value!;
                   });
@@ -90,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                     shape: BoxShape.rectangle,
                     border: Border.all(color: buttonColor, width: 5),
                     borderRadius: BorderRadius.circular(20)),
-                child: Image.network(foto)),
+                child: Image.network(fotos.elementAt(list.indexOf(dropdownValue)))),
           ),
           Card(
             color: whiteSecondary,

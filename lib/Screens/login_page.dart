@@ -88,12 +88,20 @@ class _LoginPageState extends State<LoginPage> {
                               final String email = nameController.text;
                               final String pass = passwordController.text;
                               final data = await const NavHandler().check(context, email, pass);
+                              final List<String> nomes = [];
+                              final List<int> numeros = [];
+                              for (var i = 0; i < data.length; i++) {
+                                nomes.add(data[i].nome);
+                              }
+                              for (var i = 0; i < data.length; i++) {
+                                numeros.add(data[i].numero);
+                              }
                               if (!mounted) return;
-                              final foto = await const NavHandler().getPic(context, data[0].nome, data[0].numero);
+                              final fotos = await const NavHandler().getPic(context, nomes, numeros);
                               if (!mounted) return;
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
-                                      StartPage(data: data, foto: foto)));
+                                      StartPage(data: data, fotos: fotos)));
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: buttonColor,
