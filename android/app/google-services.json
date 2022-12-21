@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "60019553844",
+    "project_id": "sincomil",
+    "storage_bucket": "sincomil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:60019553844:android:bbea77f5cb9d928d2d7c61",
+        "android_client_info": {
+          "package_name": "com.reyes.sincomil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "60019553844-6bfj8hq66lh5q0man03u6s4gbeslkic9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB0YaVTGMIputyQeTUrNZk0Fb86iVwrew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "60019553844-6bfj8hq66lh5q0man03u6s4gbeslkic9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "60019553844-vcdlieaouv8v0esh200pgqr0facnisge.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.reyes.sincomil"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

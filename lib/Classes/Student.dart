@@ -1,0 +1,63 @@
+
+class Student {
+  //id do aluno na base de dados
+  final int id;
+
+  final int parentId;
+
+  // codigo único do aluno
+  final String codigo;
+
+  final String foto;
+
+  //informações padrão do aluno
+  final String nome;
+  final String nomeGuerra;
+  final int numero;
+
+  //informações pessoais do aluno
+  final String email;
+  final int cpf;
+  final String telefone;
+  final String nascimento;
+
+  //informações adicionais do aluno
+  final String nacionalidade;
+  final String naturalidade;
+  final int identidade;
+
+  final String cor;
+  final String sexo;
+  final bool orphan;
+  final bool especial;
+
+  const Student({
+    required this.id,
+    required this.parentId,
+    required this.codigo,
+    required this.foto,
+    required this.nome,
+    required this.nomeGuerra,
+    required this.numero,
+    required this.email,
+    required this.cpf,
+    required this.telefone,
+    required this.nascimento,
+    required this.nacionalidade,
+    required this.naturalidade,
+    required this.identidade,
+    required this.cor,
+    required this.sexo,
+    required this.orphan,
+    required this.especial
+  });
+
+  factory Student.fromJson(Map<String, dynamic> json) {
+    //TODO: implement fromJson method
+    var i = 0;
+    for (i in (json['student'])){
+      print(i);
+    }
+    return ;
+  }
+}
