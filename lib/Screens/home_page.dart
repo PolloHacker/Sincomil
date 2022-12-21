@@ -85,7 +85,8 @@ class _HomePageState extends State<HomePage> {
                     shape: BoxShape.rectangle,
                     border: Border.all(color: buttonColor, width: 5),
                     borderRadius: BorderRadius.circular(20)),
-                child: Image.network(fotos.elementAt(list.indexOf(dropdownValue)))),
+                child: Image.network(
+                    fotos.elementAt(list.indexOf(dropdownValue)))),
           ),
           Card(
             color: whiteSecondary,
@@ -202,6 +203,17 @@ class _HomePageState extends State<HomePage> {
                             const Spacer(),
                             Text(
                                 data[list.indexOf(dropdownValue)].nacionalidade,
+                                style: const TextStyle(fontSize: 20)),
+                          ]),
+                      const Divider(color: dividerColor),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Text("UF",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
+                            const Spacer(),
+                            Text(data[list.indexOf(dropdownValue)].uf,
                                 style: const TextStyle(fontSize: 20)),
                           ]),
                       const Divider(color: dividerColor),

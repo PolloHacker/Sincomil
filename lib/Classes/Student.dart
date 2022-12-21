@@ -22,6 +22,7 @@ class Student {
 
   //informações adicionais do aluno
   final String nacionalidade;
+  final String uf;
   final String naturalidade;
   final int identidade;
 
@@ -43,6 +44,7 @@ class Student {
       required this.telefone,
       required this.nascimento,
       required this.nacionalidade,
+      required this.uf,
       required this.naturalidade,
       required this.identidade,
       required this.cor,
@@ -64,12 +66,12 @@ class Student {
         telefone: json['telefone'],
         nascimento: json['nascimento'],
         nacionalidade: json['nacionalidade'],
+        uf: json['uf'],
         naturalidade: json['naturalidade'],
         identidade: json['identidade'],
         cor: json['cor'],
         sexo: json['sexo'],
         orphan: json['orphan'],
-        especial: json['especial']
-    );
+        especial: json['especial']);
   }
 }
