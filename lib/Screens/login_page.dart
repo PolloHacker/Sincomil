@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sincomil/Classes/Student.dart';
 import 'package:sincomil/Classes/nav_handler.dart';
 import 'package:sincomil/Screens/start_page.dart';
 import 'package:sincomil/Widgets/login.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import '../constants.dart';
 
@@ -20,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    FlutterNativeSplash.remove();
   }
 
   @override
@@ -87,7 +88,9 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () async {
                               final String email = nameController.text;
                               final String pass = passwordController.text;
-                              final data = await const NavHandler().check(context, email, pass);
+                              final read = await const NavHandler().check(context, email, pass);
+                              final parent = read[0];
+                              final data = read[1];
                               final List<String> nomes = [];
                               final List<int> numeros = [];
                               for (var i = 0; i < data.length; i++) {
@@ -101,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                               if (!mounted) return;
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
-                                      StartPage(data: data, fotos: fotos)));
+                                      StartPage(parent: parent, data: data, fotos: fotos, value: '',)));
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: buttonColor,

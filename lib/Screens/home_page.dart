@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:sincomil/Classes/Student.dart';
 import 'package:sincomil/constants.dart';
 
-List<String> initList(List<Student> data) {
+List<String> initList(List data) {
   final List<String> list = [];
   for (var i = 0; i < data.length; i++) {
     list.add(data[i].nome);
@@ -12,7 +12,7 @@ List<String> initList(List<Student> data) {
 }
 
 class HomePage extends StatefulWidget {
-  final List<Student> data;
+  final List data;
   final List<String> fotos;
   final List<String> list;
   final String dropdrownValue;
@@ -26,11 +26,15 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() =>
       _HomePageState(data, fotos, list, dropdrownValue);
+
+  String getValue() {
+    return dropdrownValue;
+  }
 }
 
 class _HomePageState extends State<HomePage> {
   _HomePageState(this.data, this.fotos, this.list, this.dropdownValue);
-  final List<Student> data;
+  final List data;
   List<String> fotos;
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
   List<String> list;
@@ -39,7 +43,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    list = initList(data);
     dropdownValue = list.first;
   }
 
@@ -99,185 +102,136 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Código único",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(data[list.indexOf(dropdownValue)].codigo,
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('Código único',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(
+                              data[list.indexOf(dropdownValue)].codigo,
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Nome",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(data[list.indexOf(dropdownValue)].nome,
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('Nome',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(data[list.indexOf(dropdownValue)].nome,
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Nome de Guerra",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(data[list.indexOf(dropdownValue)].nomeGuerra,
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('Nome de Guerra',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(
+                              data[list.indexOf(dropdownValue)].nomeGuerra,
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Número",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(
-                                data[list.indexOf(dropdownValue)]
-                                    .numero
-                                    .toString(),
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('Número',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(
+                              data[list.indexOf(dropdownValue)]
+                                  .numero
+                                  .toString(),
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("E-mail",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(data[list.indexOf(dropdownValue)].email,
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('E-mail',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(
+                              data[list.indexOf(dropdownValue)].email,
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Telefone",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(data[list.indexOf(dropdownValue)].telefone,
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('telefone',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(
+                              data[list.indexOf(dropdownValue)].telefone,
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Data de Nascimento",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(data[list.indexOf(dropdownValue)].nascimento,
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('Código único',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(
+                              data[list.indexOf(dropdownValue)].codigo,
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("CPF",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(
-                                data[list.indexOf(dropdownValue)]
-                                    .cpf
-                                    .toString(),
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('Código único',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(
+                              data[list.indexOf(dropdownValue)].codigo,
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Nacionalidade",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(
-                                data[list.indexOf(dropdownValue)].nacionalidade,
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('Data de Nascimento',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(
+                              data[list.indexOf(dropdownValue)].nascimento,
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("UF",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(data[list.indexOf(dropdownValue)].uf,
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('CPF',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(
+                              data[list.indexOf(dropdownValue)].cpf.toString(),
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Naturalidade",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(data[list.indexOf(dropdownValue)].naturalidade,
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('Nacionalidade',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(
+                              data[list.indexOf(dropdownValue)].nacionalidade,
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Raça/Cor/Etnia",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(data[list.indexOf(dropdownValue)].cor,
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('Naturalidade',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(
+                              data[list.indexOf(dropdownValue)].naturalidade,
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Sexo",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(data[list.indexOf(dropdownValue)].sexo,
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('Raça/Cor/Etnia',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(data[list.indexOf(dropdownValue)].cor,
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
+                      ListTile(
+                          leading: const Text('Sexo',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(data[list.indexOf(dropdownValue)].sexo,
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Aluno Órfão",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(
-                                data[list.indexOf(dropdownValue)].orphan
-                                    ? 'Sim'
-                                    : 'Não',
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
+                      ListTile(
+                          leading: const Text('Aluno órfão',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(
+                              data[list.indexOf(dropdownValue)].orphan
+                                  ? "Sim"
+                                  : "Não",
+                              style: const TextStyle(fontSize: 20))),
                       const Divider(color: dividerColor),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text("Aluno Especial",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const Spacer(),
-                            Text(
-                                data[list.indexOf(dropdownValue)].especial
-                                    ? 'Sim'
-                                    : 'Não',
-                                style: const TextStyle(fontSize: 20)),
-                          ]),
-                      const Divider(color: dividerColor),
+                      ListTile(
+                          leading: const Text('Aluno especial',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          trailing: Text(
+                              data[list.indexOf(dropdownValue)].especial
+                                  ? "Sim"
+                                  : "Não",
+                              style: const TextStyle(fontSize: 20))),
                     ],
                   ),
                 ),

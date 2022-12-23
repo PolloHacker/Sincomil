@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'Parent.dart';
 import 'Student.dart';
 
 class NavHandler {
   const NavHandler();
 
-  Future<List<Student>> check(
+  Future<List> check(
       BuildContext context, String email, String pass) async {
     final msg = json.encode(<String, String>{
       'email': email,
@@ -22,13 +23,14 @@ class NavHandler {
     );
     if (result.statusCode == 200) {
       var data = jsonDecode(result.body);
-      print(data);
       var students = <Student>[];
+      Parent parent;
       for (var i = 0; i < data['student'].length; i++) {
-        print(data['student'][i]);
         students.add(Student.fromJson(data['student'][i]));
       }
-      return students;
+      print("${data['parent']} $students");
+      parent = Parent.fromJson(data['parent'][0]);
+      return [parent, students];
     } else {
       throw Exception('Failed to load student');
     }
