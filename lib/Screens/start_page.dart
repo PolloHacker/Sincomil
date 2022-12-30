@@ -1,10 +1,8 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:sincomil/Widgets/nav_drawer.dart';
-import 'package:sincomil/constants.dart';
-
 import 'package:sincomil/Screens/payments_page.dart';
 import 'package:sincomil/Screens/grades_page.dart';
+
 import '../Classes/Parent.dart';
 import '../Classes/Student.dart';
 import 'home_page.dart';
@@ -13,62 +11,121 @@ class StartPage extends StatefulWidget {
   final Parent parent;
   final List<Student> data;
   final List<String> fotos;
+  final List<String> list;
   final String value;
-  const StartPage({super.key, required this.parent, required this.data, required this.fotos, required this.value});
+  const StartPage(
+      {super.key,
+      required this.parent,
+      required this.data,
+      required this.fotos,
+      required this.list,
+      required this.value});
 
   @override
-  State<StartPage> createState() => _StartPageState(parent, data, fotos, value);
+  State<StartPage> createState() =>
+      _StartPageState(parent, data, fotos, list, value);
 }
 
 class _StartPageState extends State<StartPage> {
   int _page = 0;
-  _StartPageState(this.parent, this.data, this.fotos, this.value);
+  _StartPageState(this.parent, this.data, this.fotos, this.list, this.value);
   final Parent parent;
   final List<Student> data;
   final List<String> fotos;
+  final List<String> list;
+  String direction = '';
   String value;
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   bool expanded = false;
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.exit_to_app_rounded),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          )
-        ],
-        title: titles.elementAt(_page),
-        backgroundColor: navigationBarBG,
-      ),
-      body: <Widget>[
-        HomePage(data: data, fotos: fotos
-        ,list: initList(data), dropdrownValue: ''),
-        PaymentsPage(data: data),
-        GradesPage(data: data)
-      ].elementAt(_page),
-      drawer: NavDrawer(parent: parent, data: data, fotos: fotos),
-      bottomNavigationBar: CurvedNavigationBar(
-          items: const <Widget>[
-            Icon(Icons.home_rounded, size: 30, color: whitePrimary),
-            Icon(Icons.payments_rounded, size: 30, color: whitePrimary),
-            Icon(Icons.bar_chart_rounded, size: 30, color: whitePrimary)
+        appBar: AppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 5.0),
+              child: GestureDetector(
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(fotos[list.indexOf(value)]),
+                ),
+                onVerticalDragEnd: (details) {
+                  if (direction == 'baixo') {
+                    setState(() {
+                      value = list[(list.indexOf(value) + 1) % list.length];
+                    });
+                  } else if (direction == 'cima') {
+                    setState(() {
+                      value = list[(list.indexOf(value) - 1) % list.length];
+                    });
+                  }
+                },
+                onVerticalDragUpdate: (details) {
+                  if (details.delta.dy > 0) {
+                    direction = 'baixo';
+                  } else if (details.delta.dy < 0) {
+                    direction = 'cima';
+                  }
+                },
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: list
+                            .asMap()
+                            .entries
+                            .map((e) => ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(fotos[e.key]),
+                          ),
+                          title: Text("AL ${data[e.key].nomeGuerra}"),
+                          onTap: () {
+                            setState(() {
+                              value = data[e.key].nome;
+                            });
+                            Navigator.of(context).pop('Chosen');
+                          },
+                        ))
+                            .toList(),
+                      )),
+                ),
+              ),
+            )
+          ],
+          title: titles.elementAt(_page),
+        ),
+        body: <Widget>[
+          HomePage(
+              data: data,
+              fotos: fotos,
+              list: list,
+              dropdownValue: data[list.indexOf(value)].nome),
+          PaymentsPage(data: data),
+          GradesPage(data: data)
+        ].elementAt(_page),
+        drawer: NavDrawer(parent: parent, data: data, fotos: fotos),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined),
+                activeIcon: Icon(Icons.home_rounded),
+                label: 'Início'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.payments_outlined),
+                activeIcon: Icon(Icons.payments_rounded),
+                label: 'Pagamentos'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.bar_chart_outlined),
+                activeIcon: Icon(Icons.bar_chart_rounded),
+                label: 'Boletim')
           ],
           onTap: (index) => {
-                setState(() {
-                  _page = index;
-                })
-              },
-          letIndexChange: (index) => true,
-          color: navigationBarBG,
-          backgroundColor: whitePrimary,
-          buttonBackgroundColor: navigationBarBG),
-    );
+            setState(() {
+              _page = index;
+            })
+          },
+          currentIndex: _page,
+        ));
   }
 }
 

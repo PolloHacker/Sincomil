@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sincomil/Classes/nav_handler.dart';
 import 'package:sincomil/Screens/start_page.dart';
 import 'package:sincomil/Widgets/login.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
-import '../constants.dart';
+import '../Constants/constants.dart';
+import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,8 +15,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final storage = const FlutterSecureStorage();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool remember = false;
 
   @override
   void initState() {
@@ -46,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(fontSize: 20),
                     )),
                 Card(
-                  color: whitePrimary,
                   elevation: 5.0,
                   child: Column(
                     children: <Widget>[
@@ -81,6 +83,21 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text('Esqueceu a senha?',
                             style: TextStyle(color: buttonColor)),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Checkbox(
+                              splashRadius: 10.0,
+                              value: remember,
+                              onChanged: (value) {
+                                setState(() {
+                                  remember = value!;
+                                });
+                              }),
+                          const Text("Lembre-se de mim",
+                              style: TextStyle(color: buttonColor))
+                        ],
+                      ),
                       Container(
                           height: 50,
                           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -88,7 +105,16 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () async {
                               final String email = nameController.text;
                               final String pass = passwordController.text;
-                              final read = await const NavHandler().check(context, email, pass);
+                              List read = [];
+                              try {
+                                read = await const NavHandler()
+                                    .check(context, email, pass);
+                              } catch (error) {
+                                const snackBar = SnackBar(
+                                    content: Text("Email ou senha inválidos."));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }
                               final parent = read[0];
                               final data = read[1];
                               final List<String> nomes = [];
@@ -99,15 +125,27 @@ class _LoginPageState extends State<LoginPage> {
                               for (var i = 0; i < data.length; i++) {
                                 numeros.add(data[i].numero);
                               }
+                              if (remember) {
+                                await storage.write(
+                                    key: "KEY_USERNAME", value: email);
+                                await storage.write(
+                                    key: "KEY_PASSWORD", value: pass);
+                              }
+
                               if (!mounted) return;
-                              final fotos = await const NavHandler().getPic(context, nomes, numeros);
+                              final fotos = await const NavHandler()
+                                  .getPic(context, nomes, numeros);
                               if (!mounted) return;
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      StartPage(parent: parent, data: data, fotos: fotos, value: '',)));
+                                  builder: (context) => StartPage(
+                                        parent: parent,
+                                        data: data,
+                                        fotos: fotos,
+                                        list: initList(data),
+                                        value: data[0].nome,
+                                      )));
                             },
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: buttonColor,
                                 minimumSize: const Size.fromHeight(50)),
                             child: const Text('Login'),
                           )),

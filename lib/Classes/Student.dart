@@ -2,8 +2,6 @@ class Student {
   //id do aluno na base de dados
   final int id;
 
-  final int parentId;
-
   // codigo único do aluno
   final String codigo;
 
@@ -33,7 +31,6 @@ class Student {
 
   const Student(
       {required this.id,
-      required this.parentId,
       required this.codigo,
       required this.foto,
       required this.nome,
@@ -55,7 +52,6 @@ class Student {
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
         id: json['id'],
-        parentId: json['parente_id'],
         codigo: json['codigo'],
         foto: json['foto'],
         nome: json['nome'],

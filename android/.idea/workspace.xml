@@ -4,34 +4,70 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ddf9053-7e24-458e-9874-9d294ffa3e92" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../assets/images/background.png" afterDir="false" />
+    <list default="true" id="88d5952d-748a-437d-95bf-87aaefb8b4a7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi-v31/android12branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/android12splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi-v31/android12branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/android12splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-night-hdpi-v31/android12branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-night-hdpi/android12splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-night-mdpi-v31/android12branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-night-mdpi/android12splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-night-xhdpi-v31/android12branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-night-xhdpi/android12splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-night-xxhdpi-v31/android12branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-night-xxhdpi/android12splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-night-xxxhdpi-v31/android12branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-night-xxxhdpi/android12splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v21/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi-v31/android12branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/android12splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi-v31/android12branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/android12splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi-v31/android12branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/android12splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/branding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values-night-v31/styles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values-v31/styles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/BrandingImage.imageset/BrandingImage.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/BrandingImage.imageset/BrandingImage@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/BrandingImage.imageset/BrandingImage@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/BrandingImage.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/LaunchBackground.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/LaunchBackground.imageset/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/Classes/Grades.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/Constants/app_themes.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/Provider/app_settings.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/Screens/finger_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/Screens/welcome_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/../.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/../.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v21/launch_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v21/launch_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/launch_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/launch_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assets/images/sincomil-banner.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/images/sincomil-banner.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Base.lproj/LaunchScreen.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Base.lproj/LaunchScreen.storyboard" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/Classes/Parent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Classes/Parent.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Classes/Student.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Classes/Student.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Classes/nav_handler.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Classes/nav_handler.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Screens/grades_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/grades_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Screens/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/home_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Screens/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/login_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/Screens/payments_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/payments_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Screens/settings_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/settings_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Screens/start_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/start_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Widgets/nav_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Widgets/nav_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Constants/constants.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.yaml" afterDir="false" />
@@ -41,7 +77,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\T-Gamer\.android\avd\Pixel_4_API_31.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[adb-0061322523-zUV192._adb-tls-connect._tcp]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -50,7 +86,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="2JJVOGeW7Qkry7QONklKNzaiIIp" />
+  <component name="ProjectId" id="2JXuPyzN5tBYGeWKVgc93tfk9QD" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -128,12 +164,23 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4ddf9053-7e24-458e-9874-9d294ffa3e92" name="Changes" comment="" />
-      <created>1671796138706</created>
+      <changelist id="88d5952d-748a-437d-95bf-87aaefb8b4a7" name="Changes" comment="" />
+      <created>1672236728951</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1671796138706</updated>
+      <updated>1672236728951</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -28,11 +28,10 @@ class NavHandler {
       for (var i = 0; i < data['student'].length; i++) {
         students.add(Student.fromJson(data['student'][i]));
       }
-      print("${data['parent']} $students");
       parent = Parent.fromJson(data['parent'][0]);
       return [parent, students];
     } else {
-      throw Exception('Failed to load student');
+      throw Exception('Email ou senha inválidos.');
     }
   }
 
