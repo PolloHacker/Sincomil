@@ -24,6 +24,7 @@ class _FingerPageState extends State<FingerPage> {
   int _currIndex = 0;
 
   final storage = const FlutterSecureStorage();
+  dynamic grades;
 
   final LocalAuthentication auth = LocalAuthentication();
   _SupportState _supportState = _SupportState.unknown;
@@ -144,9 +145,11 @@ class _FingerPageState extends State<FingerPage> {
                       if (!mounted) return;
                       final fotos = await const NavHandler()
                           .getPic(context, nomes, numeros);
-
+                      if (!mounted) return;
+                      grades = await const NavHandler().getGrades(context, nomes);
+                      setState(() => _currIndex = 0);
                       await Future.delayed(const Duration(seconds: 1),
-                          () => {setState(() => _currIndex = 0)});
+                          () => {});
                       if (!mounted) return;
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => StartPage(
@@ -154,6 +157,7 @@ class _FingerPageState extends State<FingerPage> {
                               data: data,
                               fotos: fotos,
                               list: initList(data),
+                              grades: grades,
                               value: data[0].nome)));
                     })
                   : await error();

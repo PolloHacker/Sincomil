@@ -16,8 +16,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final storage = const FlutterSecureStorage();
+
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  dynamic grades;
   bool remember = false;
 
   @override
@@ -136,12 +138,16 @@ class _LoginPageState extends State<LoginPage> {
                               final fotos = await const NavHandler()
                                   .getPic(context, nomes, numeros);
                               if (!mounted) return;
+                              grades = await const NavHandler()
+                                  .getGrades(context, nomes);
+                              if (!mounted) return;
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => StartPage(
                                         parent: parent,
                                         data: data,
                                         fotos: fotos,
                                         list: initList(data),
+                                        grades: grades,
                                         value: data[0].nome,
                                       )));
                             },

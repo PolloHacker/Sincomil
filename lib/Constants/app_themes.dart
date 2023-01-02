@@ -1,5 +1,6 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // This theme was made for FlexColorScheme version 6.1.1. Make sure
 // you use same or higher version, but still same major version. If
@@ -25,7 +26,7 @@ ThemeData light = FlexThemeData.light(
   useMaterial3: true,
   swapLegacyOnMaterial3: true,
   // To use the playground font, add GoogleFonts package and uncomment
-  // fontFamily: GoogleFonts.notoSans().fontFamily,
+  fontFamily: GoogleFonts.quicksand().fontFamily,
 );
 ThemeData dark = FlexThemeData.dark(
   scheme: FlexScheme.jungle,
@@ -46,7 +47,7 @@ ThemeData dark = FlexThemeData.dark(
   useMaterial3: true,
   swapLegacyOnMaterial3: true,
   // To use the Playground font, add GoogleFonts package and uncomment
-  // fontFamily: GoogleFonts.notoSans().fontFamily,
+  fontFamily: GoogleFonts.quicksand().fontFamily,
 );
 // If you do not have a themeMode switch, uncomment this line
 // to let the device system mode control the theme mode:

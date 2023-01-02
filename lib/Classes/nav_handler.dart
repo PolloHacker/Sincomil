@@ -2,20 +2,20 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'Grades.dart';
 import 'Parent.dart';
 import 'Student.dart';
 
 class NavHandler {
   const NavHandler();
 
-  Future<List> check(
-      BuildContext context, String email, String pass) async {
+  Future<List> check(BuildContext context, String email, String pass) async {
     final msg = json.encode(<String, String>{
       'email': email,
       'password': pass,
     });
     http.Response result = await http.post(
-      Uri.parse('http://192.168.0.2:8000/app/auth'),
+      Uri.parse('http://192.168.0.7:8000/app/auth'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=utf-8'
       },
@@ -46,7 +46,7 @@ class NavHandler {
       final msg = json
           .encode(<String, String>{"name": nome, "numero": numero.toString()});
       http.Response result = await http.post(
-        Uri.parse('http://192.168.0.2:8000/app/fotos'),
+        Uri.parse('http://192.168.0.7:8000/app/fotos'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=utf-8'
         },
@@ -60,5 +60,26 @@ class NavHandler {
       }
     }
     return paths;
+  }
+
+  Future<List<Grades>> getGrades(
+      BuildContext context, List<String> nomes) async {
+    final grades = <Grades>[];
+    for (String nome in nomes) {
+      final msg = json.encode(<String, String>{"name": nome});
+      http.Response result = await http.post(
+          Uri.parse('http://192.168.0.7:8000/app/grades'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=utf-8'
+          },
+          body: msg);
+      if (result.statusCode == 200) {
+        var data = jsonDecode(result.body);
+        grades.add(Grades.fromJson(data['grades'][0]));
+      } else {
+        throw Exception('Nome inválido');
+      }
+    }
+    return grades;
   }
 }

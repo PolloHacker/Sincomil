@@ -21,6 +21,7 @@ class _WelcomePageState extends State<WelcomePage>
   final storage = const FlutterSecureStorage();
   dynamic parent;
   dynamic data;
+  dynamic grades;
   final List<String> nomes = [];
   final List<int> numeros = [];
   List<String> fotos = [];
@@ -45,27 +46,29 @@ class _WelcomePageState extends State<WelcomePage>
       numeros.add(data[i].numero);
     }
     if (!mounted) return;
-    if (fotos.isEmpty) {
       fotos = await const NavHandler().getPic(context, nomes, numeros);
-    }
+      fotos = fotos.sublist(0, data.length);
+    if (!mounted) return;
+      grades = await const NavHandler().getGrades(context, nomes);
+      grades = grades.sublist(0, data.length);
   }
 
   @override
   void initState() {
     super.initState();
     _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 3));
+        AnimationController(vsync: this, duration: const Duration(seconds: 4));
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         // custom code here
-        _controller.dispose();
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => StartPage(
                 parent: parent,
                 data: data,
                 fotos: fotos,
                 list: initList(data),
+                grades: grades,
                 value: data[0].nome)));
       }
     });
