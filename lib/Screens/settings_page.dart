@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sincomil/Provider/app_settings.dart';
-import '../Classes/Parent.dart';
-import '../Classes/Student.dart';
+import '../Classes/parent.dart';
+import '../Classes/student.dart';
 
 class SettingsPage extends StatefulWidget {
   final Parent parent;
@@ -60,16 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
           if (theme.hasData) {
             return Scaffold(
               appBar: AppBar(
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.logout_rounded),
-                    onPressed: () {
-                      Navigator.of(context).popUntil((route) => route.isFirst);
-                    },
-                  )
-                ],
                 title: const Text("Configurações"),
-                //backgroundColor: navigationBarBG,
               ),
               body: Material(
                 child: SettingsList(

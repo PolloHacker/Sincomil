@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../Classes/Student.dart';
 
 class PaymentsPage extends StatefulWidget {
   final List data;

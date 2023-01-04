@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sincomil/Classes/nav_handler.dart';
@@ -142,14 +143,15 @@ class _LoginPageState extends State<LoginPage> {
                                   .getGrades(context, nomes);
                               if (!mounted) return;
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => StartPage(
+                                  builder: (context) => SlideInUp(
+                                          child: StartPage(
                                         parent: parent,
                                         data: data,
                                         fotos: fotos,
                                         list: initList(data),
                                         grades: grades,
                                         value: data[0].nome,
-                                      )));
+                                      ))));
                             },
                             style: ElevatedButton.styleFrom(
                                 minimumSize: const Size.fromHeight(50)),

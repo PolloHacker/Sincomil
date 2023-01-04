@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
                             ],
                             background: Container(color: whiteSecondary)),
                         theme: appSettings.currentTheme,
-                        home: WelcomePage(),
+                        home: const WelcomePage(),
                         debugShowCheckedModeBanner: false,
                       );
                     }

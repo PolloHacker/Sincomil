@@ -4,24 +4,36 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="88d5952d-748a-437d-95bf-87aaefb8b4a7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lib/Widgets/grades_dialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/../.flutter-plugins" afterDir="false" />
+    <list default="true" id="d581cf23-d4a9-4f7c-9bf5-2622848e8758" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../lib/Widgets/forgot_pass.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/Widgets/grades_radar.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/Widgets/grades_table.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/../.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Classes/Grades.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Classes/grades.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Classes/Parent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Classes/parent.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Classes/Student.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Classes/student.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Classes/auth.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Classes/auth.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Classes/nav_handler.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Classes/nav_handler.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/Constants/app_themes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Constants/app_themes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Screens/account_page.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Screens/finger_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/finger_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Screens/grades_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/grades_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Screens/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/home_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Screens/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/login_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Screens/payments_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/payments_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Screens/settings_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/settings_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Screens/start_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/start_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/Screens/welcome_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Screens/welcome_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Widgets/grades_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Widgets/grades_dialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Widgets/nav_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Widgets/nav_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sincomil.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../sincomil.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../test/widget_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +49,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="2JXuPyzN5tBYGeWKVgc93tfk9QD" />
+  <component name="ProjectId" id="2JrSdJsfJTQZ5LSYWc9ORHKU9Sa" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -115,23 +127,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="88d5952d-748a-437d-95bf-87aaefb8b4a7" name="Changes" comment="" />
-      <created>1672236728951</created>
+      <changelist id="d581cf23-d4a9-4f7c-9bf5-2622848e8758" name="Changes" comment="" />
+      <created>1672834795074</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1672236728951</updated>
+      <updated>1672834795074</updated>
     </task>
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>

@@ -18,10 +18,3 @@ class Authentication {
     return isAuthenticated;
   }
 }
-
-
-enum _SupportState {
-  unknown,
-  supported,
-  unsupported,
-}

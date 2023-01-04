@@ -1,16 +1,21 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:sincomil/Classes/Student.dart';
+import 'package:sincomil/Classes/student.dart';
 import 'package:sincomil/Screens/settings_page.dart';
 import 'package:sincomil/Constants/constants.dart';
 
-import '../Classes/Parent.dart';
+import '../Classes/parent.dart';
 
 class NavDrawer extends StatelessWidget {
   final Parent parent;
   final List<Student> data;
   final List<String> fotos;
 
-  const NavDrawer({super.key, required this.parent, required this.data, required this.fotos});
+  const NavDrawer(
+      {super.key,
+      required this.parent,
+      required this.data,
+      required this.fotos});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +51,8 @@ class NavDrawer extends StatelessWidget {
               title: const Text('Settings'),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => SettingsPage(parent: parent, data: data)));
+                    builder: (context) => SlideInUp(
+                        child: SettingsPage(parent: parent, data: data))));
               },
             ),
             ListTile(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:sincomil/Constants/constants.dart';
 import 'package:sincomil/Screens/start_page.dart';
 
 import '../Classes/nav_handler.dart';
@@ -46,11 +48,11 @@ class _WelcomePageState extends State<WelcomePage>
       numeros.add(data[i].numero);
     }
     if (!mounted) return;
-      fotos = await const NavHandler().getPic(context, nomes, numeros);
-      fotos = fotos.sublist(0, data.length);
+    fotos = await const NavHandler().getPic(context, nomes, numeros);
+    fotos = fotos.sublist(0, data.length);
     if (!mounted) return;
-      grades = await const NavHandler().getGrades(context, nomes);
-      grades = grades.sublist(0, data.length);
+    grades = await const NavHandler().getGrades(context, nomes);
+    grades = grades.sublist(0, data.length);
   }
 
   @override
@@ -63,13 +65,14 @@ class _WelcomePageState extends State<WelcomePage>
       if (status == AnimationStatus.completed) {
         // custom code here
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => StartPage(
-                parent: parent,
-                data: data,
-                fotos: fotos,
-                list: initList(data),
-                grades: grades,
-                value: data[0].nome)));
+            builder: (context) => SlideInUp(
+                child: StartPage(
+                    parent: parent,
+                    data: data,
+                    fotos: fotos,
+                    list: initList(data),
+                    grades: grades,
+                    value: data[0].nome))));
       }
     });
 
@@ -116,7 +119,7 @@ class _WelcomePageState extends State<WelcomePage>
               elevation: 0,
               borderOnForeground: false,
               child: Center(
-                child: CircularProgressIndicator(),
+                child: SpinKitDualRing(color: buttonColor),
               ),
             );
           }

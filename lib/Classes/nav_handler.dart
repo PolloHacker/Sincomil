@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'Grades.dart';
-import 'Parent.dart';
-import 'Student.dart';
+import 'grades.dart';
+import 'parent.dart';
+import 'student.dart';
 
 class NavHandler {
   const NavHandler();

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sincomil/Classes/nav_handler.dart';
 import 'package:sincomil/Widgets/nav_drawer.dart';
 import 'package:sincomil/Screens/payments_page.dart';
 import 'package:sincomil/Screens/grades_page.dart';
 
-import '../Classes/Grades.dart';
-import '../Classes/Parent.dart';
-import '../Classes/Student.dart';
+import '../Classes/grades.dart';
+import '../Classes/parent.dart';
+import '../Classes/student.dart';
 import 'home_page.dart';
 
 class StartPage extends StatefulWidget {
