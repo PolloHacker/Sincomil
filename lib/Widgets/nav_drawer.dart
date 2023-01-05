@@ -28,9 +28,9 @@ class NavDrawer extends StatelessWidget {
             UserAccountsDrawerHeader(
               accountName: Text(parent.nome),
               accountEmail: Text(parent.email),
-              decoration: const BoxDecoration(
-                color: buttonColor,
-                image: DecorationImage(
+              decoration: BoxDecoration(
+                color: Theme.of(context).appBarTheme.backgroundColor,
+                image: const DecorationImage(
                     scale: 0.95,
                     image: AssetImage("assets/images/sincomil-banner.png")),
               ),

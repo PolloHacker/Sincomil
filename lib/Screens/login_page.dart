@@ -5,8 +5,28 @@ import 'package:sincomil/Classes/nav_handler.dart';
 import 'package:sincomil/Screens/start_page.dart';
 import 'package:sincomil/Widgets/login.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import '../Constants/constants.dart';
+import '../Widgets/date_picker.dart';
 import 'home_page.dart';
+
+const List<String> list = <String>[
+  'Selecione o Colégio',
+  'Colégio Militar Do Rio De Janeiro',
+  'Colégio Militar De Porto Alegre',
+  'Colégio Militar De Fortaleza',
+  'Colégio Militar De Belo Horizonte',
+  'Colégio Militar De Salvador',
+  'Colégio Militar De Curitiba',
+  'Colégio Militar De Recife',
+  'Colégio Militar De Manaus',
+  'Colégio Militar De Brasília',
+  'Colégio Militar De Campo Grande',
+  'Colégio Militar De Juiz De Fora',
+  'Colégio Militar De Santa Maria',
+  'Colégio Militar De Belém',
+  'Colégio Militar De São Paulo',
+  'Colégio Militar De Manaus EAD',
+  'Colégio Militar Da Vila Militar'
+];
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -18,8 +38,21 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final storage = const FlutterSecureStorage();
 
+  bool forgot = false;
+  bool signUp = false;
+
+  //normal login controllers
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  //forgot pass controller
+  TextEditingController cpfController = TextEditingController();
+
+  //sign up controllers
+  TextEditingController cpfUpController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  String dropdownValue = list.first;
+
   dynamic grades;
   bool remember = false;
 
@@ -51,131 +84,283 @@ class _LoginPageState extends State<LoginPage> {
                       'Por favor, faça o login',
                       style: TextStyle(fontSize: 20),
                     )),
-                Card(
-                  elevation: 5.0,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        child: TextField(
-                          controller: nameController,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.email_rounded),
-                            labelText: 'Seu e-mail',
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                        child: TextField(
-                          obscureText: true,
-                          controller: passwordController,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.lock_rounded),
-                            labelText: 'Sua senha',
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          //TODO: add forgot password screen
-                          //forgot password screen
-                        },
-                        child: const Text('Esqueceu a senha?',
-                            style: TextStyle(color: buttonColor)),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Checkbox(
-                              splashRadius: 10.0,
-                              value: remember,
-                              onChanged: (value) {
-                                setState(() {
-                                  remember = value!;
-                                });
-                              }),
-                          const Text("Lembre-se de mim",
-                              style: TextStyle(color: buttonColor))
-                        ],
-                      ),
-                      Container(
-                          height: 50,
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              final String email = nameController.text;
-                              final String pass = passwordController.text;
-                              List read = [];
-                              try {
-                                read = await const NavHandler()
-                                    .check(context, email, pass);
-                              } catch (error) {
-                                const snackBar = SnackBar(
-                                    content: Text("Email ou senha inválidos."));
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              }
-                              final parent = read[0];
-                              final data = read[1];
-                              final List<String> nomes = [];
-                              final List<int> numeros = [];
-                              for (var i = 0; i < data.length; i++) {
-                                nomes.add(data[i].nome);
-                              }
-                              for (var i = 0; i < data.length; i++) {
-                                numeros.add(data[i].numero);
-                              }
-                              if (remember) {
-                                await storage.write(
-                                    key: "KEY_USERNAME", value: email);
-                                await storage.write(
-                                    key: "KEY_PASSWORD", value: pass);
-                              }
-
-                              if (!mounted) return;
-                              final fotos = await const NavHandler()
-                                  .getPic(context, nomes, numeros);
-                              if (!mounted) return;
-                              grades = await const NavHandler()
-                                  .getGrades(context, nomes);
-                              if (!mounted) return;
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => SlideInUp(
-                                          child: StartPage(
-                                        parent: parent,
-                                        data: data,
-                                        fotos: fotos,
-                                        list: initList(data),
-                                        grades: grades,
-                                        value: data[0].nome,
-                                      ))));
-                            },
-                            style: ElevatedButton.styleFrom(
-                                minimumSize: const Size.fromHeight(50)),
-                            child: const Text('Login'),
-                          )),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Text('Novo por aqui?'),
-                          TextButton(
-                            child: const Text(
-                              'Cadastre-se',
-                              style: TextStyle(color: buttonColor),
+                forgot
+                    ? SlideInRight(
+                        child: Card(
+                        elevation: 5.0,
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              child: TextField(
+                                controller: cpfController,
+                                decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    prefixIcon:
+                                        Icon(Icons.perm_identity_rounded),
+                                    labelText: 'Seu CPF'),
+                              ),
                             ),
-                            onPressed: () {
-                              //TODO: add signup screen
-                              //signup screen
-                            },
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                )
+                            Container(
+                              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                              child: const DatePicker(),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              child: TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    forgot = false;
+                                  });
+                                },
+                                child: const Text('Cancelar'),
+                              ),
+                            )
+                          ],
+                        ),
+                      ))
+                    : signUp
+                        ? SlideInRight(
+                            child: Card(
+                            elevation: 5.0,
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextField(
+                                    controller: cpfUpController,
+                                    decoration: const InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        prefixIcon:
+                                            Icon(Icons.perm_identity_rounded),
+                                        labelText: 'Seu CPF'),
+                                  ),
+                                ),
+                                Container(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                  child: TextField(
+                                    controller: emailController,
+                                    decoration: const InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        prefixIcon: Icon(Icons.email_rounded),
+                                        labelText: 'Seu e-mail'),
+                                  ),
+                                ),
+                                Container(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                  child: const DatePicker(),
+                                ),
+                                Container(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                  child: DropdownButton<String>(
+                                    value: dropdownValue,
+                                    icon: const Icon(
+                                        Icons.arrow_drop_down_rounded),
+                                    elevation: 16,
+                                    underline: Container(
+                                      height: 2,
+                                      color: Theme.of(context)
+                                          .elevatedButtonTheme
+                                          .style
+                                          ?.foregroundColor
+                                          ?.resolve({MaterialState.pressed}),
+                                    ),
+                                    onChanged: (String? value) {
+                                      // This is called when the user selects an item.
+                                      setState(() {
+                                        dropdownValue = value!;
+                                      });
+                                    },
+                                    items: list.map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        signUp = false;
+                                      });
+                                    },
+                                    child: const Text('Cancelar'),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ))
+                        : SlideInLeft(
+                            child: Card(
+                            elevation: 5.0,
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextField(
+                                    controller: nameController,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      prefixIcon: Icon(Icons.email_rounded),
+                                      labelText: 'Seu e-mail',
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                  child: TextField(
+                                    obscureText: true,
+                                    controller: passwordController,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      prefixIcon: Icon(Icons.lock_rounded),
+                                      labelText: 'Sua senha',
+                                    ),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      forgot = true;
+                                    });
+                                    //forgot password screen
+                                  },
+                                  child: Text('Esqueceu a senha?',
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .elevatedButtonTheme
+                                              .style
+                                              ?.foregroundColor
+                                              ?.resolve(
+                                                  {MaterialState.pressed}))),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Checkbox(
+                                        splashRadius: 10.0,
+                                        value: remember,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            remember = value!;
+                                          });
+                                        }),
+                                    Text("Lembre-se de mim",
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .elevatedButtonTheme
+                                                .style
+                                                ?.foregroundColor
+                                                ?.resolve(
+                                                    {MaterialState.pressed})))
+                                  ],
+                                ),
+                                Container(
+                                    height: 50,
+                                    padding:
+                                        const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                    child: ElevatedButton(
+                                      onPressed: () async {
+                                        final String email =
+                                            nameController.text;
+                                        final String pass =
+                                            passwordController.text;
+                                        List read = [];
+                                        try {
+                                          read = await const NavHandler()
+                                              .check(context, email, pass);
+                                        } catch (error) {
+                                          const snackBar = SnackBar(
+                                              content: Text(
+                                                  "Email ou senha inválidos."));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                        }
+                                        final parent = read[0];
+                                        final data = read[1];
+                                        final List<String> nomes = [];
+                                        final List<int> numeros = [];
+                                        for (var i = 0; i < data.length; i++) {
+                                          nomes.add(data[i].nome);
+                                        }
+                                        for (var i = 0; i < data.length; i++) {
+                                          numeros.add(data[i].numero);
+                                        }
+                                        if (remember) {
+                                          await storage.write(
+                                              key: "KEY_USERNAME",
+                                              value: email);
+                                          await storage.write(
+                                              key: "KEY_PASSWORD", value: pass);
+                                        }
+
+                                        if (!mounted) return;
+                                        final fotos = await const NavHandler()
+                                            .getPic(context, nomes, numeros);
+                                        if (!mounted) return;
+                                        grades = await const NavHandler()
+                                            .getGrades(context, nomes);
+                                        if (!mounted) return;
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                                builder: (context) => SlideInUp(
+                                                        child: StartPage(
+                                                      parent: parent,
+                                                      data: data,
+                                                      fotos: fotos,
+                                                      list: initList(data),
+                                                      grades: grades,
+                                                      value: data[0].nome,
+                                                    ))));
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          minimumSize:
+                                              const Size.fromHeight(50)),
+                                      child: Text('Login',
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .elevatedButtonTheme
+                                                  .style
+                                                  ?.foregroundColor
+                                                  ?.resolve({
+                                            MaterialState.pressed
+                                          }))),
+                                    )),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    const Text('Novo por aqui?'),
+                                    TextButton(
+                                      child: Text(
+                                        'Cadastre-se',
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .elevatedButtonTheme
+                                                .style
+                                                ?.foregroundColor
+                                                ?.resolve(
+                                                    {MaterialState.pressed})),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          signUp = true;
+                                        });
+                                        //signup screen
+                                      },
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ))
               ],
             )));
   }

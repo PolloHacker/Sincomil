@@ -15,7 +15,7 @@ class NavHandler {
       'password': pass,
     });
     http.Response result = await http.post(
-      Uri.parse('http://192.168.0.7:8000/app/auth'),
+      Uri.parse('http://192.168.0.2:8000/app/auth'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=utf-8'
       },
@@ -46,7 +46,7 @@ class NavHandler {
       final msg = json
           .encode(<String, String>{"name": nome, "numero": numero.toString()});
       http.Response result = await http.post(
-        Uri.parse('http://192.168.0.7:8000/app/fotos'),
+        Uri.parse('http://192.168.0.2:8000/app/fotos'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=utf-8'
         },
@@ -68,7 +68,7 @@ class NavHandler {
     for (String nome in nomes) {
       final msg = json.encode(<String, String>{"name": nome});
       http.Response result = await http.post(
-          Uri.parse('http://192.168.0.7:8000/app/grades'),
+          Uri.parse('http://192.168.0.2:8000/app/grades'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=utf-8'
           },

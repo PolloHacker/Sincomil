@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
 
   final List<Student> data;
   final List<String> fotos;
-  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  final DateFormat formatter = DateFormat('dd/MM/yyyy');
   final List<String> list;
   final String dropdownValue;
 
