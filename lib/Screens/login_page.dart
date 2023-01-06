@@ -184,7 +184,8 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.all(10),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 10, 10, 0),
                                   child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -193,7 +194,25 @@ class _LoginPageState extends State<LoginPage> {
                                     },
                                     child: const Text('Cancelar'),
                                   ),
-                                )
+                                ),
+                                Container(
+                                    height: 50,
+                                    padding: const EdgeInsets.all(10),
+                                    child: ElevatedButton(
+                                      onPressed: () {},
+                                      style: ElevatedButton.styleFrom(
+                                          minimumSize:
+                                              const Size.fromHeight(50)),
+                                      child: Text('Solicitar cadastro',
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .elevatedButtonTheme
+                                                  .style
+                                                  ?.foregroundColor
+                                                  ?.resolve({
+                                            MaterialState.pressed
+                                          }))),
+                                    ))
                               ],
                             ),
                           ))
@@ -276,7 +295,7 @@ class _LoginPageState extends State<LoginPage> {
                                         List read = [];
                                         try {
                                           read = await const NavHandler()
-                                              .check(context, email, pass);
+                                              .check(email, pass);
                                         } catch (error) {
                                           const snackBar = SnackBar(
                                               content: Text(
@@ -302,12 +321,13 @@ class _LoginPageState extends State<LoginPage> {
                                               key: "KEY_PASSWORD", value: pass);
                                         }
 
-                                        if (!mounted) return;
                                         final fotos = await const NavHandler()
-                                            .getPic(context, nomes, numeros);
-                                        if (!mounted) return;
+                                            .getPic(nomes, numeros);
+
+                                        final fotosBG = await const NavHandler()
+                                            .getPickBG(nomes, numeros);
                                         grades = await const NavHandler()
-                                            .getGrades(context, nomes);
+                                            .getGrades(nomes);
                                         if (!mounted) return;
                                         Navigator.of(context)
                                             .push(MaterialPageRoute(
@@ -319,6 +339,7 @@ class _LoginPageState extends State<LoginPage> {
                                                       list: initList(data),
                                                       grades: grades,
                                                       value: data[0].nome,
+                                                      fotosBG: fotosBG,
                                                     ))));
                                       },
                                       style: ElevatedButton.styleFrom(

@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:sincomil/Widgets/grades_radar.dart';
 import 'package:sincomil/Widgets/grades_table.dart';
+import 'package:sincomil/Widgets/player_card.dart';
 
 import '../Classes/grades.dart';
 
 class GradesPage extends StatelessWidget {
   final List<Grades> notas;
   final List<String> list;
+  final List<String> fotos;
+  final List<String> fotosBG;
   final String dropdownValue;
   const GradesPage(
       {super.key,
       required this.notas,
       required this.dropdownValue,
-      required this.list});
+      required this.list,
+      required this.fotos,
+      required this.fotosBG});
 
   Future<List<List<double>>> organizeGrades() {
     List<double> artes = [];
@@ -57,8 +62,22 @@ class GradesPage extends StatelessWidget {
       socio.add(double.parse(grades[i][12]));
     }
 
-    return Future.delayed(const Duration(seconds: 1), () {
-      return [artes, bio, ef, filo, fis, geo, hist, lem, port, mat, quim, red, socio];
+    return Future.delayed(const Duration(milliseconds: 1), () {
+      return [
+        artes,
+        bio,
+        ef,
+        filo,
+        fis,
+        geo,
+        hist,
+        lem,
+        port,
+        mat,
+        quim,
+        red,
+        socio
+      ];
     });
   }
 
@@ -79,7 +98,7 @@ class GradesPage extends StatelessWidget {
 
     var alunos = List<List<List<double>>>.empty(growable: true);
 
-    for (var i = 0; i < list.length ; i++) {
+    for (var i = 0; i < list.length; i++) {
       artes.clear();
       bio.clear();
       ef.clear();
@@ -135,7 +154,7 @@ class GradesPage extends StatelessWidget {
       alunos[i].add(List.from(red));
       alunos[i].add(List.from(socio));
     }
-    return Future.delayed(const Duration(seconds: 1), () {
+    return Future.delayed(const Duration(milliseconds: 1), () {
       return alunos;
     });
   }
@@ -147,6 +166,11 @@ class GradesPage extends StatelessWidget {
       borderOnForeground: false,
       child: ListView(
         children: <Widget>[
+          PlayerCard(
+              fotosBG: fotosBG,
+              list: list,
+              dropdownValue: dropdownValue,
+              organizeGrades: organizeGrades()),
           Container(
             padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
             alignment: Alignment.center,
@@ -156,7 +180,10 @@ class GradesPage extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: GradesTable(
-                    notas: notas, list: list, dropdownValue: dropdownValue, organizeGrades: organizeGrades()),
+                    notas: notas,
+                    list: list,
+                    dropdownValue: dropdownValue,
+                    organizeGrades: organizeGrades()),
               ),
             ),
           ),

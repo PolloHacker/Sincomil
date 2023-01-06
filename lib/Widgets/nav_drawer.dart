@@ -2,7 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:sincomil/Classes/student.dart';
 import 'package:sincomil/Screens/settings_page.dart';
-import 'package:sincomil/Constants/constants.dart';
 
 import '../Classes/parent.dart';
 

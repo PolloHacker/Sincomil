@@ -12,6 +12,7 @@ class StartPage extends StatefulWidget {
   final Parent parent;
   final List<Student> data;
   final List<String> fotos;
+  final List<String> fotosBG;
   final List<String> list;
   final List<Grades> grades;
   final String value;
@@ -22,25 +23,32 @@ class StartPage extends StatefulWidget {
       required this.fotos,
       required this.list,
       required this.grades,
-      required this.value});
+      required this.value,
+      required this.fotosBG});
 
   @override
   State<StartPage> createState() =>
-      _StartPageState(parent, data, fotos, list, grades, value);
+      _StartPageState(parent, data, fotos, list, grades, value, fotosBG);
 }
 
 class _StartPageState extends State<StartPage> {
   int _page = 0;
-  _StartPageState(
-      this.parent, this.data, this.fotos, this.list, this.grades, this.value);
+  _StartPageState(this.parent, this.data, this.fotos, this.list, this.grades,
+      this.value, this.fotosBG);
   final Parent parent;
   final List<Student> data;
   final List<String> fotos;
+  final List<String> fotosBG;
   final List<String> list;
   String direction = '';
   List<Grades> grades;
   String value;
   bool expanded = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +114,12 @@ class _StartPageState extends State<StartPage> {
               list: list,
               dropdownValue: data[list.indexOf(value)].nome),
           PaymentsPage(data: data),
-          GradesPage(notas: grades, dropdownValue: data[list.indexOf(value)].nome, list: list)
+          GradesPage(
+              notas: grades,
+              dropdownValue: data[list.indexOf(value)].nome,
+              list: list,
+              fotos: fotos,
+              fotosBG: fotosBG)
         ].elementAt(_page),
         drawer: NavDrawer(parent: parent, data: data, fotos: fotos),
         bottomNavigationBar: BottomNavigationBar(

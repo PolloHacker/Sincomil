@@ -1,7 +1,6 @@
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../Constants/constants.dart';
 
@@ -200,7 +199,7 @@ class _RadarGraphState extends State<RadarGraph> {
             return const Padding(
                 padding: EdgeInsets.all(16),
                 child: Center(
-                  child: SpinKitDualRing(color: buttonColor),
+                  child: CircularProgressIndicator(color: buttonColor),
                 ));
           }
         });

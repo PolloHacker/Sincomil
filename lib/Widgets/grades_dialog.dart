@@ -1,6 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../Constants/constants.dart';
 
@@ -113,7 +112,7 @@ class _GradesDialogState extends State<GradesDialog> {
               return const Material(
                 elevation: 0,
                 borderOnForeground: false,
-                child: Center(child: SpinKitDualRing(color: buttonColor)),
+                child: Center(child: CircularProgressIndicator(color: buttonColor)),
               );
             }
           }),

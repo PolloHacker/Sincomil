@@ -111,9 +111,8 @@ class _FingerPageState extends State<FingerPage> {
                   ? setState(() {
                       _currIndex = 1;
                       _readFromStorage().then((dt) async {
-                        if (!mounted) return;
-                        final read = await const NavHandler()
-                            .check(context, dt[0], dt[1]);
+                        final read =
+                            await const NavHandler().check(dt[0], dt[1]);
                         final parent = read[0];
                         final data = read[1];
                         final List<String> nomes = [];
@@ -124,12 +123,11 @@ class _FingerPageState extends State<FingerPage> {
                         for (var i = 0; i < data.length; i++) {
                           numeros.add(data[i].numero);
                         }
-                        if (!mounted) return;
-                        final fotos = await const NavHandler()
-                            .getPic(context, nomes, numeros);
-                        if (!mounted) return;
-                        grades =
-                            await const NavHandler().getGrades(context, nomes);
+                        final fotos =
+                            await const NavHandler().getPic(nomes, numeros);
+                        final fotosBG =
+                            await const NavHandler().getPickBG(nomes, numeros);
+                        grades = await const NavHandler().getGrades(nomes);
                         await Future.delayed(const Duration(seconds: 1),
                             () => {setState(() => _currIndex = 0)});
                         if (!mounted) return;
@@ -141,7 +139,8 @@ class _FingerPageState extends State<FingerPage> {
                                     fotos: fotos,
                                     list: initList(data),
                                     grades: grades,
-                                    value: data[0].nome))));
+                                    value: data[0].nome,
+                                    fotosBG: fotosBG))));
                       });
                     })
                   : await error();

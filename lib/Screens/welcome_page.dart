@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sincomil/Constants/constants.dart';
 import 'package:sincomil/Screens/start_page.dart';
 
@@ -27,6 +26,7 @@ class _WelcomePageState extends State<WelcomePage>
   final List<String> nomes = [];
   final List<int> numeros = [];
   List<String> fotos = [];
+  List<String> fotosBG = [];
 
   Future<List<String>> _readFromStorage() async {
     var email = await storage.read(key: "KEY_USERNAME") ?? '';
@@ -36,8 +36,7 @@ class _WelcomePageState extends State<WelcomePage>
 
   Future<void> pushData() async {
     final dt = await _readFromStorage();
-    if (!mounted) return;
-    final read = await const NavHandler().check(context, dt[0], dt[1]);
+    final read = await const NavHandler().check(dt[0], dt[1]);
     parent = read[0];
     data = read[1];
 
@@ -47,20 +46,16 @@ class _WelcomePageState extends State<WelcomePage>
     for (var i = 0; i < data.length; i++) {
       numeros.add(data[i].numero);
     }
-    if (!mounted) return;
-    fotos = await const NavHandler().getPic(context, nomes, numeros);
+    fotos = await const NavHandler().getPic(nomes, numeros);
     fotos = fotos.sublist(0, data.length);
-    if (!mounted) return;
-    grades = await const NavHandler().getGrades(context, nomes);
-    grades = grades.sublist(0, data.length);
-  }
 
-  @override
-  void initState() {
-    super.initState();
+    fotosBG = await const NavHandler().getPickBG(nomes, numeros);
+    fotosBG = fotosBG.sublist(0, data.length);
+    grades = await const NavHandler().getGrades(nomes);
+    grades = grades.sublist(0, data.length);
+
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 4));
-
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         // custom code here
@@ -72,11 +67,18 @@ class _WelcomePageState extends State<WelcomePage>
                     fotos: fotos,
                     list: initList(data),
                     grades: grades,
-                    value: data[0].nome))));
+                    value: data[0].nome,
+                    fotosBG: fotosBG))));
       }
     });
 
     _controller.forward();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
     FlutterNativeSplash.remove();
   }
 
@@ -119,7 +121,7 @@ class _WelcomePageState extends State<WelcomePage>
               elevation: 0,
               borderOnForeground: false,
               child: Center(
-                child: SpinKitDualRing(color: buttonColor),
+                child: CircularProgressIndicator(color: buttonColor),
               ),
             );
           }
