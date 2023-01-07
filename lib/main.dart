@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sincomil/Constants/shared_constants.dart';
 import 'package:sincomil/Provider/app_settings.dart';
 import 'package:sincomil/Screens/finger_page.dart';
 import 'package:sincomil/Screens/login_page.dart';
@@ -19,15 +20,21 @@ Future<void> main() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   final isDark = sharedPreferences.getBool('is_dark') ?? false;
   final useFinger = sharedPreferences.getBool('use_finger') ?? false;
+  final useCard = sharedPreferences.getBool(usePortraits) ?? false;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(MyApp(isDark: isDark, useFinger: useFinger));
+  runApp(MyApp(isDark: isDark, useFinger: useFinger, useCard: useCard));
 }
 
 class MyApp extends StatelessWidget {
   final bool isDark;
   final bool useFinger;
+  final bool useCard;
   final storage = const FlutterSecureStorage();
-  const MyApp({super.key, required this.isDark, required this.useFinger});
+  const MyApp(
+      {super.key,
+      required this.isDark,
+      required this.useFinger,
+      required this.useCard});
 
   Future<List<String>> _readFromStorage() async {
     var email = await storage.read(key: "KEY_USERNAME") ?? '';
@@ -43,7 +50,7 @@ class MyApp extends StatelessWidget {
           if (data.hasData) {
             if (data.data?[0] != '' && data.data?[1] != '') {
               return ChangeNotifierProvider(
-                  create: (context) => AppSettings(isDark, useFinger),
+                  create: (context) => AppSettings(isDark, useFinger, useCard),
                   builder: (context, snapshot) {
                     final appSettings = Provider.of<AppSettings>(context);
                     if (appSettings.fingerprint == "true") {
@@ -93,7 +100,7 @@ class MyApp extends StatelessWidget {
                   });
             } else {
               return ChangeNotifierProvider(
-                  create: (context) => AppSettings(isDark, false),
+                  create: (context) => AppSettings(isDark, false, useCard),
                   builder: (context, snapshot) {
                     final settings = Provider.of<AppSettings>(context);
                     return MaterialApp(

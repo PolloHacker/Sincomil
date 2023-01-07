@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sincomil/Constants/shared_constants.dart';
 import 'package:sincomil/Provider/app_settings.dart';
 import '../Classes/parent.dart';
 import '../Classes/student.dart';
@@ -23,6 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
   late String password;
   bool themeControl = false;
   bool fingerControl = false;
+  bool cardControl = false;
 
   @override
   void initState() {
@@ -39,6 +41,7 @@ class _SettingsPageState extends State<SettingsPage> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     themeControl = sharedPreferences.getBool("is_dark") ?? false;
     fingerControl = sharedPreferences.getBool("use_finger") ?? false;
+    cardControl = sharedPreferences.getBool(usePortraits) ?? false;
     return themeControl;
   }
 
@@ -50,6 +53,11 @@ class _SettingsPageState extends State<SettingsPage> {
   void _toggleSecurity() {
     final settings = Provider.of<AppSettings>(context, listen: false);
     settings.toggleSecurity();
+  }
+
+  void _toggleCard() {
+    final settings = Provider.of<AppSettings>(context, listen: false);
+    settings.toggleCard();
   }
 
   @override
@@ -74,6 +82,16 @@ class _SettingsPageState extends State<SettingsPage> {
                           value: const Text('Português'),
                           onPressed: (context) {},
                         ),
+                        SettingsTile.switchTile(
+                          leading: const Icon(Icons.portrait_rounded),
+                            initialValue: cardControl,
+                            onToggle: (value) {
+                              setState(() {
+                                cardControl = value;
+                              });
+                              _toggleCard();
+                            },
+                            title: const Text('Usar cartas')),
                         SettingsTile.switchTile(
                           onToggle: (value) {
                             setState(() {

@@ -8,6 +8,7 @@ import '../Classes/parent.dart';
 import '../Classes/student.dart';
 import 'home_page.dart';
 
+//ignore: must_be_immutable
 class StartPage extends StatefulWidget {
   final Parent parent;
   final List<Student> data;
@@ -15,8 +16,8 @@ class StartPage extends StatefulWidget {
   final List<String> fotosBG;
   final List<String> list;
   final List<Grades> grades;
-  final String value;
-  const StartPage(
+  String value;
+  StartPage(
       {super.key,
       required this.parent,
       required this.data,
@@ -27,22 +28,12 @@ class StartPage extends StatefulWidget {
       required this.fotosBG});
 
   @override
-  State<StartPage> createState() =>
-      _StartPageState(parent, data, fotos, list, grades, value, fotosBG);
+  State<StartPage> createState() => _StartPageState();
 }
 
 class _StartPageState extends State<StartPage> {
   int _page = 0;
-  _StartPageState(this.parent, this.data, this.fotos, this.list, this.grades,
-      this.value, this.fotosBG);
-  final Parent parent;
-  final List<Student> data;
-  final List<String> fotos;
-  final List<String> fotosBG;
-  final List<String> list;
   String direction = '';
-  List<Grades> grades;
-  String value;
   bool expanded = false;
 
   @override
@@ -59,16 +50,21 @@ class _StartPageState extends State<StartPage> {
               padding: const EdgeInsets.only(right: 5.0),
               child: GestureDetector(
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(fotos[list.indexOf(value)]),
+                  backgroundImage: NetworkImage(
+                      widget.fotos[widget.list.indexOf(widget.value)]),
                 ),
                 onVerticalDragEnd: (details) {
                   if (direction == 'baixo') {
                     setState(() {
-                      value = list[(list.indexOf(value) + 1) % list.length];
+                      widget.value = widget.list[
+                          (widget.list.indexOf(widget.value) + 1) %
+                              widget.list.length];
                     });
                   } else if (direction == 'cima') {
                     setState(() {
-                      value = list[(list.indexOf(value) - 1) % list.length];
+                      widget.value = widget.list[
+                          (widget.list.indexOf(widget.value) - 1) %
+                              widget.list.length];
                     });
                   }
                 },
@@ -84,17 +80,19 @@ class _StartPageState extends State<StartPage> {
                   builder: (BuildContext context) => AlertDialog(
                       content: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: list
+                    children: widget.list
                         .asMap()
                         .entries
                         .map((e) => ListTile(
                               leading: CircleAvatar(
-                                backgroundImage: NetworkImage(fotos[e.key]),
+                                backgroundImage:
+                                    NetworkImage(widget.fotos[e.key]),
                               ),
-                              title: Text("AL ${data[e.key].nomeGuerra}"),
+                              title:
+                                  Text("AL ${widget.data[e.key].nomeGuerra}"),
                               onTap: () {
                                 setState(() {
-                                  value = data[e.key].nome;
+                                  widget.value = widget.data[e.key].nome;
                                 });
                                 Navigator.of(context).pop('Chosen');
                               },
@@ -109,19 +107,27 @@ class _StartPageState extends State<StartPage> {
         ),
         body: <Widget>[
           HomePage(
-              data: data,
-              fotos: fotos,
-              list: list,
-              dropdownValue: data[list.indexOf(value)].nome),
-          PaymentsPage(data: data),
+              data: widget.data,
+              fotos: widget.fotos,
+              list: widget.list,
+              dropdownValue:
+                  widget.data[widget.list.indexOf(widget.value)].nome),
+          PaymentsPage(data: widget.data),
           GradesPage(
-              notas: grades,
-              dropdownValue: data[list.indexOf(value)].nome,
-              list: list,
-              fotos: fotos,
-              fotosBG: fotosBG)
+              notas: widget.grades,
+              dropdownValue:
+                  widget.data[widget.list.indexOf(widget.value)].nome,
+              list: widget.list,
+              fotos: widget.fotos,
+              fotosBG: widget.fotosBG,
+              nomes: widget.data.map((e) => e.nomeGuerra).toList())
         ].elementAt(_page),
-        drawer: NavDrawer(parent: parent, data: data, fotos: fotos),
+        drawer: NavDrawer(
+            parent: widget.parent,
+            data: widget.data,
+            fotos: widget.fotos,
+            list: widget.list,
+            notas: widget.grades),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

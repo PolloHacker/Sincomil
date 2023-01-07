@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sincomil/Provider/app_settings.dart';
 import 'package:sincomil/Widgets/grades_radar.dart';
 import 'package:sincomil/Widgets/grades_table.dart';
 import 'package:sincomil/Widgets/player_card.dart';
@@ -8,6 +10,7 @@ import '../Classes/grades.dart';
 class GradesPage extends StatelessWidget {
   final List<Grades> notas;
   final List<String> list;
+  final List<String> nomes;
   final List<String> fotos;
   final List<String> fotosBG;
   final String dropdownValue;
@@ -17,7 +20,8 @@ class GradesPage extends StatelessWidget {
       required this.dropdownValue,
       required this.list,
       required this.fotos,
-      required this.fotosBG});
+      required this.fotosBG,
+      required this.nomes});
 
   Future<List<List<double>>> organizeGrades() {
     List<double> artes = [];
@@ -161,16 +165,20 @@ class GradesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final useCards = Provider.of<AppSettings>(context);
     return Material(
       elevation: 0,
       borderOnForeground: false,
       child: ListView(
         children: <Widget>[
-          PlayerCard(
-              fotosBG: fotosBG,
-              list: list,
-              dropdownValue: dropdownValue,
-              organizeGrades: organizeGrades()),
+          useCards.useCard == "true"
+              ? PlayerCard(
+                  fotosBG: fotosBG,
+                  list: list,
+                  nomes: nomes,
+                  dropdownValue: dropdownValue,
+                  organizeGrades: organizeGrades())
+              : Container(),
           Container(
             padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
             alignment: Alignment.center,
