@@ -7,13 +7,11 @@ import 'package:sincomil/Constants/shared_constants.dart';
 import '../Classes/grades.dart';
 import '../Classes/student.dart';
 import '../Provider/app_settings.dart';
+import '../Widgets/portrait_card.dart';
 
 class CardColection extends StatefulWidget {
   const CardColection(
-      {super.key,
-      required this.students,
-      required this.fotos,
-      required this.list, required this.notas});
+      {super.key, required this.students, required this.fotos, required this.list, required this.notas});
 
   final List<Student> students;
   final List<String> fotos;
@@ -27,10 +25,12 @@ class CardColection extends StatefulWidget {
 class _CardColectionState extends State<CardColection> {
   List<String> cards = [];
   List<bool> selected = [];
+  List<bool> expanded = [];
+
+  late ScrollController _controller;
 
   String dropdownValue = '';
   String direction = '';
-  bool expanded = false;
 
   int media(List<List<double>> data) {
     double media = 0;
@@ -44,19 +44,9 @@ class _CardColectionState extends State<CardColection> {
     return media.round();
   }
 
-  void _changeIndex(int index, String nome) {
-    final settings = Provider.of<AppSettings>(context, listen: false);
-    settings.changeIndex(index, nome);
-  }
-
   void _updateCards(List<String> cards, String nome) {
     final settings = Provider.of<AppSettings>(context, listen: false);
     settings.updateCards(cards, nome);
-  }
-
-  void _changePortrait(String portrait, String nome) {
-    final settings = Provider.of<AppSettings>(context, listen: false);
-    settings.changePortrait(portrait, nome);
   }
 
   List<List<double>> organizeGrades() {
@@ -102,21 +92,7 @@ class _CardColectionState extends State<CardColection> {
       socio.add(double.parse(grades[i][12]));
     }
 
-      return [
-        artes,
-        bio,
-        ef,
-        filo,
-        fis,
-        geo,
-        hist,
-        lem,
-        port,
-        mat,
-        quim,
-        red,
-        socio
-      ];
+    return [artes, bio, ef, filo, fis, geo, hist, lem, port, mat, quim, red, socio];
   }
 
   Future<void> _getCards(BuildContext context) async {
@@ -125,8 +101,10 @@ class _CardColectionState extends State<CardColection> {
     if (selected.length < cards.length) {
       selected = List.filled(allCards.length, false, growable: true);
     }
+    if (expanded.length < cards.length) {
+      expanded = List.filled(allCards.length, false, growable: true);
+    }
     var indx = sharedPreferences.getInt(selectedCard + dropdownValue) ?? -1;
-    print(indx);
     if (indx != -1) {
       selected[indx] = true;
       for (var i = 0; i < selected.length; i++) {
@@ -153,11 +131,8 @@ class _CardColectionState extends State<CardColection> {
       } else if (avg < 80) {
         cards.addAll(['100', 'bronzecommon', 'bronze', 'silvercommon', 'silver', 'goldcommon']);
         _updateCards(cards, dropdownValue);
-      } else if (avg < 85) {
-        cards.addAll(['100', 'bronzecommon', 'bronze', 'silvercommon', 'silver', 'goldcommon', 'goldcommon']);
-        _updateCards(cards, dropdownValue);
-      } else if (avg <= 100) {
-        cards.addAll(['100', 'bronzecommon', 'bronze', 'silvercommon', 'silver', 'goldcommon', 'goldcommon', 'gold']);
+      } else if (avg > 85) {
+        cards.addAll(['100', 'bronzecommon', 'bronze', 'silvercommon', 'silver', 'goldcommon', 'gold']);
         _updateCards(cards, dropdownValue);
       }
     }
@@ -166,6 +141,7 @@ class _CardColectionState extends State<CardColection> {
   @override
   void initState() {
     super.initState();
+    _controller = ScrollController();
     dropdownValue = widget.students[0].nome;
   }
 
@@ -182,19 +158,16 @@ class _CardColectionState extends State<CardColection> {
                   padding: const EdgeInsets.only(right: 5.0),
                   child: GestureDetector(
                     child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          widget.fotos[widget.list.indexOf(dropdownValue)]),
+                      backgroundImage: NetworkImage(widget.fotos[widget.list.indexOf(dropdownValue)]),
                     ),
                     onVerticalDragEnd: (details) {
                       if (direction == 'baixo') {
                         setState(() {
-                          dropdownValue = widget.list[(widget.list.indexOf(dropdownValue) + 1) %
-                              widget.list.length];
+                          dropdownValue = widget.list[(widget.list.indexOf(dropdownValue) + 1) % widget.list.length];
                         });
                       } else if (direction == 'cima') {
                         setState(() {
-                          dropdownValue = widget.list[(widget.list.indexOf(dropdownValue) - 1) %
-                              widget.list.length];
+                          dropdownValue = widget.list[(widget.list.indexOf(dropdownValue) - 1) % widget.list.length];
                         });
                       }
                     },
@@ -215,11 +188,9 @@ class _CardColectionState extends State<CardColection> {
                             .entries
                             .map((e) => ListTile(
                                   leading: CircleAvatar(
-                                    backgroundImage:
-                                        NetworkImage(widget.fotos[e.key]),
+                                    backgroundImage: NetworkImage(widget.fotos[e.key]),
                                   ),
-                                  title: Text(
-                                      "AL ${widget.students[e.key].nomeGuerra}"),
+                                  title: Text("AL ${widget.students[e.key].nomeGuerra}"),
                                   onTap: () {
                                     setState(() {
                                       dropdownValue = widget.students[e.key].nome;
@@ -239,51 +210,14 @@ class _CardColectionState extends State<CardColection> {
               elevation: 0,
               borderOnForeground: false,
               child: ListView(
+                controller: _controller,
                 children: [
                   const ListTile(
                     leading: Icon(Icons.warning_rounded),
                     title: Text('Selecione uma carta'),
-                    subtitle: Text(
-                        'A carta selecionada será exibida na aba de notas'),
+                    subtitle: Text('A carta selecionada será exibida na aba de notas'),
                   ),
-                  Wrap(
-                    children: allCards
-                        .asMap()
-                        .entries
-                        .map((e) => GestureDetector(
-                              onTap: () async {
-                                _changeIndex(e.key, dropdownValue);
-
-                                setState(() {
-                                  selected[e.key] = !selected[e.key];
-                                  for (var i = 0; i < selected.length; i++) {
-                                    if (e.key != i) {
-                                      selected[i] = false;
-                                    }
-                                  }
-                                });
-                                _changePortrait(e.value, dropdownValue);
-                              },
-                              child: selected[e.key]
-                                  ? Card(
-                                      elevation: 3,
-                                      child: Image.asset(
-                                          'assets/images/Cartinhas/${e.value}.png',
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.483),
-                                    )
-                                  : Card(
-                                      elevation: 0,
-                                      child: Image.asset(
-                                          'assets/images/Cartinhas/${e.value}.png',
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.483),
-                                    ),
-                            ))
-                        .toList(),
-                  )
+                  PortraitCard(dropdownValue: dropdownValue, cards: cards, selected: selected, expanded: expanded)
                 ],
               ),
             ),
@@ -296,19 +230,16 @@ class _CardColectionState extends State<CardColection> {
                   padding: const EdgeInsets.only(right: 5.0),
                   child: GestureDetector(
                     child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          widget.fotos[widget.list.indexOf(dropdownValue)]),
+                      backgroundImage: NetworkImage(widget.fotos[widget.list.indexOf(dropdownValue)]),
                     ),
                     onVerticalDragEnd: (details) {
                       if (direction == 'baixo') {
                         setState(() {
-                          dropdownValue = widget.list[(widget.list.indexOf(dropdownValue) + 1) %
-                              widget.list.length];
+                          dropdownValue = widget.list[(widget.list.indexOf(dropdownValue) + 1) % widget.list.length];
                         });
                       } else if (direction == 'cima') {
                         setState(() {
-                          dropdownValue = widget.list[(widget.list.indexOf(dropdownValue) - 1) %
-                              widget.list.length];
+                          dropdownValue = widget.list[(widget.list.indexOf(dropdownValue) - 1) % widget.list.length];
                         });
                       }
                     },
@@ -323,26 +254,24 @@ class _CardColectionState extends State<CardColection> {
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
                           content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: widget.list
-                                .asMap()
-                                .entries
-                                .map((e) => ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage:
-                                NetworkImage(widget.fotos[e.key]),
-                              ),
-                              title: Text(
-                                  "AL ${widget.students[e.key].nomeGuerra}"),
-                              onTap: () {
-                                setState(() {
-                                  dropdownValue = widget.students[e.key].nome;
-                                });
-                                Navigator.of(context).pop('Chosen');
-                              },
-                            ))
-                                .toList(),
-                          )),
+                        mainAxisSize: MainAxisSize.min,
+                        children: widget.list
+                            .asMap()
+                            .entries
+                            .map((e) => ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundImage: NetworkImage(widget.fotos[e.key]),
+                                  ),
+                                  title: Text("AL ${widget.students[e.key].nomeGuerra}"),
+                                  onTap: () {
+                                    setState(() {
+                                      dropdownValue = widget.students[e.key].nome;
+                                    });
+                                    Navigator.of(context).pop('Chosen');
+                                  },
+                                ))
+                            .toList(),
+                      )),
                     ),
                   ),
                 )
@@ -354,12 +283,7 @@ class _CardColectionState extends State<CardColection> {
                 borderOnForeground: false,
                 child: Center(
                   child: Column(
-                    children: const [
-                      Spacer(),
-                      CircularProgressIndicator(),
-                      Text('Carregando cartas'),
-                      Spacer()
-                    ],
+                    children: const [Spacer(), CircularProgressIndicator(), Text('Carregando cartas'), Spacer()],
                   ),
                 )),
           );

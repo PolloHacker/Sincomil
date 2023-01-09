@@ -38,10 +38,9 @@ class PlayerCard extends StatelessWidget {
     return media.round();
   }
 
-
   void _getCard(BuildContext context, String name) async {
-    final settings = Provider.of<AppSettings>(context, listen: false);
-    carta = settings.portrait[name] ?? 'bronzecommon';
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    carta = sharedPreferences.getString(currentCard + name) ?? 'bronzecommon';
   }
 
   @override
@@ -62,8 +61,7 @@ class PlayerCard extends StatelessWidget {
                   Positioned(
                       left: _cardSize.width * 0.17,
                       child: Image.asset('assets/images/Cartinhas/brasil.png',
-                          width: _cardSize.width * 0.15,
-                          height: _cardSize.height * 0.2)),
+                          width: _cardSize.width * 0.15, height: _cardSize.height * 0.2)),
                   //Picture
                   Positioned(
                       right: _cardSize.width * 0.12,
@@ -71,8 +69,7 @@ class PlayerCard extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Image.network(
-                          fotosBG[nomes.indexOf(nomes
-                              .elementAt(list.indexOf(dropdownValue)))],
+                          fotosBG[nomes.indexOf(nomes.elementAt(list.indexOf(dropdownValue)))],
                           width: _cardSize.width * 0.55,
                           height: _cardSize.height * 0.55,
                         ),
@@ -90,9 +87,7 @@ class PlayerCard extends StatelessWidget {
                   //Name
                   Positioned(
                     top: _cardSize.height * 0.69,
-                    child: Text(
-                        nomes
-                            .elementAt(list.indexOf(dropdownValue)),
+                    child: Text(nomes.elementAt(list.indexOf(dropdownValue)),
                         style: TextStyle(
                             fontSize: 45,
                             fontWeight: FontWeight.bold,
