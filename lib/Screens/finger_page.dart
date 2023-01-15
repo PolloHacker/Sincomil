@@ -42,8 +42,7 @@ class _FingerPageState extends State<FingerPage> {
       _currIndex = 2;
     });
 
-    await Future.delayed(
-        const Duration(seconds: 1), () => {setState(() => _currIndex = 0)});
+    await Future.delayed(const Duration(seconds: 1), () => {setState(() => _currIndex = 0)});
   }
 
   Future<void> _authenticateWithBiometrics() async {
@@ -54,8 +53,7 @@ class _FingerPageState extends State<FingerPage> {
       });
       authenticated = await auth.authenticate(
         localizedReason: 'Coloque seu dedo no sensor digital',
-        options:
-            const AuthenticationOptions(stickyAuth: true, biometricOnly: true),
+        options: const AuthenticationOptions(stickyAuth: true, biometricOnly: true),
       );
       setState(() {
         _authorized = 'Authenticating';
@@ -98,21 +96,17 @@ class _FingerPageState extends State<FingerPage> {
                       child: ScaleTransition(scale: anim, child: child),
                     ),
                 child: _currIndex == 0
-                    ? const Icon(Icons.fingerprint_rounded,
-                        key: ValueKey('icon1'))
+                    ? const Icon(Icons.fingerprint_rounded, key: ValueKey('icon1'))
                     : _currIndex == 2
-                        ? const Icon(Icons.error_outline_rounded,
-                            key: ValueKey('icon3'))
-                        : const Icon(Icons.check_circle_outline_rounded,
-                            key: ValueKey('icon2'))),
+                        ? const Icon(Icons.error_outline_rounded, key: ValueKey('icon3'))
+                        : const Icon(Icons.check_circle_outline_rounded, key: ValueKey('icon2'))),
             onPressed: () async {
               await _authenticateWithBiometrics();
               _authorized == 'Authorized'
                   ? setState(() {
                       _currIndex = 1;
                       _readFromStorage().then((dt) async {
-                        final read =
-                            await const NavHandler().check(dt[0], dt[1]);
+                        final read = await const NavHandler().check(dt[0], dt[1]);
                         final parent = read[0];
                         final data = read[1];
                         final List<String> nomes = [];
@@ -123,24 +117,25 @@ class _FingerPageState extends State<FingerPage> {
                         for (var i = 0; i < data.length; i++) {
                           numeros.add(data[i].numero);
                         }
-                        final fotos =
-                            await const NavHandler().getPic(nomes, numeros);
-                        final fotosBG =
-                            await const NavHandler().getPickBG(nomes, numeros);
+                        final fotos = await const NavHandler().getPic(nomes, numeros);
+                        final fotosBG = await const NavHandler().getPickBG(nomes, numeros);
                         grades = await const NavHandler().getGrades(nomes);
-                        await Future.delayed(const Duration(seconds: 1),
-                            () => {setState(() => _currIndex = 0)});
+                        final payments = await const NavHandler().getPayments(parent.id);
+
+                        await Future.delayed(const Duration(seconds: 1), () => {setState(() => _currIndex = 0)});
                         if (!mounted) return;
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => SlideInUp(
-                                child: StartPage(
-                                    parent: parent,
-                                    data: data,
-                                    fotos: fotos,
-                                    list: initList(data),
-                                    grades: grades,
-                                    value: data[0].nome,
-                                    fotosBG: fotosBG))));
+                                    child: StartPage(
+                                  parent: parent,
+                                  data: data,
+                                  fotos: fotos,
+                                  list: initList(data),
+                                  grades: grades,
+                                  value: data[0].nome,
+                                  fotosBG: fotosBG,
+                                  payments: payments,
+                                ))));
                       });
                     })
                   : await error();

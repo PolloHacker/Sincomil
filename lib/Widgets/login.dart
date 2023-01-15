@@ -9,7 +9,7 @@ Widget title() {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset("assets/images/sincomil-logo.png"),
-          const Text('Versão 1.8.24')
+          const Text('Versão 1.9.1')
         ],
       ));
 }

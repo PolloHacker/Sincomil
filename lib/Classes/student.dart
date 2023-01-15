@@ -14,7 +14,7 @@ class Student {
 
   //informações pessoais do aluno
   final String email;
-  final int cpf;
+  final String cpf;
   final String telefone;
   final String nascimento;
 
@@ -22,7 +22,7 @@ class Student {
   final String nacionalidade;
   final String uf;
   final String naturalidade;
-  final int identidade;
+  final String identidade;
 
   final String cor;
   final String sexo;

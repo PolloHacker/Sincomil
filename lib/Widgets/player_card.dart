@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sincomil/Constants/shared_constants.dart';
-import 'package:sincomil/Provider/app_settings.dart';
 
+import '../Classes/grades.dart';
 import '../Constants/constants.dart';
 
 class PlayerCard extends StatelessWidget {
@@ -14,42 +13,76 @@ class PlayerCard extends StatelessWidget {
       required this.nomes,
       required this.list,
       required this.dropdownValue,
-      required this.organizeGrades});
+      required this.notas});
 
   final List<String> fotosBG;
   final List<String> nomes;
   final List<String> list;
   final String dropdownValue;
-  final Future<List<List<double>>> organizeGrades;
+  final List<Grades> notas;
 
   final Size _cardSize = const Size(400, 471);
   bool useCard = false;
-  String carta = 'bronzecommon';
+  String carta = '0';
 
-  int media(List<List<double>> data) {
+  int media(List<Grades> data) {
     double media = 0;
-    for (var element in data) {
-      for (var nota in element) {
-        media += nota;
-      }
+    for (var element in data[list.indexOf(dropdownValue)].artes.grades) {
+      media += element;
     }
+    for (var element in data[list.indexOf(dropdownValue)].bio.grades) {
+      media += element;
+    }
+    for (var element in data[list.indexOf(dropdownValue)].ef.grades) {
+      media += element;
+    }
+    for (var element in data[list.indexOf(dropdownValue)].filo.grades) {
+      media += element;
+    }
+    for (var element in data[list.indexOf(dropdownValue)].fis.grades) {
+      media += element;
+    }
+    for (var element in data[list.indexOf(dropdownValue)].geo.grades) {
+      media += element;
+    }
+    for (var element in data[list.indexOf(dropdownValue)].hist.grades) {
+      media += element;
+    }
+    for (var element in data[list.indexOf(dropdownValue)].lem.grades) {
+      media += element;
+    }
+    for (var element in data[list.indexOf(dropdownValue)].port.grades) {
+      media += element;
+    }
+    for (var element in data[list.indexOf(dropdownValue)].mat.grades) {
+      media += element;
+    }
+    for (var element in data[list.indexOf(dropdownValue)].quim.grades) {
+      media += element;
+    }
+    for (var element in data[list.indexOf(dropdownValue)].red.grades) {
+      media += element;
+    }
+    for (var element in data[list.indexOf(dropdownValue)].socio.grades) {
+      media += element;
+    }
+
     media /= 11.7;
 
     return media.round();
   }
 
-  void _getCard(BuildContext context, String name) async {
+  Future<void> _getCard(BuildContext context, String name) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     carta = sharedPreferences.getString(currentCard + name) ?? 'bronzecommon';
   }
 
   @override
   Widget build(BuildContext context) {
-    _getCard(context, dropdownValue);
     return FutureBuilder(
-        future: organizeGrades,
-        builder: (context, AsyncSnapshot<List<List<double>>> data) {
-          if (data.hasData) {
+        future: _getCard(context, dropdownValue),
+        builder: (context, AsyncSnapshot data) {
+          if (data.connectionState == ConnectionState.done) {
             return Container(
               padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
               alignment: Alignment.center,
@@ -67,7 +100,7 @@ class PlayerCard extends StatelessWidget {
                       right: _cardSize.width * 0.12,
                       top: _cardSize.height * 0.16,
                       child: Align(
-                        alignment: Alignment.centerLeft,
+                        alignment: Alignment.bottomCenter,
                         child: Image.network(
                           fotosBG[nomes.indexOf(nomes.elementAt(list.indexOf(dropdownValue)))],
                           width: _cardSize.width * 0.55,
@@ -78,7 +111,7 @@ class PlayerCard extends StatelessWidget {
                   Positioned(
                       left: _cardSize.width * 0.17,
                       top: _cardSize.height * 0.25,
-                      child: Text(media(data.data!).toString(),
+                      child: Text(media(notas).toString(),
                           style: TextStyle(
                               fontSize: 70,
                               fontWeight: FontWeight.bold,
@@ -89,7 +122,7 @@ class PlayerCard extends StatelessWidget {
                     top: _cardSize.height * 0.69,
                     child: Text(nomes.elementAt(list.indexOf(dropdownValue)),
                         style: TextStyle(
-                            fontSize: 45,
+                            fontSize: 30,
                             fontWeight: FontWeight.bold,
                             fontFamily: GoogleFonts.ropaSans().fontFamily,
                             color: cartas[carta])),
@@ -98,12 +131,8 @@ class PlayerCard extends StatelessWidget {
               ),
             );
           } else {
-            return const Material(
-              elevation: 0,
-              borderOnForeground: false,
-              child: Center(
-                child: CircularProgressIndicator(color: buttonColor),
-              ),
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           }
         });

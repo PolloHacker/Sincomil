@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:sincomil/Classes/payments.dart';
 import 'package:sincomil/Constants/constants.dart';
 import 'package:sincomil/Screens/start_page.dart';
 
@@ -15,8 +16,7 @@ class WelcomePage extends StatefulWidget {
   State<WelcomePage> createState() => _WelcomePageState();
 }
 
-class _WelcomePageState extends State<WelcomePage>
-    with TickerProviderStateMixin {
+class _WelcomePageState extends State<WelcomePage> with TickerProviderStateMixin {
   late AnimationController _controller;
 
   final storage = const FlutterSecureStorage();
@@ -27,6 +27,7 @@ class _WelcomePageState extends State<WelcomePage>
   final List<int> numeros = [];
   List<String> fotos = [];
   List<String> fotosBG = [];
+  List<Payments> payments = [];
 
   Future<List<String>> _readFromStorage() async {
     var email = await storage.read(key: "KEY_USERNAME") ?? '';
@@ -53,9 +54,9 @@ class _WelcomePageState extends State<WelcomePage>
     fotosBG = fotosBG.sublist(0, data.length);
     grades = await const NavHandler().getGrades(nomes);
     grades = grades.sublist(0, data.length);
+    payments = await const NavHandler().getPayments(parent.id);
 
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 4));
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 4));
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         // custom code here
@@ -68,7 +69,8 @@ class _WelcomePageState extends State<WelcomePage>
                     list: initList(data),
                     grades: grades,
                     value: data[0].nome,
-                    fotosBG: fotosBG))));
+                    fotosBG: fotosBG,
+                    payments: payments))));
       }
     });
 
@@ -102,14 +104,12 @@ class _WelcomePageState extends State<WelcomePage>
                 children: <Widget>[
                   const Spacer(),
                   FadeInDown(
-                      duration: const Duration(seconds: 1),
-                      child: Image.asset("assets/images/sincomil-logo.png")),
+                      duration: const Duration(seconds: 1), child: Image.asset("assets/images/sincomil-logo.png")),
                   const Spacer(),
                   FadeInUp(
                       controller: (controller) => _controller = controller,
                       delay: const Duration(seconds: 1),
-                      child: Text("Bem vindo, ${parent.nome}.",
-                          style: const TextStyle(fontSize: 30))),
+                      child: Text("Bem vindo, ${parent.nome}.", style: const TextStyle(fontSize: 30))),
                   const Spacer(),
                   const Spacer(),
                   const Spacer(),

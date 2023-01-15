@@ -8,11 +8,7 @@ import '../Provider/app_settings.dart';
 
 class PortraitCard extends StatefulWidget {
   const PortraitCard(
-      {super.key,
-      required this.dropdownValue,
-      required this.cards,
-      required this.selected,
-      required this.expanded});
+      {super.key, required this.dropdownValue, required this.cards, required this.selected, required this.expanded});
   final String dropdownValue;
   final List<String> cards;
   final List<bool> selected;
@@ -69,49 +65,26 @@ class _PortraitCardState extends State<PortraitCard> {
                     }
                   });
                 },
-                child: AnimatedSwitcher(
-                    transitionBuilder: (Widget child, Animation<double> animation) {
-                      return ScaleTransition(scale: animation, child: child);
-                    },
-                    duration: const Duration(milliseconds: 800),
-                    child: widget.cards.contains(e.value.name)
-                        ? widget.selected[e.key]
-                            ? widget.expanded[e.key]
-                                ? Card(
-                                    key: UniqueKey(),
-                                    elevation: 10,
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Image.asset('assets/images/Cartinhas/${e.value.name}.png',
-                                            width: MediaQuery.sizeOf(context).width * 0.483),
-                                        Expanded(child: Text(e.value.description, textAlign: TextAlign.center))
-                                      ],
-                                    ))
-                                : Card(
-                                    key: UniqueKey(),
-                                    elevation: 10,
-                                    child: Image.asset('assets/images/Cartinhas/${e.value.name}.png',
+                child: widget.cards.contains(e.value.name)
+                    ? widget.selected[e.key]
+                        ? widget.expanded[e.key]
+                            ? Card(
+                                key: UniqueKey(),
+                                elevation: 10,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Image.asset('assets/images/Cartinhas/${e.value.name}.png',
                                         width: MediaQuery.sizeOf(context).width * 0.483),
-                                  )
-                            : widget.expanded[e.key]
-                                ? Card(
-                                    key: UniqueKey(),
-                                    elevation: 0,
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Image.asset('assets/images/Cartinhas/${e.value.name}.png',
-                                            width: MediaQuery.sizeOf(context).width * 0.483),
-                                        Expanded(child: Text(e.value.description, textAlign: TextAlign.center))
-                                      ],
-                                    ))
-                                : Card(
-                                    key: UniqueKey(),
-                                    elevation: 0,
-                                    child: Image.asset('assets/images/Cartinhas/${e.value.name}.png',
-                                        width: MediaQuery.sizeOf(context).width * 0.483),
-                                  )
+                                    Expanded(child: Text(e.value.description, textAlign: TextAlign.center))
+                                  ],
+                                ))
+                            : Card(
+                                key: UniqueKey(),
+                                elevation: 10,
+                                child: Image.asset('assets/images/Cartinhas/${e.value.name}.png',
+                                    width: MediaQuery.sizeOf(context).width * 0.483),
+                              )
                         : widget.expanded[e.key]
                             ? Card(
                                 key: UniqueKey(),
@@ -119,30 +92,25 @@ class _PortraitCardState extends State<PortraitCard> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Stack(
-                                      children: [
-                                        Image.asset('assets/images/Cartinhas/${e.value.name}.png',
-                                            width: MediaQuery.sizeOf(context).width * 0.483),
-                                        Positioned.fill(
-                                            child: ClipRect(
-                                          child: BackdropFilter(
-                                            filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                                            child: Container(
-                                              decoration: BoxDecoration(color: Colors.grey.shade200.withOpacity(0.5)),
-                                              child: Container(),
-                                            ),
-                                          ),
-                                        ))
-                                      ],
-                                    ),
+                                    Image.asset('assets/images/Cartinhas/${e.value.name}.png',
+                                        width: MediaQuery.sizeOf(context).width * 0.483),
                                     Expanded(child: Text(e.value.description, textAlign: TextAlign.center))
                                   ],
-                                ),
-                              )
+                                ))
                             : Card(
                                 key: UniqueKey(),
                                 elevation: 0,
-                                child: Stack(
+                                child: Image.asset('assets/images/Cartinhas/${e.value.name}.png',
+                                    width: MediaQuery.sizeOf(context).width * 0.483),
+                              )
+                    : widget.expanded[e.key]
+                        ? Card(
+                            key: UniqueKey(),
+                            elevation: 0,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Stack(
                                   children: [
                                     Image.asset('assets/images/Cartinhas/${e.value.name}.png',
                                         width: MediaQuery.sizeOf(context).width * 0.483),
@@ -158,7 +126,30 @@ class _PortraitCardState extends State<PortraitCard> {
                                     ))
                                   ],
                                 ),
-                              )),
+                                Expanded(child: Text(e.value.description, textAlign: TextAlign.center))
+                              ],
+                            ),
+                          )
+                        : Card(
+                            key: UniqueKey(),
+                            elevation: 0,
+                            child: Stack(
+                              children: [
+                                Image.asset('assets/images/Cartinhas/${e.value.name}.png',
+                                    width: MediaQuery.sizeOf(context).width * 0.483),
+                                Positioned.fill(
+                                    child: ClipRect(
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(color: Colors.grey.shade200.withOpacity(0.5)),
+                                      child: Container(),
+                                    ),
+                                  ),
+                                ))
+                              ],
+                            ),
+                          ),
               ))
           .toList(),
     );

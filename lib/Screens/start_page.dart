@@ -5,6 +5,7 @@ import 'package:sincomil/Screens/grades_page.dart';
 
 import '../Classes/grades.dart';
 import '../Classes/parent.dart';
+import '../Classes/payments.dart';
 import '../Classes/student.dart';
 import 'home_page.dart';
 
@@ -16,6 +17,7 @@ class StartPage extends StatefulWidget {
   final List<String> fotosBG;
   final List<String> list;
   final List<Grades> grades;
+  final List<Payments> payments;
   String value;
   StartPage(
       {super.key,
@@ -25,7 +27,8 @@ class StartPage extends StatefulWidget {
       required this.list,
       required this.grades,
       required this.value,
-      required this.fotosBG});
+      required this.fotosBG,
+      required this.payments});
 
   @override
   State<StartPage> createState() => _StartPageState();
@@ -50,21 +53,16 @@ class _StartPageState extends State<StartPage> {
               padding: const EdgeInsets.only(right: 5.0),
               child: GestureDetector(
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      widget.fotos[widget.list.indexOf(widget.value)]),
+                  backgroundImage: NetworkImage(widget.fotos[widget.list.indexOf(widget.value)]),
                 ),
                 onVerticalDragEnd: (details) {
                   if (direction == 'baixo') {
                     setState(() {
-                      widget.value = widget.list[
-                          (widget.list.indexOf(widget.value) + 1) %
-                              widget.list.length];
+                      widget.value = widget.list[(widget.list.indexOf(widget.value) + 1) % widget.list.length];
                     });
                   } else if (direction == 'cima') {
                     setState(() {
-                      widget.value = widget.list[
-                          (widget.list.indexOf(widget.value) - 1) %
-                              widget.list.length];
+                      widget.value = widget.list[(widget.list.indexOf(widget.value) - 1) % widget.list.length];
                     });
                   }
                 },
@@ -85,11 +83,9 @@ class _StartPageState extends State<StartPage> {
                         .entries
                         .map((e) => ListTile(
                               leading: CircleAvatar(
-                                backgroundImage:
-                                    NetworkImage(widget.fotos[e.key]),
+                                backgroundImage: NetworkImage(widget.fotos[e.key]),
                               ),
-                              title:
-                                  Text("AL ${widget.data[e.key].nomeGuerra}"),
+                              title: Text("AL ${widget.data[e.key].nomeGuerra}"),
                               onTap: () {
                                 setState(() {
                                   widget.value = widget.data[e.key].nome;
@@ -110,38 +106,30 @@ class _StartPageState extends State<StartPage> {
               data: widget.data,
               fotos: widget.fotos,
               list: widget.list,
-              dropdownValue:
-                  widget.data[widget.list.indexOf(widget.value)].nome),
-          PaymentsPage(data: widget.data),
+              dropdownValue: widget.data[widget.list.indexOf(widget.value)].nome),
+          PaymentsPage(
+              data: widget.data,
+              payments: widget.payments,
+              dropdownValue: widget.data[widget.list.indexOf(widget.value)].nome,
+              list: widget.list),
           GradesPage(
               notas: widget.grades,
-              dropdownValue:
-                  widget.data[widget.list.indexOf(widget.value)].nome,
+              dropdownValue: widget.data[widget.list.indexOf(widget.value)].nome,
               list: widget.list,
               fotos: widget.fotos,
               fotosBG: widget.fotosBG,
               nomes: widget.data.map((e) => e.nomeGuerra).toList())
         ].elementAt(_page),
         drawer: NavDrawer(
-            parent: widget.parent,
-            data: widget.data,
-            fotos: widget.fotos,
-            list: widget.list,
-            notas: widget.grades),
+            parent: widget.parent, data: widget.data, fotos: widget.fotos, list: widget.list, notas: widget.grades),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                activeIcon: Icon(Icons.home_rounded),
-                label: 'Início'),
+                icon: Icon(Icons.home_outlined), activeIcon: Icon(Icons.home_rounded), label: 'Início'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.payments_outlined),
-                activeIcon: Icon(Icons.payments_rounded),
-                label: 'Pagamentos'),
+                icon: Icon(Icons.payments_outlined), activeIcon: Icon(Icons.payments_rounded), label: 'Pagamentos'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.bar_chart_outlined),
-                activeIcon: Icon(Icons.bar_chart_rounded),
-                label: 'Boletim')
+                icon: Icon(Icons.bar_chart_outlined), activeIcon: Icon(Icons.bar_chart_rounded), label: 'Boletim')
           ],
           onTap: (index) => {
             setState(() {
@@ -153,8 +141,4 @@ class _StartPageState extends State<StartPage> {
   }
 }
 
-const List<Widget> titles = <Widget>[
-  Text('Visualização de aluno'),
-  Text('Pagamentos'),
-  Text('Boletim Escolar')
-];
+const List<Widget> titles = <Widget>[Text('Visualização de aluno'), Text('Pagamentos'), Text('Boletim Escolar')];

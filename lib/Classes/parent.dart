@@ -1,7 +1,7 @@
 class Parent {
   final int id;
 
-  final int cpf;
+  final String cpf;
   final String nome;
   final String email;
   final String password;

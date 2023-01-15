@@ -3,7 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class DatePicker extends StatefulWidget {
-  const DatePicker({super.key});
+  DatePicker({super.key, required this.selectedDate});
+  String selectedDate;
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -13,13 +14,13 @@ class _DatePickerState extends State<DatePicker> {
   TextEditingController dateController = TextEditingController();
   final DateFormat formatter = DateFormat('dd/MM/yyyy');
   final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
-  String _selectedDate = '';
+
 
   /// The method for [DateRangePickerSelectionChanged] callback, which will be
   /// called whenever a selection changed on the date picker widget.
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
-      _selectedDate = args.value.toString();
+      widget.selectedDate = args.value.toString();
     });
   }
 

@@ -1,29 +1,17 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../Constants/constants.dart';
-
 class GradesDialog extends StatefulWidget {
-  final Future<List<List<double>>> organizeGrades;
   final String title;
-  final int index;
+  final List<double> notas;
 
-  const GradesDialog(
-      {super.key,
-      required this.organizeGrades,
-      required this.title,
-      required this.index});
+  const GradesDialog({super.key, required this.title, required this.notas});
 
   @override
-  State<GradesDialog> createState() =>
-      _GradesDialogState(organizeGrades, title, index);
+  State<GradesDialog> createState() => _GradesDialogState();
 }
 
 class _GradesDialogState extends State<GradesDialog> {
-  final Future<List<List<double>>> organizeGrades;
-  final String title;
-  final int index;
-
   List<Color> gradientColors = [
     const Color(0xff23b6e6),
     const Color(0xff02d39a),
@@ -31,92 +19,74 @@ class _GradesDialogState extends State<GradesDialog> {
 
   bool showAvg = true;
 
-  _GradesDialogState(this.organizeGrades, this.title, this.index);
-
-  double media(List<List<double>> data) {
+  double media(List<double> data) {
     double media = 0;
-    for (var i = 0; i < data[index].length; i++) {
-      media += data[index][i];
+    for (var i = 0; i < data.length; i++) {
+      media += data[i];
     }
 
-    media /= data[index].length;
+    media /= data.length;
 
     return media;
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        leading: IconButton(
-          icon: const Icon(Icons.close_rounded),
-          onPressed: () {
-            Navigator.of(context).pop('Closed');
-          },
-        ),
-      ),
-      body: FutureBuilder(
-          future: organizeGrades,
-          builder: (context, AsyncSnapshot<List<List<double>>> data) {
-            if (data.hasData) {
-              double avg = media(data.data!);
-              Future.delayed(const Duration(seconds: 1), () {
-                if (!mounted) return;
-                setState(() {
-                  showAvg = false;
-                });
-              });
-              return Material(
-                  elevation: 0,
-                  borderOnForeground: false,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                      const Text(
-                        'Sua média atual é ',
-                        style: TextStyle(fontSize: 22),
-                      ),
-                      Text(avg.toStringAsPrecision(2),
-                          style: const TextStyle(
-                              fontSize: 32, fontWeight: FontWeight.bold))
-                        ],
-                      ),
-                      AspectRatio(
-                        aspectRatio: 1.70,
-                        child: DecoratedBox(
-                          decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(18)),
-                              color: Color(0xff232d37)),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(12, 24, 18, 12),
-                            child: LineChart(
-                              showAvg
-                                  ? avgData(data.data!, avg)
-                                  : mainData(data.data!),
-                              swapAnimationDuration:
-                                  const Duration(milliseconds: 250), // Optional
-                              swapAnimationCurve: Curves.linear,
-                            ),
-                          ),
-                        ),
-                      ),
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => Future.delayed(const Duration(seconds: 1), () {
+          setState(() {
+            showAvg = false;
+          });
+        }));
+  }
 
-                    ],
-                  ));
-            } else {
-              return const Material(
-                elevation: 0,
-                borderOnForeground: false,
-                child: Center(child: CircularProgressIndicator(color: buttonColor)),
-              );
-            }
-          }),
-    );
+  @override
+  Widget build(BuildContext context) {
+    double avg = media(widget.notas);
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+          leading: IconButton(
+            icon: const Icon(Icons.close_rounded),
+            onPressed: () {
+              Navigator.of(context).pop('Closed');
+            },
+          ),
+        ),
+        body: Material(
+            elevation: 0,
+            borderOnForeground: false,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Sua média atual é ',
+                      style: TextStyle(fontSize: 22),
+                    ),
+                    Text(avg.toStringAsPrecision(2), style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
+                  ],
+                ),
+                AspectRatio(
+                  aspectRatio: 1.70,
+                  child: DecoratedBox(
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(18)), color: Color(0xff232d37)),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 24, 18, 12),
+                      child: LineChart(
+                        showAvg ? avgData(widget.notas, avg) : mainData(widget.notas),
+                        swapAnimationDuration: const Duration(milliseconds: 250), // Optional
+                        swapAnimationCurve: Curves.linear,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )));
   }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
@@ -156,8 +126,7 @@ class _GradesDialogState extends State<GradesDialog> {
         break;
     }
 
-    return SideTitleWidget(
-        axisSide: meta.axisSide, child: Text(text, style: style));
+    return SideTitleWidget(axisSide: meta.axisSide, child: Text(text, style: style));
   }
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
@@ -193,7 +162,7 @@ class _GradesDialogState extends State<GradesDialog> {
     return Text(text, style: style, textAlign: TextAlign.left);
   }
 
-  LineChartData mainData(List<List<double>> data) {
+  LineChartData mainData(List<double> data) {
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -248,11 +217,7 @@ class _GradesDialogState extends State<GradesDialog> {
       maxY: 10,
       lineBarsData: [
         LineChartBarData(
-          spots: data[index]
-              .asMap()
-              .entries
-              .map((e) => FlSpot(e.key.toDouble(), e.value))
-              .toList(),
+          spots: data.asMap().entries.map((e) => FlSpot(e.key.toDouble(), e.value)).toList(),
           isCurved: true,
           gradient: LinearGradient(
             colors: gradientColors,
@@ -265,9 +230,7 @@ class _GradesDialogState extends State<GradesDialog> {
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(
-              colors: gradientColors
-                  .map((color) => color.withOpacity(0.3))
-                  .toList(),
+              colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
             ),
           ),
         ),
@@ -275,7 +238,7 @@ class _GradesDialogState extends State<GradesDialog> {
     );
   }
 
-  LineChartData avgData(List<List<double>> data, double avg) {
+  LineChartData avgData(List<double> data, double avg) {
     return LineChartData(
       lineTouchData: LineTouchData(enabled: false),
       gridData: FlGridData(
@@ -345,10 +308,8 @@ class _GradesDialogState extends State<GradesDialog> {
           isCurved: true,
           gradient: LinearGradient(
             colors: [
-              ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                  .lerp(0.2)!,
-              ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                  .lerp(0.2)!,
+              ColorTween(begin: gradientColors[0], end: gradientColors[1]).lerp(0.2)!,
+              ColorTween(begin: gradientColors[0], end: gradientColors[1]).lerp(0.2)!,
             ],
           ),
           barWidth: 5,
@@ -360,12 +321,8 @@ class _GradesDialogState extends State<GradesDialog> {
             show: true,
             gradient: LinearGradient(
               colors: [
-                ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                    .lerp(0.2)!
-                    .withOpacity(0.1),
-                ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                    .lerp(0.2)!
-                    .withOpacity(0.1),
+                ColorTween(begin: gradientColors[0], end: gradientColors[1]).lerp(0.2)!.withOpacity(0.1),
+                ColorTween(begin: gradientColors[0], end: gradientColors[1]).lerp(0.2)!.withOpacity(0.1),
               ],
             ),
           ),

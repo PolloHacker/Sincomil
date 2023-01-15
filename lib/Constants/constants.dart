@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sincomil/Classes/card.dart';
+import 'package:sincomil/Classes/portrait.dart';
 
 const buttonColor = Color.fromRGBO(31, 117, 42, 1.0);
 const whitePrimary = Color.fromRGBO(255, 255, 255, 1.0);
@@ -37,25 +37,22 @@ const cartas = <String, Color>{
   'bronzecommon': Color.fromRGBO(43, 34, 23, 1),
 };
 
-//const List<String> allCards = ['bronzecommon', 'bronze', 'silvercommon', 'silver', 'goldcommon', 'gold',
-// 'bronzeif', 'silverif', 'goldif', 'headliners', 'shapeshifter', 'flashback', 'motm', 'ice', 'fire', 'tots2', 'tots', 'toty', 'toty2'];
-
 final List<Portrait> allCards = [
   Portrait(name: 'bronzecommon', description: 'Esta é a carta padrão'),
-  Portrait(name: 'bronze', description: 'Esta carta é concedida aos alunos com nota maior do que 60'),
-  Portrait(name: 'silvercommon', description: 'Esta carta é concedida aos alunos com nota maior do que 70'),
-  Portrait(name: 'silver', description: 'Esta carta é concedida aos alunos com nota maior do que 75'),
-  Portrait(name: 'goldcommon', description: 'Esta carta é concedida aos alunos com nota maior do que 80'),
-  Portrait(name: 'gold', description: 'Esta carta é concedida aos alunos com nota maior do que 85'),
+  Portrait(name: 'bronze', description: 'Esta carta é concedida aos alunos com pontuação maior do que 60'),
+  Portrait(name: 'silvercommon', description: 'Esta carta é concedida aos alunos com pontuação maior do que 70'),
+  Portrait(name: 'silver', description: 'Esta carta é concedida aos alunos com pontuação maior do que 75'),
+  Portrait(name: 'goldcommon', description: 'Esta carta é concedida aos alunos com pontuação maior do que 80'),
+  Portrait(name: 'gold', description: 'Esta carta é concedida aos alunos com pontuação maior do que 85'),
   Portrait(
       name: 'bronzeif',
-      description: 'Esta carta é concedida aos alunos que conseguiram 2 notas consecutivas maiores do que 70'),
+      description: 'Esta carta é concedida aos alunos que conseguiram 2 notas consecutivas maiores ou iguais a 7'),
   Portrait(
       name: 'silverif',
-      description: 'Esta carta é concedida aos alunos que conseguiram 2 notas consecutivas maiores do que 80'),
+      description: 'Esta carta é concedida aos alunos que conseguiram 2 notas consecutivas maiores ou iguais a 8'),
   Portrait(
       name: 'goldif',
-      description: 'Esta carta é concedida aos alunos que conseguiram 2 notas consecutivas maiores do que 90'),
+      description: 'Esta carta é concedida aos alunos que conseguiram 2 notas consecutivas maiores ou iguais a 9'),
   Portrait(
       name: 'headliners', description: 'Esta carta é concedida aos alunos que foram agraciados com a medalha garança'),
   Portrait(name: 'shapeshifter', description: 'Esta carta é concedida a todos os atletas.'),
@@ -87,3 +84,19 @@ final List<Portrait> allCards = [
       description:
           'Esta carta é concedida aos alunos que ficaram entre as 3 melhores médias de sua série no SCMB no ano'),
 ];
+
+final List<String> titulos = [
+  'Aluno',
+  'Mensalidade',
+  'Vencimento',
+  'Tipo',
+  'Valor',
+  'Desconto',
+  'Data de pagamento',
+  'Valor pago',
+  'Tipo de pagamento',
+];
+
+final List<String> tipoMens = ['Selecione', 'QME', 'APM'];
+
+final List<String> situacaoPagamento = ['Todos', 'Pago', 'Atrasado', 'Por pagar'];

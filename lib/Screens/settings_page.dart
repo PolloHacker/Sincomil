@@ -83,7 +83,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           onPressed: (context) {},
                         ),
                         SettingsTile.switchTile(
-                          leading: const Icon(Icons.portrait_rounded),
+                            leading: const Icon(Icons.portrait_rounded),
                             initialValue: cardControl,
                             onToggle: (value) {
                               setState(() {
@@ -99,9 +99,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             });
                             _toggleTheme();
                           },
-                          leading: themeControl
-                              ? const Icon(Icons.dark_mode_rounded)
-                              : const Icon(Icons.sunny),
+                          leading: themeControl ? const Icon(Icons.dark_mode_rounded) : const Icon(Icons.sunny),
                           title: const Text('Tema escuro'),
                           initialValue: themeControl,
                         ),
@@ -123,30 +121,24 @@ class _SettingsPageState extends State<SettingsPage> {
                         SettingsTile(
                             leading: const Icon(Icons.delete_rounded),
                             title: const Text('Esquecer informações de login'),
-                            description: const Text(
-                                'Apagar usuário e senha da memória do dispositivo.'),
+                            description: const Text('Apagar usuário e senha da memória do dispositivo.'),
                             onPressed: (context) => showDialog<String>(
                                 context: context,
-                                builder: (BuildContext context) => AlertDialog(
+                                builder: (context) => AlertDialog(
                                       icon: const Icon(Icons.warning_rounded),
-                                      title: const Text(
-                                          "Você deseja apagar as informações de login?",
+                                      title: const Text("Você deseja apagar as informações de login?",
                                           textAlign: TextAlign.center),
-                                      content: const Text(
-                                          "Apagar essas informações impede o login automático.",
-                                      textAlign: TextAlign.center),
+                                      content: const Text("Apagar essas informações impede o login automático.",
+                                          textAlign: TextAlign.center),
                                       actions: <Widget>[
                                         TextButton(
-                                            onPressed: () =>
-                                                Navigator.of(context)
-                                                    .pop('Cancel'),
+                                            onPressed: () => Navigator.of(context).pop('Cancel'),
                                             child: const Text("Cancelar")),
                                         TextButton(
                                           onPressed: () {
                                             storage.delete(key: "KEY_USERNAME");
                                             storage.delete(key: "KEY_PASSWORD");
-                                            Navigator.of(context)
-                                                .pop('OK');
+                                            Navigator.of(context).pop('OK');
                                             final snackBar = SnackBar(
                                               content: const Text('As informações foram apagadas.'),
                                               action: SnackBarAction(
