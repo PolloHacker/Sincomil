@@ -1,5 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:permission_handler/permission_handler.dart';
+import 'package:printing/printing.dart';
+import 'package:sincomil/Screens/print_pdf_page.dart';
 import 'package:sincomil/Widgets/expandable_list_tile.dart';
 
 import '../Classes/payments.dart';
@@ -104,8 +111,8 @@ class _PaymentsPageState extends State<PaymentsPage> {
                 final payment =
                     widget.payments.where((element) => element.aluno == widget.dropdownValue).toList()[index - 1];
                 return ExpandableListTile(
-                    title: payment.aluno,
-                    subtitle: 'Referente à mensalidade ${payment.mensalidade}',
+                    title: Text(payment.aluno, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+                    subtitle: Text('Referente à mensalidade ${payment.mensalidade}', style: const TextStyle(fontSize: 16)),
                     child: Container(
                       padding: const EdgeInsets.only(left: 15, right: 15),
                       child: Column(
@@ -117,40 +124,30 @@ class _PaymentsPageState extends State<PaymentsPage> {
   }
 
   List<Payments> getCount() {
-    List<Payments> filteredPayments = widget.payments
-        .where((element) => element.aluno == widget.dropdownValue)
-        .toList();
+    List<Payments> filteredPayments =
+        widget.payments.where((element) => element.aluno == widget.dropdownValue).toList();
 
     if (mensalidadeValue != tipoMens[0]) {
-      filteredPayments = filteredPayments
-          .where((element) => element.tipo == mensalidadeValue)
-          .toList();
+      filteredPayments = filteredPayments.where((element) => element.tipo == mensalidadeValue).toList();
     }
 
     if (sitPg == situacaoPagamento[1]) {
-      filteredPayments = filteredPayments
-          .where((element) => element.valorPg != '-')
-          .toList();
+      filteredPayments = filteredPayments.where((element) => element.valorPg != '-').toList();
     } else if (sitPg == situacaoPagamento[2]) {
       final formatter = DateFormat('dd/MM/yyyy');
       filteredPayments = filteredPayments
-          .where((element) => element.dtPagamento != '-' &&
-          formatter.parse(element.dtPagamento).isAfter(formatter.parse(element.vencimento)))
+          .where((element) =>
+              element.dtPagamento != '-' &&
+              formatter.parse(element.dtPagamento).isAfter(formatter.parse(element.vencimento)))
           .toList();
     } else if (sitPg == situacaoPagamento[3]) {
-      filteredPayments = filteredPayments
-          .where((element) => element.valorPg == '-')
-          .toList();
+      filteredPayments = filteredPayments.where((element) => element.valorPg == '-').toList();
     }
     return filteredPayments;
   }
 
   List<Widget> getChildren(int index, List<Payments> rows) {
-    final actions = rows[index]
-        .asMap()
-        .entries
-        .skip(2)
-        .map((e) {
+    final actions = rows[index].asMap().entries.skip(2).map((e) {
       return Row(
         children: [
           Text(titulos[e.key], style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
@@ -163,9 +160,13 @@ class _PaymentsPageState extends State<PaymentsPage> {
     actions.add(Row(
       children: [
         const Spacer(flex: 1),
-        IconButton(onPressed: () {}, icon: const Icon(Icons.print)),
-        const Spacer(flex: 2),
-        IconButton(onPressed: () {}, icon: const Icon(Icons.download)),
+        IconButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => PdfPreviewPage(
+                      title: rows[index].mensalidade, tipo: rows[index].tipo, aluno: rows[index].aluno)));
+            },
+            icon: const Icon(Icons.print)),
         const Spacer(flex: 2),
         IconButton(onPressed: () {}, icon: const Icon(Icons.list_alt_rounded)),
         const Spacer(flex: 1),

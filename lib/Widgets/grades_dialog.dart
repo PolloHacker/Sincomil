@@ -32,7 +32,6 @@ class _GradesDialogState extends State<GradesDialog> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) => Future.delayed(const Duration(seconds: 1), () {
           setState(() {
@@ -43,7 +42,10 @@ class _GradesDialogState extends State<GradesDialog> {
 
   @override
   Widget build(BuildContext context) {
-    double avg = media(widget.notas);
+    final toAvg = List.of(widget.notas);
+    toAvg.removeWhere((value) => value == -1);
+    widget.notas.removeWhere((value) => value == -1);
+    double avg = media(toAvg);
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -163,6 +165,7 @@ class _GradesDialogState extends State<GradesDialog> {
   }
 
   LineChartData mainData(List<double> data) {
+    print(data);
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -294,17 +297,7 @@ class _GradesDialogState extends State<GradesDialog> {
       maxY: 10,
       lineBarsData: [
         LineChartBarData(
-          spots: [
-            FlSpot(0, avg),
-            FlSpot(1, avg),
-            FlSpot(2, avg),
-            FlSpot(3, avg),
-            FlSpot(4, avg),
-            FlSpot(5, avg),
-            FlSpot(6, avg),
-            FlSpot(7, avg),
-            FlSpot(8, avg),
-          ],
+          spots: data.asMap().entries.map((e) => FlSpot(e.key.toDouble(), avg)).toList(),
           isCurved: true,
           gradient: LinearGradient(
             colors: [

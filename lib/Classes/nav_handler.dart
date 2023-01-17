@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sincomil/Classes/payments.dart';
 import 'package:sincomil/Classes/subject.dart';
+import 'package:sincomil/Constants/constants.dart';
 import 'grades.dart';
 import 'parent.dart';
 import 'student.dart';
@@ -12,7 +13,7 @@ class NavHandler {
 
   Future<List> check(String email, String pass) async {
     final msg = json.encode(<String, String>{'email': email, 'password': pass});
-    http.Response result = await http.post(Uri.parse('http://192.168.0.8:8000/app/auth'),
+    http.Response result = await http.post(Uri.parse(Urls.auth),
         headers: <String, String>{'Content-Type': 'application/json; charset=utf-8'}, body: msg);
     if (result.statusCode == 200) {
       var data = jsonDecode(result.body);
@@ -30,7 +31,7 @@ class NavHandler {
 
   Future<List<Payments>> getPayments(int id) async {
     final msg = json.encode(<String, int>{'id': id});
-    http.Response result = await http.post(Uri.parse('http://192.168.0.8:8000/app/payments'),
+    http.Response result = await http.post(Uri.parse(Urls.payments),
         headers: <String, String>{'Content-Type': 'application/json; charset=utf-8'}, body: msg);
     if (result.statusCode == 200) {
       var data = jsonDecode(result.body);
@@ -53,7 +54,7 @@ class NavHandler {
       numero = numeros[i];
       final msg = json.encode(<String, String>{"name": nome, "numero": numero.toString()});
       http.Response result = await http.post(
-        Uri.parse('http://192.168.0.8:8000/app/fotos'),
+        Uri.parse(Urls.fotos),
         headers: <String, String>{'Content-Type': 'application/json; charset=utf-8'},
         body: msg,
       );
@@ -76,7 +77,7 @@ class NavHandler {
       numero = numeros[i];
       final msg = json.encode(<String, String>{"name": nome, "numero": numero.toString()});
       http.Response result = await http.post(
-        Uri.parse('http://192.168.0.8:8000/app/fotosBG'),
+        Uri.parse(Urls.fotosBG),
         headers: <String, String>{'Content-Type': 'application/json; charset=utf-8'},
         body: msg,
       );
@@ -94,7 +95,7 @@ class NavHandler {
     final grades = <Grades>[];
     for (String nome in nomes) {
       final msg = json.encode(<String, String>{"name": nome});
-      http.Response result = await http.post(Uri.parse('http://192.168.0.8:8000/app/grades'),
+      http.Response result = await http.post(Uri.parse(Urls.grades),
           headers: <String, String>{'Content-Type': 'application/json; charset=utf-8'}, body: msg);
       if (result.statusCode == 200) {
         var data = jsonDecode(result.body);
@@ -138,7 +139,7 @@ class NavHandler {
     final Subject subjects;
 
     final msg = json.encode(<String, int>{"id": id});
-    http.Response result = await http.post(Uri.parse('http://192.168.0.8:8000/app/subject'),
+    http.Response result = await http.post(Uri.parse(Urls.subject),
         headers: <String, String>{'Content-Type': 'application/json; charset=utf-8'}, body: msg);
     if (result.statusCode == 200) {
       var data = jsonDecode(result.body);
@@ -161,7 +162,7 @@ class NavHandler {
       'cpf': cpf,
       'nascimento': nascimento,
     });
-    http.Response result = await http.post(Uri.parse('http://192.168.0.8:8000/app/pwd'),
+    http.Response result = await http.post(Uri.parse(Urls.password),
         headers: <String, String>{'Content-Type': 'application/json; charset=utf-8'}, body: msg);
     if (result.statusCode == 200) {
       var resp = jsonDecode(result.body);
@@ -173,7 +174,7 @@ class NavHandler {
 
   Future<bool> register(String email, String cpf, String nascimento, String colegio) async {
     final msg = json.encode(<String, String>{'email': email, 'cpf': cpf, 'nascimento': nascimento, 'colegio': colegio});
-    http.Response result = await http.post(Uri.parse('http://192.168.0.8:8000/app/register'),
+    http.Response result = await http.post(Uri.parse(Urls.register),
         headers: <String, String>{'Content-Type': 'application/json; charset=utf-8'}, body: msg);
     if (result.statusCode == 200) {
       var resp = jsonDecode(result.body);

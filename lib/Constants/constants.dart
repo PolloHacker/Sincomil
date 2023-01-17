@@ -6,6 +6,19 @@ const whitePrimary = Color.fromRGBO(255, 255, 255, 1.0);
 const whiteSecondary = Color.fromRGBO(199, 198, 198, 1.0);
 const navigationBarBG = Color.fromRGBO(31, 117, 42, 1.0);
 
+class Urls {
+  static const String baseUrl = 'http://192.168.0.8:8000/app';
+  static const String auth = '$baseUrl/auth';
+  static const String payments = '$baseUrl/payments';
+  static const String fotos = '$baseUrl/fotos';
+  static const String fotosBG = '$baseUrl/fotosBG';
+  static const String grades = '$baseUrl/grades';
+  static const String subject = '$baseUrl/subject';
+  static const String password = '$baseUrl/password';
+  static const String register = '$baseUrl/register';
+}
+
+
 const cartas = <String, Color>{
   //TOP SYS ano
   'toty': Color.fromRGBO(239, 215, 117, 1.0),

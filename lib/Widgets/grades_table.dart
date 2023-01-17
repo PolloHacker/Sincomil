@@ -76,8 +76,18 @@ class GradesTable extends StatelessWidget {
                     ));
           })
         ]);
+        if (e.value.grades.length < 9) {
+          int tam = e.value.grades.length;
+          for (var i = 0; i < 9 - tam; i++) {
+            e.value.grades.add(-1);
+          }
+        }
         for (var element in e.value.grades) {
-          list.cells.add(DataCell(Text(element.toString())));
+          if (element == -1) {
+            list.cells.add(const DataCell(Text("-")));
+          } else {
+            list.cells.add(DataCell(Text(element.toString())));
+          }
         }
         return list;
       }).toList(),

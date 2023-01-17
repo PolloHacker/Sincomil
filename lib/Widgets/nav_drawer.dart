@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sincomil/Classes/student.dart';
 import 'package:sincomil/Provider/app_settings.dart';
-import 'package:sincomil/Screens/card_collection.dart';
+import 'package:sincomil/Screens/card_collection_page.dart';
+import 'package:sincomil/Screens/login_page.dart';
+import 'package:sincomil/Screens/personal_info_page.dart';
 import 'package:sincomil/Screens/settings_page.dart';
 
 import '../Classes/grades.dart';
@@ -27,49 +29,49 @@ class NavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cardSettings = Provider.of<AppSettings>(context, listen: false);
-    if (cardSettings.useCard == "true") {
-      return Drawer(
-        child: Material(
-          child: ListView(
-            // Remove padding
-            padding: EdgeInsets.zero,
-            children: [
-              UserAccountsDrawerHeader(
-                accountName: Text(parent.nome),
-                accountEmail: Text(parent.email),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).appBarTheme.backgroundColor,
-                  image: const DecorationImage(
-                      scale: 0.95,
-                      image: AssetImage("assets/images/sincomil-banner.png")),
-                ),
+    return Drawer(
+      child: Material(
+        child: ListView(
+          // Remove padding
+          padding: EdgeInsets.zero,
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text(parent.nome, style: const TextStyle(color: Colors.white)),
+              accountEmail: Text(parent.email, style: const TextStyle(color: Colors.white)),
+              decoration: BoxDecoration(
+                color: Theme.of(context).appBarTheme.backgroundColor,
+                image: const DecorationImage(scale: 1, image: AssetImage("assets/images/sincomil-banner.png")),
               ),
-              ListTile(
-                leading: const Icon(Icons.person_rounded),
-                title: const Text('Informações pessoais'),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: const Icon(Icons.contact_mail_rounded),
-                title: const Text('Renovação de matrícula'),
-                onTap: () {},
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.settings_rounded),
-                title: const Text('Settings'),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SlideInUp(
-                          child: SettingsPage(parent: parent, data: data))));
-                },
-              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.person_rounded),
+              title: const Text('Informações pessoais'),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SlideInUp(child: PersonalInfoPage(parent: parent, data: data))));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.contact_mail_rounded),
+              title: const Text('Renovação de matrícula'),
+              onTap: () {},
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.settings_rounded),
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SlideInUp(child: SettingsPage(parent: parent, data: data))));
+              },
+            ),
+            if (cardSettings.useCard == "true")
               ListTile(
                 leading: const Icon(Icons.collections),
                 title: const Text('Coleção de cartas'),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SlideInDown(
+                      builder: (context) => SlideInUp(
                               child: CardColection(
                             students: data,
                             fotos: fotos,
@@ -78,75 +80,20 @@ class NavDrawer extends StatelessWidget {
                           ))));
                 },
               ),
-              ListTile(
-                leading: const Icon(Icons.description_rounded),
-                title: const Text('About'),
-                onTap: () {},
-              ),
-              const Divider(),
-              ListTile(
-                title: const Text('Exit'),
-                leading: const Icon(Icons.logout_rounded),
-                onTap: () =>
-                    Navigator.of(context).popUntil((route) => route.isFirst),
-              ),
-            ],
-          ),
+            ListTile(
+              leading: const Icon(Icons.description_rounded),
+              title: const Text('About'),
+              onTap: () {},
+            ),
+            const Divider(),
+            ListTile(
+              title: const Text('Exit'),
+              leading: const Icon(Icons.logout_rounded),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage())),
+            ),
+          ],
         ),
-      );
-    } else {
-      return Drawer(
-        child: Material(
-          child: ListView(
-            // Remove padding
-            padding: EdgeInsets.zero,
-            children: [
-              UserAccountsDrawerHeader(
-                accountName: Text(parent.nome),
-                accountEmail: Text(parent.email),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).appBarTheme.backgroundColor,
-                  image: const DecorationImage(
-                      scale: 0.95,
-                      image: AssetImage("assets/images/sincomil-banner.png")),
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.person_rounded),
-                title: const Text('Informações pessoais'),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: const Icon(Icons.contact_mail_rounded),
-                title: const Text('Renovação de matrícula'),
-                onTap: () {},
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.settings_rounded),
-                title: const Text('Settings'),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SlideInUp(
-                          child: SettingsPage(parent: parent, data: data))));
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.description_rounded),
-                title: const Text('About'),
-                onTap: () {},
-              ),
-              const Divider(),
-              ListTile(
-                title: const Text('Exit'),
-                leading: const Icon(Icons.logout_rounded),
-                onTap: () =>
-                    Navigator.of(context).popUntil((route) => route.isFirst),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
+      ),
+    );
   }
 }
