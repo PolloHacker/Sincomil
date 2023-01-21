@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:sincomil/Classes/student.dart';
 import 'package:sincomil/Provider/app_settings.dart';
 import 'package:sincomil/Screens/card_collection_page.dart';
+import 'package:sincomil/Screens/help_page.dart';
 import 'package:sincomil/Screens/login_page.dart';
 import 'package:sincomil/Screens/personal_info_page.dart';
+import 'package:sincomil/Screens/renew_sub_page.dart';
 import 'package:sincomil/Screens/settings_page.dart';
 
 import '../Classes/grades.dart';
@@ -54,7 +56,10 @@ class NavDrawer extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.contact_mail_rounded),
               title: const Text('Renovação de matrícula'),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SlideInUp(child: RenewSubPage(parent: parent, data: data))));
+              },
             ),
             const Divider(),
             ListTile(
@@ -81,9 +86,11 @@ class NavDrawer extends StatelessWidget {
                 },
               ),
             ListTile(
-              leading: const Icon(Icons.description_rounded),
-              title: const Text('About'),
-              onTap: () {},
+              leading: const Icon(Icons.help_rounded),
+              title: const Text('Ajuda'),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SlideInUp(child: const HelpPage())));
+              },
             ),
             const Divider(),
             ListTile(

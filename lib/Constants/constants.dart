@@ -7,7 +7,8 @@ const whiteSecondary = Color.fromRGBO(199, 198, 198, 1.0);
 const navigationBarBG = Color.fromRGBO(31, 117, 42, 1.0);
 
 class Urls {
-  static const String baseUrl = 'http://192.168.0.8:8000/app';
+  //TODO: change url to website
+  static const String baseUrl = 'http://192.168.0.9:8000/app';
   static const String auth = '$baseUrl/auth';
   static const String payments = '$baseUrl/payments';
   static const String fotos = '$baseUrl/fotos';

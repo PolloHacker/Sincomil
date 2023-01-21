@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +19,7 @@ class _GradesDialogState extends State<GradesDialog> {
     const Color(0xff02d39a),
   ];
 
+  String betterment = 'down';
   bool showAvg = true;
 
   double media(List<double> data) {
@@ -46,6 +49,62 @@ class _GradesDialogState extends State<GradesDialog> {
     toAvg.removeWhere((value) => value == -1);
     widget.notas.removeWhere((value) => value == -1);
     double avg = media(toAvg);
+
+    double before = 0;
+
+    final last = widget.notas.last;
+    if (widget.notas.indexOf(last) > 0) {
+      before = widget.notas[widget.notas.indexOf(last) - 1];
+    } else {
+      before = widget.notas[0];
+    }
+    if (last > before) {
+      betterment = 'up';
+    } else if(last == before) {
+      betterment = 'no';
+    } else {
+      betterment = 'down';
+    }
+
+    final List<Widget> stats;
+    if (betterment == 'up') {
+      stats = [
+        Row(
+          children: [
+            const Spacer(),
+            const Icon(Icons.arrow_upward_rounded),
+            Text(((last * 100) / before - 100).toStringAsPrecision(3), style: const TextStyle(fontSize: 32)),
+            const Spacer(),
+          ],
+        ),
+        const Text("Melhora em relação à última prova")
+      ];
+    } else if (betterment == 'down') {
+      stats = [
+        Row(
+          children: [
+            const Spacer(),
+            const Icon(Icons.arrow_downward_rounded),
+            Text(((before * 100) / last - 100).toStringAsPrecision(3), style: const TextStyle(fontSize: 32)),
+            const Spacer(),
+          ],
+        ),
+        const Text("Decréscimo em relação à última prova")
+      ];
+    } else {
+      stats = [
+        Row(
+          children: [
+            const Spacer(),
+            const Icon(Icons.unfold_less_double_rounded),
+            Text(((before * 100) / last - 100).toStringAsPrecision(3), style: const TextStyle(fontSize: 32)),
+            const Spacer(),
+          ],
+        ),
+        const Text("Estabilidade em relação à última prova")
+      ];
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -59,19 +118,9 @@ class _GradesDialogState extends State<GradesDialog> {
         body: Material(
             elevation: 0,
             borderOnForeground: false,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: ListView(
+              shrinkWrap: true,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Sua média atual é ',
-                      style: TextStyle(fontSize: 22),
-                    ),
-                    Text(avg.toStringAsPrecision(2), style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
-                  ],
-                ),
                 AspectRatio(
                   aspectRatio: 1.70,
                   child: DecoratedBox(
@@ -87,8 +136,52 @@ class _GradesDialogState extends State<GradesDialog> {
                     ),
                   ),
                 ),
+                Card(
+                  elevation: 3,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Sua média atual é ',
+                            style: TextStyle(fontSize: 22),
+                          ),
+                          Text(avg.toStringAsPrecision(2),
+                              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
+                        ],
+                      ),
+                      infoGrades(),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: stats,
+                      )
+                    ],
+                  ),
+                ),
               ],
             )));
+  }
+
+  Widget infoGrades() {
+    return Row(
+      children: [
+        const Spacer(flex: 1),
+        Column(children: [
+          const Padding(padding: EdgeInsets.all(5), child: Text("Pior Nota")),
+          Text(widget.notas.reduce(min).toString(), style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
+        ]),
+        const Spacer(flex: 1),
+        const Spacer(flex: 1),
+        Column(
+          children: [
+            const Padding(padding: EdgeInsets.all(5), child: Text("Melhor Nota")),
+            Text(widget.notas.reduce(max).toString(), style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
+          ],
+        ),
+        const Spacer(flex: 1),
+      ],
+    );
   }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
@@ -165,7 +258,6 @@ class _GradesDialogState extends State<GradesDialog> {
   }
 
   LineChartData mainData(List<double> data) {
-    print(data);
     return LineChartData(
       gridData: FlGridData(
         show: true,

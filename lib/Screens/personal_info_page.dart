@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
@@ -100,7 +101,8 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
               ),
             ),
             _pwd
-                ? Card(
+                ? SlideInRight(
+                    child: Card(
                     elevation: 4,
                     child: ListTile(
                       title: Column(
@@ -200,8 +202,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                         ],
                       ),
                     ),
-                  )
-                : ListTile(
+                  ))
+                : SlideInLeft(
+                    child: ListTile(
                     leading: const Icon(Icons.lock_outline_rounded),
                     title: Row(
                       children: [
@@ -227,11 +230,15 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                         _pwd = true;
                       });
                     },
-                  ),
+                  )),
             ListTile(
               leading: const Icon(Icons.fact_check_rounded),
               title: Row(
-                children: [const Text("CPF"), const Spacer(), Text(widget.parent.cpf.replaceRange(2, 12, '*.***.***-'))],
+                children: [
+                  const Text("CPF"),
+                  const Spacer(),
+                  Text(widget.parent.cpf.replaceRange(2, 12, '*.***.***-'))
+                ],
               ),
             ),
             Card(
