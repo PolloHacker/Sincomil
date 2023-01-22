@@ -89,7 +89,8 @@ class NavDrawer extends StatelessWidget {
               leading: const Icon(Icons.help_rounded),
               title: const Text('Ajuda'),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SlideInUp(child: const HelpPage())));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SlideInUp(child: HelpPage(parent: parent, students: data))));
               },
             ),
             const Divider(),

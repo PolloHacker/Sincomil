@@ -42,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
 
   bool forgot = false;
   bool signUp = false;
+  bool pushing = false;
 
   //normal login controllers
   TextEditingController nameController = TextEditingController();
@@ -107,7 +108,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget forgotPass() {
-    //TODO: add method to send data to server
     return SlideInRight(
         child: Card(
       elevation: 5.0,
@@ -327,6 +327,9 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: ElevatedButton(
                 onPressed: () async {
+                  setState(() {
+                    pushing = true;
+                  });
                   final String email = nameController.text;
                   final String pass = passwordController.text;
                   List read = [];
@@ -372,13 +375,15 @@ class _LoginPageState extends State<LoginPage> {
                           ))));
                 },
                 style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(50)),
-                child: Text('Login',
-                    style: TextStyle(
-                        color: Theme.of(context)
-                            .elevatedButtonTheme
-                            .style
-                            ?.foregroundColor
-                            ?.resolve({MaterialState.pressed}))),
+                child: pushing
+                    ? const CircularProgressIndicator()
+                    : Text('Login',
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .elevatedButtonTheme
+                                .style
+                                ?.foregroundColor
+                                ?.resolve({MaterialState.pressed}))),
               )),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

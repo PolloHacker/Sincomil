@@ -21,6 +21,8 @@ class _FingerPageState extends State<FingerPage> {
   final storage = const FlutterSecureStorage();
   dynamic grades;
 
+  bool pushing = false;
+
   final LocalAuthentication auth = LocalAuthentication();
   String _authorized = 'Not Authorized';
 
@@ -105,6 +107,7 @@ class _FingerPageState extends State<FingerPage> {
               _authorized == 'Authorized'
                   ? setState(() {
                       _currIndex = 1;
+                      pushing = true;
                       _readFromStorage().then((dt) async {
                         final read = await const NavHandler().check(dt[0], dt[1]);
                         final parent = read[0];
@@ -122,7 +125,13 @@ class _FingerPageState extends State<FingerPage> {
                         grades = await const NavHandler().getGrades(nomes);
                         final payments = await const NavHandler().getPayments(parent.id);
 
-                        await Future.delayed(const Duration(seconds: 1), () => {setState(() => _currIndex = 0)});
+                        await Future.delayed(
+                            const Duration(seconds: 1),
+                            () => {
+                                  setState(() {
+                                    _currIndex = 0;
+                                  })
+                                });
                         if (!mounted) return;
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => SlideInUp(
@@ -141,9 +150,9 @@ class _FingerPageState extends State<FingerPage> {
                   : await error();
             },
           ),
-          const Text(
-            'Toque o sensor de impressão digital',
-            style: TextStyle(fontSize: 20),
+          Text(
+            pushing ? 'Recebendo dados' : 'Toque o sensor de impressão digital',
+            style: const TextStyle(fontSize: 20),
           ),
           const Spacer(),
           const Spacer(),

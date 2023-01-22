@@ -117,11 +117,21 @@ class _WelcomePageState extends State<WelcomePage> with TickerProviderStateMixin
               ),
             );
           } else {
-            return const Material(
+            return Material(
               elevation: 0,
               borderOnForeground: false,
               child: Center(
-                child: CircularProgressIndicator(color: buttonColor),
+                child: Column(
+                  children: const [
+                    Spacer(),
+                    CircularProgressIndicator(color: buttonColor),
+                    Text(
+                      "Recebendo dados",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Spacer(),
+                  ],
+                ),
               ),
             );
           }
