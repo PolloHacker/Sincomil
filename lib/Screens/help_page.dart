@@ -51,14 +51,13 @@ class _HelpPageState extends State<HelpPage> {
                               content: const Text("Clique fora do diálogo para cancelar",
                                   textAlign: TextAlign.center),
                               actions: <Widget>[
-                                //TODO: handle DDD
                                 Row(
                                   children: [
                                     const Spacer(),
                                     TextButton(
                                         onPressed: () {
                                           tel = entry[0];
-                                          launchUrl(Uri.parse("tel:+55(31)$tel"));
+                                          launchUrl(Uri.parse("tel:$tel"));
                                         },
                                         child: Row(
                                           children: [const Icon(Icons.call_rounded), Text(entry[0])],
@@ -67,7 +66,7 @@ class _HelpPageState extends State<HelpPage> {
                                     TextButton(
                                         onPressed: () {
                                           tel = entry[1];
-                                          launchUrl(Uri.parse("tel:+55(31)$tel"));
+                                          launchUrl(Uri.parse("tel:$tel"));
                                         },
                                         child: Row(
                                           children: [const Icon(Icons.call_rounded), Text(entry[1])],
