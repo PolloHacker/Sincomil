@@ -23,4 +23,12 @@ class Parent {
       password: json['password']
     );
   }
+
+  Map<String, String> asMap() {
+    return {
+      'nome': nome,
+      'cpf': cpf,
+      'email': email
+    };
+  }
 }

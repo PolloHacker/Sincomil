@@ -70,4 +70,19 @@ class Student {
         orphan: json['orphan'],
         especial: json['especial']);
   }
+
+  Map<String, String> asMap() {
+    return {
+      'nome': nome,
+      'nomeGuerra': nomeGuerra,
+      'email': email,
+      'cpf': cpf,
+      'telefone': telefone,
+      'nacionalidade': nacionalidade,
+      'uf': uf,
+      'naturalidade': naturalidade,
+      'identidade': identidade,
+      'cor': cor,
+    };
+  }
 }

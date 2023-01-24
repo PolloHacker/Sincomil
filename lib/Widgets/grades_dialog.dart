@@ -18,6 +18,11 @@ class _GradesDialogState extends State<GradesDialog> {
     const Color(0xff23b6e6),
     const Color(0xff02d39a),
   ];
+  List<double> toAvg = List.empty(growable: true);
+  List<Widget> stats = List.empty(growable: true);
+
+  double last = 0;
+  double avg = 0;
 
   String betterment = 'down';
   bool showAvg = true;
@@ -35,6 +40,7 @@ class _GradesDialogState extends State<GradesDialog> {
 
   @override
   void initState() {
+    getStats();
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) => Future.delayed(const Duration(seconds: 1), () {
           setState(() {
@@ -43,16 +49,15 @@ class _GradesDialogState extends State<GradesDialog> {
         }));
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final toAvg = List.of(widget.notas);
+  void getStats() {
+    toAvg = List.of(widget.notas);
     toAvg.removeWhere((value) => value == -1);
     widget.notas.removeWhere((value) => value == -1);
-    double avg = media(toAvg);
+    avg = media(toAvg);
 
     double before = 0;
 
-    final last = widget.notas.last;
+    last = widget.notas.last;
     if (widget.notas.indexOf(last) > 0) {
       before = widget.notas[widget.notas.indexOf(last) - 1];
     } else {
@@ -60,51 +65,76 @@ class _GradesDialogState extends State<GradesDialog> {
     }
     if (last > before) {
       betterment = 'up';
-    } else if(last == before) {
+    } else if (last == before) {
       betterment = 'no';
     } else {
       betterment = 'down';
     }
 
-    final List<Widget> stats;
-    if (betterment == 'up') {
-      stats = [
-        Row(
-          children: [
-            const Spacer(),
-            const Icon(Icons.arrow_upward_rounded),
-            Text(((last * 100) / before - 100).toStringAsPrecision(3), style: const TextStyle(fontSize: 32)),
-            const Spacer(),
-          ],
-        ),
-        const Text("Melhora em relação à última prova")
-      ];
-    } else if (betterment == 'down') {
-      stats = [
-        Row(
-          children: [
-            const Spacer(),
-            const Icon(Icons.arrow_downward_rounded),
-            Text(((before * 100) / last - 100).toStringAsPrecision(3), style: const TextStyle(fontSize: 32)),
-            const Spacer(),
-          ],
-        ),
-        const Text("Decréscimo em relação à última prova")
-      ];
-    } else {
-      stats = [
-        Row(
-          children: [
-            const Spacer(),
-            const Icon(Icons.unfold_less_double_rounded),
-            Text(((before * 100) / last - 100).toStringAsPrecision(3), style: const TextStyle(fontSize: 32)),
-            const Spacer(),
-          ],
-        ),
-        const Text("Estabilidade em relação à última prova")
-      ];
-    }
+    stats = [
+      Row(
+        children: [
+          const Spacer(),
+          Icon(betterment == 'up'
+              ? Icons.arrow_upward_rounded
+              : betterment == 'down'
+                  ? Icons.arrow_downward_rounded
+                  : Icons.unfold_less_double_rounded),
+          Text(
+              "${betterment == 'up' ? ((last * 100) / before - 100).toStringAsPrecision(3) : ((before * 100) / last - 100).toStringAsPrecision(3)}%",
+              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+          const Spacer(),
+        ],
+      ),
+      Text(betterment == 'up'
+          ? "Melhora em relação à última prova"
+          : betterment == 'down'
+              ? "Decréscimo em relação à última prova"
+              : "Estabilidade em relação à última prova")
+    ];
 
+    double passouAno = 60.0 - widget.notas.reduce((a, b) => a + b);
+
+    stats.addAll([
+      Row(
+        children: [
+          const Spacer(flex: 1),
+          Column(children: [
+            Text((widget.notas.length * 10).toString(),
+                style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+            const Padding(padding: EdgeInsets.all(5), child: Text("Pontos distribuidos"))
+          ]),
+          const Spacer(flex: 1),
+          const Spacer(flex: 1),
+          Column(
+            children: [
+              Text(widget.notas.reduce((a, b) => a + b).toString(),
+                  style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+              const Padding(padding: EdgeInsets.all(5), child: Text("Pontos Obtidos"))
+            ],
+          ),
+          const Spacer(flex: 1),
+        ],
+      ),
+      Row(
+        children: [
+          const Spacer(),
+          !passouAno.isNegative
+              ? Text(passouAno.toStringAsPrecision(3),
+                  style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
+              : Container(),
+          const Spacer()
+        ],
+      ),
+      passouAno.isNegative
+          ? const Text("Você passou de ano nesta disciplina",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+          : const Text("Pontos para passar de ano")
+    ]);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -168,15 +198,16 @@ class _GradesDialogState extends State<GradesDialog> {
       children: [
         const Spacer(flex: 1),
         Column(children: [
-          const Padding(padding: EdgeInsets.all(5), child: Text("Pior Nota")),
-          Text(widget.notas.reduce(min).toString(), style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
+          Text(widget.notas.reduce(min).toString(), style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+          const Padding(padding: EdgeInsets.all(5), child: Text("Pior Nota"))
         ]),
         const Spacer(flex: 1),
         const Spacer(flex: 1),
         Column(
           children: [
-            const Padding(padding: EdgeInsets.all(5), child: Text("Melhor Nota")),
-            Text(widget.notas.reduce(max).toString(), style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
+            Text(widget.notas.reduce(max).toString(),
+                style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+            const Padding(padding: EdgeInsets.all(5), child: Text("Melhor Nota"))
           ],
         ),
         const Spacer(flex: 1),
