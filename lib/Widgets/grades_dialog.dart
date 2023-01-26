@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:animate_do/animate_do.dart';
+import 'package:countup/countup.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +25,7 @@ class _GradesDialogState extends State<GradesDialog> {
 
   double last = 0;
   double avg = 0;
+  double passouAno = 0;
 
   String betterment = 'down';
   bool showAvg = true;
@@ -58,8 +61,8 @@ class _GradesDialogState extends State<GradesDialog> {
     double before = 0;
 
     last = widget.notas.last;
-    if (widget.notas.indexOf(last) > 0) {
-      before = widget.notas[widget.notas.indexOf(last) - 1];
+    if (widget.notas.lastIndexOf(last) > 0) {
+      before = widget.notas[widget.notas.lastIndexOf(last) - 1];
     } else {
       before = widget.notas[0];
     }
@@ -80,10 +83,13 @@ class _GradesDialogState extends State<GradesDialog> {
               : betterment == 'down'
                   ? Icons.arrow_downward_rounded
                   : Icons.unfold_less_double_rounded),
-          Text(
-              "${betterment == 'up' ? ((last * 100) / before - 100).toStringAsPrecision(3) : ((before * 100) / last - 100).toStringAsPrecision(3)}%",
+          Countup(
+              begin: 0,
+              end: betterment == 'up' ? (last * 100) / before - 100 : (before * 100) / last - 100,
+              precision: 2,
+              duration: const Duration(milliseconds: 1500),
               style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-          const Spacer(),
+          const Spacer()
         ],
       ),
       Text(betterment == 'up'
@@ -93,14 +99,18 @@ class _GradesDialogState extends State<GradesDialog> {
               : "Estabilidade em relação à última prova")
     ];
 
-    double passouAno = 60.0 - widget.notas.reduce((a, b) => a + b);
+    passouAno = 60.0 - widget.notas.reduce((a, b) => a + b);
 
     stats.addAll([
       Row(
         children: [
           const Spacer(flex: 1),
           Column(children: [
-            Text((widget.notas.length * 10).toString(),
+            Countup(
+                begin: 0,
+                end: (widget.notas.length * 10),
+                precision: 0,
+                duration: const Duration(milliseconds: 1500),
                 style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
             const Padding(padding: EdgeInsets.all(5), child: Text("Pontos distribuidos"))
           ]),
@@ -108,7 +118,11 @@ class _GradesDialogState extends State<GradesDialog> {
           const Spacer(flex: 1),
           Column(
             children: [
-              Text(widget.notas.reduce((a, b) => a + b).toString(),
+              Countup(
+                  begin: 0,
+                  end: widget.notas.reduce((a, b) => a + b),
+                  precision: 1,
+                  duration: const Duration(milliseconds: 1500),
                   style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
               const Padding(padding: EdgeInsets.all(5), child: Text("Pontos Obtidos"))
             ],
@@ -120,7 +134,11 @@ class _GradesDialogState extends State<GradesDialog> {
         children: [
           const Spacer(),
           !passouAno.isNegative
-              ? Text(passouAno.toStringAsPrecision(3),
+              ? Countup(
+                  begin: 0,
+                  end: passouAno,
+                  precision: 1,
+                  duration: const Duration(milliseconds: 1500),
                   style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
               : Container(),
           const Spacer()
@@ -129,68 +147,85 @@ class _GradesDialogState extends State<GradesDialog> {
       passouAno.isNegative
           ? const Text("Você passou de ano nesta disciplina",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
-          : const Text("Pontos para passar de ano")
+          : const Text("Pontos para passar de ano"),
+      passouAno.isNegative
+          ? ZoomIn(
+              child: const Icon(
+              Icons.check_circle_outline_rounded,
+              size: 80,
+              color: Colors.green,
+            ))
+          : Container()
     ]);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          leading: IconButton(
-            icon: const Icon(Icons.close_rounded),
-            onPressed: () {
-              Navigator.of(context).pop('Closed');
-            },
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(widget.title),
+            leading: IconButton(
+              icon: const Icon(Icons.close_rounded),
+              onPressed: () {
+                Navigator.of(context).pop('Closed');
+              },
+            ),
           ),
-        ),
-        body: Material(
-            elevation: 0,
-            borderOnForeground: false,
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                AspectRatio(
-                  aspectRatio: 1.70,
-                  child: DecoratedBox(
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(18)), color: Color(0xff232d37)),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 24, 18, 12),
-                      child: LineChart(
-                        showAvg ? avgData(widget.notas, avg) : mainData(widget.notas),
-                        swapAnimationDuration: const Duration(milliseconds: 250), // Optional
-                        swapAnimationCurve: Curves.linear,
+          body: ListView(
+            shrinkWrap: true,
+            children: [
+              Card(
+                elevation: 3,
+                child: Column(
+                  children: [
+                    AspectRatio(
+                      aspectRatio: 1.50,
+                      child: DecoratedBox(
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(12)), color: Color(0xff232d37)),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(12, 44, 18, 12),
+                          child: LineChart(
+                            showAvg ? avgData(widget.notas, avg) : mainData(widget.notas),
+                            swapAnimationDuration: const Duration(milliseconds: 250), // Optional
+                            swapAnimationCurve: Curves.linear,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Sua média atual é ',
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            Countup(
+                                begin: 0,
+                                end: avg,
+                                precision: 1,
+                                duration: const Duration(milliseconds: 1500),
+                                style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
+                          ],
+                        ),
+                        infoGrades(),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: stats,
+                        )
+                      ],
+                    ),
+                  ],
                 ),
-                Card(
-                  elevation: 3,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Sua média atual é ',
-                            style: TextStyle(fontSize: 22),
-                          ),
-                          Text(avg.toStringAsPrecision(2),
-                              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
-                        ],
-                      ),
-                      infoGrades(),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: stats,
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            )));
+              )
+            ],
+          ),
+          backgroundColor: Colors.transparent,
+        ));
   }
 
   Widget infoGrades() {
@@ -198,14 +233,23 @@ class _GradesDialogState extends State<GradesDialog> {
       children: [
         const Spacer(flex: 1),
         Column(children: [
-          Text(widget.notas.reduce(min).toString(), style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+          Countup(
+              begin: 0,
+              end: widget.notas.reduce(min),
+              precision: 1,
+              duration: const Duration(milliseconds: 1500),
+              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
           const Padding(padding: EdgeInsets.all(5), child: Text("Pior Nota"))
         ]),
         const Spacer(flex: 1),
         const Spacer(flex: 1),
         Column(
           children: [
-            Text(widget.notas.reduce(max).toString(),
+            Countup(
+                begin: 0,
+                end: widget.notas.reduce(max),
+                precision: 1,
+                duration: const Duration(milliseconds: 1500),
                 style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
             const Padding(padding: EdgeInsets.all(5), child: Text("Melhor Nota"))
           ],

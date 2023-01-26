@@ -55,6 +55,7 @@ dependencies:
   pdf: ^3.8.4
   permission_handler: ^10.2.0
   url_launcher: ^6.1.8
+  countup: ^0.1.4
 
 dev_dependencies:
   flutter_test:

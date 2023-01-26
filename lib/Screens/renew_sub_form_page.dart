@@ -4,9 +4,10 @@ import '../Classes/parent.dart';
 import '../Classes/student.dart';
 
 class RenewSubFormPage extends StatefulWidget {
-  const RenewSubFormPage({super.key, required this.parent, required this.student});
+  const RenewSubFormPage({super.key, required this.parent, required this.student, required this.callback});
   final Parent parent;
   final Student student;
+  final Function callback;
 
   @override
   State<RenewSubFormPage> createState() => _RenewSubFormPageState();
@@ -38,11 +39,14 @@ class _RenewSubFormPageState extends State<RenewSubFormPage> {
         title: const Text("Renovação de Matrícula"),
         //TODO: Send Data to server
         actions: [IconButton(onPressed: () {
+
           const snackBar = SnackBar(
             content: Text('A solicitação foi enviada'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          widget.callback(widget.student,"DOING");
           Navigator.of(context).pop("Data sent");
-        }, icon: const Icon(Icons.send_rounded))],
+        },
+          icon: const Icon(Icons.send_rounded))],
       ),
       body: Container(
         padding: const EdgeInsets.all(10),

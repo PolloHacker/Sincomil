@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 import '../Classes/grades.dart';
@@ -71,8 +72,9 @@ class GradesTable extends StatelessWidget {
             showDialog(
                 context: context,
                 builder: (context) => Dialog(
+                      backgroundColor: Colors.transparent,
                       insetPadding: const EdgeInsets.all(10),
-                      child: GradesDialog(title: e.value.name, notas: e.value.grades),
+                      child: SlideInUp(child: GradesDialog(title: e.value.name, notas: e.value.grades)),
                     ));
           })
         ]);

@@ -16,6 +16,24 @@ class RenewSubPage extends StatefulWidget {
 }
 
 class _RenewSubPageState extends State<RenewSubPage> {
+  List<String> situation = List.empty(growable: true);
+
+  void callback(Student stu, String value) {
+    setState(() {
+      situation[widget.data.indexOf(stu)] = value;
+    });
+  }
+
+  @override
+  void initState() {
+    if (situation.isEmpty) {
+      situation = List.filled(widget.data.length, "TODO");
+    }
+    // TODO: see if any student has pending requests or is already subscribed
+    super.initState();
+  }
+
+  //TODO: Implement FutureBuilder to see data on server and return the good results
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,19 +47,31 @@ class _RenewSubPageState extends State<RenewSubPage> {
           itemCount: widget.data.length,
           itemBuilder: (BuildContext context, int index) {
             // TODO: handle student requests
-            //TODO: change color of requirement
             return ListTile(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        SlideInUp(child: RenewSubFormPage(parent: widget.parent, student: widget.data[index]))));
-              },
+              onTap: situation[index] == "TODO"
+                  ? () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => SlideInUp(
+                              child: RenewSubFormPage(
+                                  parent: widget.parent, student: widget.data[index], callback: callback))));
+                    }
+                  : () {},
               title: Text(widget.data[index].nomeGuerra),
-              subtitle: const Text("toque para solicitar"),
-              trailing: const Card(
+              subtitle: situation[index] == "TODO" ? const Text("toque para solicitar") : Container(),
+              trailing: Card(
                 elevation: 2,
-                color: Colors.orangeAccent,
-                child: Padding(padding: EdgeInsets.all(5), child: Text("não solicitado")),
+                color: situation[index] == "TODO"
+                    ? Colors.orangeAccent
+                    : situation[index] == "DOING"
+                        ? Colors.lightGreen
+                        : Colors.green,
+                child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: situation[index] == "TODO"
+                        ? const Text("não solicitado")
+                        : situation[index] == "DOING"
+                            ? const Text("em andamento")
+                            : const Text("rematriculado")),
               ),
             );
           },

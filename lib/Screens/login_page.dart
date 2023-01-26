@@ -338,6 +338,9 @@ class _LoginPageState extends State<LoginPage> {
                   } catch (error) {
                     const snackBar = SnackBar(content: Text("Email ou senha inválidos."));
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    setState(() {
+                      pushing = false;
+                    });
                   }
                   final Parent parent = read[0];
                   final List<Student> data = read[1];
