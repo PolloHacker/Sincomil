@@ -89,7 +89,6 @@ class AppSettings extends ChangeNotifier {
   void changePortrait(String portrait, String nome) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     _portrait[nome] = portrait;
-    print('Changed prortrait for $nome to $portrait');
     sharedPreferences.setString(currentCard + nome, portrait);
     notifyListeners();
   }

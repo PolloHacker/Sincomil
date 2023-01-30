@@ -75,7 +75,7 @@ class _PortraitCardState extends State<PortraitCard> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Image.asset('assets/images/Cartinhas/${e.value.name}.png',
-                                        width: MediaQuery.sizeOf(context).width * 0.483),
+                                        width: MediaQuery.of(context).size.width * 0.483),
                                     Expanded(child: Text(e.value.description, textAlign: TextAlign.center))
                                   ],
                                 ))
@@ -83,7 +83,7 @@ class _PortraitCardState extends State<PortraitCard> {
                                 key: UniqueKey(),
                                 elevation: 10,
                                 child: Image.asset('assets/images/Cartinhas/${e.value.name}.png',
-                                    width: MediaQuery.sizeOf(context).width * 0.483),
+                                    width: MediaQuery.of(context).size.width * 0.483),
                               )
                         : widget.expanded[e.key]
                             ? Card(
@@ -93,7 +93,7 @@ class _PortraitCardState extends State<PortraitCard> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Image.asset('assets/images/Cartinhas/${e.value.name}.png',
-                                        width: MediaQuery.sizeOf(context).width * 0.483),
+                                        width: MediaQuery.of(context).size.width * 0.483),
                                     Expanded(child: Text(e.value.description, textAlign: TextAlign.center))
                                   ],
                                 ))
@@ -101,7 +101,7 @@ class _PortraitCardState extends State<PortraitCard> {
                                 key: UniqueKey(),
                                 elevation: 0,
                                 child: Image.asset('assets/images/Cartinhas/${e.value.name}.png',
-                                    width: MediaQuery.sizeOf(context).width * 0.483),
+                                    width: MediaQuery.of(context).size.width * 0.483),
                               )
                     : widget.expanded[e.key]
                         ? Card(
@@ -113,7 +113,7 @@ class _PortraitCardState extends State<PortraitCard> {
                                 Stack(
                                   children: [
                                     Image.asset('assets/images/Cartinhas/${e.value.name}.png',
-                                        width: MediaQuery.sizeOf(context).width * 0.483),
+                                        width: MediaQuery.of(context).size.width * 0.483),
                                     Positioned.fill(
                                         child: ClipRect(
                                       child: BackdropFilter(
@@ -136,7 +136,7 @@ class _PortraitCardState extends State<PortraitCard> {
                             child: Stack(
                               children: [
                                 Image.asset('assets/images/Cartinhas/${e.value.name}.png',
-                                    width: MediaQuery.sizeOf(context).width * 0.483),
+                                    width: MediaQuery.of(context).size.width * 0.483),
                                 Positioned.fill(
                                     child: ClipRect(
                                   child: BackdropFilter(

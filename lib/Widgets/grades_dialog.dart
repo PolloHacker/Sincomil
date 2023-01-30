@@ -89,6 +89,7 @@ class _GradesDialogState extends State<GradesDialog> {
               precision: 2,
               duration: const Duration(milliseconds: 1500),
               style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+          const Text("%", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
           const Spacer()
         ],
       ),

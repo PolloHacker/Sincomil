@@ -13,7 +13,7 @@ class PdfPreviewPage extends StatelessWidget {
   Future<Uint8List> getPdf() async {
     final pdf = pw.Document(title: title);
     //TODO:get image from source
-    final netImage = await networkImage('https://www.nfet.net/nfet.jpg');
+    final netImage = await networkImage('https://sincomil.eb.mil.br/images/logo-gray.png');
     pdf.addPage(pw.Page(build: (pw.Context context) {
       return pw.Center(
         child: pw.Image(netImage),

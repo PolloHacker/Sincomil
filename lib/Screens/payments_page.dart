@@ -1,11 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:permission_handler/permission_handler.dart';
-import 'package:printing/printing.dart';
 import 'package:sincomil/Screens/print_pdf_page.dart';
 import 'package:sincomil/Widgets/expandable_list_tile.dart';
 
