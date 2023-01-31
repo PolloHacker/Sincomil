@@ -8,7 +8,7 @@ const navigationBarBG = Color.fromRGBO(31, 117, 42, 1.0);
 
 class Urls {
   //TODO: change url to website
-  static const String baseUrl = 'https://2e04-191-185-192-122.sa.ngrok.io/app';
+  static const String baseUrl = 'https://91aa-191-185-192-122.sa.ngrok.io/app';
   static const String auth = '$baseUrl/auth';
   static const String payments = '$baseUrl/payments';
   static const String fotos = '$baseUrl/fotos';
