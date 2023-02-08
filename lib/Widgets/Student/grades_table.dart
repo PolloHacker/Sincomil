@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
-import '../Classes/grades.dart';
+import '../../Classes/Student/grades.dart';
 import 'grades_dialog.dart';
 
 class GradesTable extends StatelessWidget {

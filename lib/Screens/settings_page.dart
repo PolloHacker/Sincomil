@@ -3,10 +3,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sincomil/Constants/shared_constants.dart';
+import 'package:sincomil/Constants/SharedPrefs/shared_constants.dart';
 import 'package:sincomil/Provider/app_settings.dart';
-import '../Classes/parent.dart';
-import '../Classes/student.dart';
+import '../Classes/Parent/parent.dart';
+import '../Classes/Student/student.dart';
 
 class SettingsPage extends StatefulWidget {
   final Parent parent;

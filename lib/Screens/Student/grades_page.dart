@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sincomil/Provider/app_settings.dart';
-import 'package:sincomil/Widgets/grades_radar.dart';
-import 'package:sincomil/Widgets/grades_table.dart';
-import 'package:sincomil/Widgets/player_card.dart';
+import 'package:sincomil/Widgets/Student/grades_radar.dart';
+import 'package:sincomil/Widgets/Student/grades_table.dart';
+import 'package:sincomil/Widgets/Portraits/player_card.dart';
 
-import '../Classes/grades.dart';
+import '../../Classes/Student/grades.dart';
 
 class GradesPage extends StatelessWidget {
   final List<Grades> notas;

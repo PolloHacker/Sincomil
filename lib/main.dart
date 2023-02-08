@@ -6,12 +6,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
-import 'package:sincomil/Constants/shared_constants.dart';
+import 'package:sincomil/Constants/SharedPrefs/shared_constants.dart';
 import 'package:sincomil/Provider/app_settings.dart';
-import 'package:sincomil/Screens/finger_page.dart';
-import 'package:sincomil/Screens/login_page.dart';
+import 'package:sincomil/Screens/Auth/finger_page.dart';
+import 'package:sincomil/Screens/Auth/login_page.dart';
 import 'Constants/constants.dart';
-import 'Screens/welcome_page.dart';
+import 'Screens/Auth/welcome_page.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

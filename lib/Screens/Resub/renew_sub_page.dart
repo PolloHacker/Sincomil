@@ -1,9 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:sincomil/Screens/renew_sub_form_page.dart';
+import 'package:sincomil/Screens/Resub/renew_sub_form_page.dart';
 
-import '../Classes/parent.dart';
-import '../Classes/student.dart';
+import '../../Classes/Parent/parent.dart';
+import '../../Classes/Student/student.dart';
 
 class RenewSubPage extends StatefulWidget {
   const RenewSubPage({super.key, required this.parent, required this.data});

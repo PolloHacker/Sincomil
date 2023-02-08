@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sincomil/Constants/shared_constants.dart';
+import 'package:sincomil/Constants/SharedPrefs/shared_constants.dart';
 
-import '../Classes/grades.dart';
-import '../Constants/constants.dart';
+import '../../Classes/Student/grades.dart';
+import '../../Constants/constants.dart';
 
 class PlayerCard extends StatelessWidget {
   PlayerCard(

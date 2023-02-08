@@ -1,17 +1,17 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sincomil/Classes/student.dart';
+import 'package:sincomil/Classes/Student/student.dart';
 import 'package:sincomil/Provider/app_settings.dart';
-import 'package:sincomil/Screens/card_collection_page.dart';
-import 'package:sincomil/Screens/help_page.dart';
-import 'package:sincomil/Screens/login_page.dart';
-import 'package:sincomil/Screens/personal_info_page.dart';
-import 'package:sincomil/Screens/renew_sub_page.dart';
+import 'package:sincomil/Screens/Portraits/card_collection_page.dart';
+import 'package:sincomil/Screens/Parent/help_page.dart';
+import 'package:sincomil/Screens/Auth/login_page.dart';
+import 'package:sincomil/Screens/Parent/personal_info_page.dart';
 import 'package:sincomil/Screens/settings_page.dart';
 
-import '../Classes/grades.dart';
-import '../Classes/parent.dart';
+import '../../Classes/Student/grades.dart';
+import '../../Classes/Parent/parent.dart';
+import '../../Screens/Resub/renew_sub_page.dart';
 
 class NavDrawer extends StatelessWidget {
   final Parent parent;

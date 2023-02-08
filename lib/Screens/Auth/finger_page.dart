@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:sincomil/Classes/nav_handler.dart';
-import 'package:sincomil/Screens/home_page.dart';
+import 'package:sincomil/DataSource/nav_handler.dart';
+import 'package:sincomil/Screens/Student/home_page.dart';
 import 'package:sincomil/Screens/start_page.dart';
 
 class FingerPage extends StatefulWidget {

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sincomil/Constants/constants.dart';
-import 'package:sincomil/Constants/shared_constants.dart';
+import 'package:sincomil/Constants/SharedPrefs/shared_constants.dart';
 
-import '../Classes/grades.dart';
-import '../Classes/student.dart';
-import '../Provider/app_settings.dart';
-import '../Widgets/portrait_card.dart';
+import '../../Classes/Student/grades.dart';
+import '../../Classes/Student/student.dart';
+import '../../Provider/app_settings.dart';
+import '../../Widgets/Portraits/portrait_card.dart';
 
 class CardColection extends StatefulWidget {
   const CardColection(

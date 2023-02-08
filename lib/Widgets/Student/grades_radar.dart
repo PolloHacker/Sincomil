@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../Classes/grades.dart';
+import '../../Classes/Student/grades.dart';
 
 const gridColor = Color(0xff68739f);
 const titleColor = Color(0xff8c95db);

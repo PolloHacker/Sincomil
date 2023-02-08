@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:sincomil/Classes/payments.dart';
+import 'package:sincomil/Classes/Parent/payments.dart';
 import 'package:sincomil/Constants/constants.dart';
 import 'package:sincomil/Screens/start_page.dart';
 
-import '../Classes/nav_handler.dart';
-import 'home_page.dart';
+import '../../DataSource/nav_handler.dart';
+import '../Student/home_page.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sincomil/Classes/portrait.dart';
+import 'package:sincomil/Classes/Student/portrait.dart';
 
 const buttonColor = Color.fromRGBO(31, 117, 42, 1.0);
 const whitePrimary = Color.fromRGBO(255, 255, 255, 1.0);
@@ -8,7 +8,7 @@ const navigationBarBG = Color.fromRGBO(31, 117, 42, 1.0);
 
 class Urls {
   //TODO: change url to website
-  static const String baseUrl = 'https://91aa-191-185-192-122.sa.ngrok.io/app';
+  static const String baseUrl = 'http://192.168.0.2:8000/app';
   static const String auth = '$baseUrl/auth';
   static const String payments = '$baseUrl/payments';
   static const String fotos = '$baseUrl/fotos';

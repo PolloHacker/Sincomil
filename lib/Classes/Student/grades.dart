@@ -1,4 +1,4 @@
-import 'package:sincomil/Classes/subject.dart';
+import 'package:sincomil/Classes/Student/subject.dart';
 
 class Grades {
   final int id;

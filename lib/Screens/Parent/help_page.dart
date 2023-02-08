@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../Classes/parent.dart';
-import '../Classes/student.dart';
-import '../Constants/phones.dart';
-import '../Widgets/expandable_list_tile.dart';
+import '../../Classes/Parent/parent.dart';
+import '../../Classes/Student/student.dart';
+import '../../Constants/phones.dart';
+import '../../Widgets/Commons/expandable_list_tile.dart';
 
 class HelpPage extends StatefulWidget {
   const HelpPage({super.key, required this.parent, required this.students});

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sincomil/Screens/print_pdf_page.dart';
-import 'package:sincomil/Widgets/expandable_list_tile.dart';
+import 'package:sincomil/Screens/Payments/print_pdf_page.dart';
+import 'package:sincomil/Widgets/Commons/expandable_list_tile.dart';
 
-import '../Classes/payments.dart';
-import '../Classes/student.dart';
-import '../Constants/constants.dart';
+import '../../Classes/Parent/payments.dart';
+import '../../Classes/Student/student.dart';
+import '../../Constants/constants.dart';
 
 class PaymentsPage extends StatefulWidget {
   final List<Student> data;

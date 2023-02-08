@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../Classes/parent.dart';
-import '../Classes/student.dart';
+import '../../Classes/Parent/parent.dart';
+import '../../Classes/Student/student.dart';
 
 class RenewSubFormPage extends StatefulWidget {
-  const RenewSubFormPage({super.key, required this.parent, required this.student, required this.callback});
+  const RenewSubFormPage(
+      {super.key,
+      required this.parent,
+      required this.student,
+      required this.callback});
   final Parent parent;
   final Student student;
   final Function callback;
@@ -24,10 +28,12 @@ class _RenewSubFormPageState extends State<RenewSubFormPage> {
     aluMap = widget.student.asMap();
     parentMap = widget.parent.asMap();
     for (int i = 0; i < aluMap!.length; i++) {
-      aluControllers.add(TextEditingController(text: aluMap!.entries.elementAt(i).value));
+      aluControllers
+          .add(TextEditingController(text: aluMap!.entries.elementAt(i).value));
     }
     for (int i = 0; i < parentMap!.length; i++) {
-      parentControllers.add(TextEditingController(text: parentMap!.entries.elementAt(i).value));
+      parentControllers.add(
+          TextEditingController(text: parentMap!.entries.elementAt(i).value));
     }
     super.initState();
   }
@@ -38,15 +44,17 @@ class _RenewSubFormPageState extends State<RenewSubFormPage> {
       appBar: AppBar(
         title: const Text("Renovação de Matrícula"),
         //TODO: Send Data to server
-        actions: [IconButton(onPressed: () {
-
-          const snackBar = SnackBar(
-            content: Text('A solicitação foi enviada'));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          widget.callback(widget.student,"DOING");
-          Navigator.of(context).pop("Data sent");
-        },
-          icon: const Icon(Icons.send_rounded))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                const snackBar =
+                    SnackBar(content: Text('A solicitação foi enviada'));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                widget.callback(widget.student, "DOING");
+                Navigator.of(context).pop("Data sent");
+              },
+              icon: const Icon(Icons.send_rounded))
+        ],
       ),
       body: Container(
         padding: const EdgeInsets.all(10),
@@ -57,15 +65,19 @@ class _RenewSubFormPageState extends State<RenewSubFormPage> {
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(top: 5, bottom: 5),
-                    child: Text("Informações do aluno", textAlign: TextAlign.center, style: TextStyle(fontSize: 32)),
+                    child: Text("Informações do aluno",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 32)),
                   ),
                   Column(
                     children: aluMap!.entries
                         .map((e) => Padding(
                             padding: const EdgeInsets.only(top: 5, bottom: 5),
                             child: TextField(
-                              controller: aluControllers[
-                                  aluMap!.entries.toList().indexWhere((element) => element.key == e.key)],
+                              controller: aluControllers[aluMap!.entries
+                                  .toList()
+                                  .indexWhere(
+                                      (element) => element.key == e.key)],
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(),
                                 labelText: e.key,
@@ -81,16 +93,19 @@ class _RenewSubFormPageState extends State<RenewSubFormPage> {
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(top: 5, bottom: 5),
-                    child:
-                        Text("Informações do responsável", textAlign: TextAlign.center, style: TextStyle(fontSize: 32)),
+                    child: Text("Informações do responsável",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 32)),
                   ),
                   Column(
                     children: parentMap!.entries
                         .map((e) => Padding(
                             padding: const EdgeInsets.only(top: 5, bottom: 5),
                             child: TextField(
-                              controller: parentControllers[
-                                  parentMap!.entries.toList().indexWhere((element) => element.key == e.key)],
+                              controller: parentControllers[parentMap!.entries
+                                  .toList()
+                                  .indexWhere(
+                                      (element) => element.key == e.key)],
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(),
                                 labelText: e.key,

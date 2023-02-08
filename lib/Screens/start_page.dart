@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sincomil/Widgets/nav_drawer.dart';
-import 'package:sincomil/Screens/payments_page.dart';
-import 'package:sincomil/Screens/grades_page.dart';
+import 'package:sincomil/Widgets/Utils/nav_drawer.dart';
+import 'package:sincomil/Screens/Payments/payments_page.dart';
+import 'package:sincomil/Screens/Student/grades_page.dart';
 
-import '../Classes/grades.dart';
-import '../Classes/parent.dart';
-import '../Classes/payments.dart';
-import '../Classes/student.dart';
-import 'home_page.dart';
+import '../Classes/Student/grades.dart';
+import '../Classes/Parent/parent.dart';
+import '../Classes/Parent/payments.dart';
+import '../Classes/Student/student.dart';
+import 'Student/home_page.dart';
 
 //ignore: must_be_immutable
 class StartPage extends StatefulWidget {

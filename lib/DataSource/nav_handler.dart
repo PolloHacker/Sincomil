@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:sincomil/Classes/payments.dart';
-import 'package:sincomil/Classes/subject.dart';
+import 'package:sincomil/Classes/Parent/payments.dart';
+import 'package:sincomil/Classes/Student/subject.dart';
 import 'package:sincomil/Constants/constants.dart';
-import 'grades.dart';
-import 'parent.dart';
-import 'student.dart';
+import '../Classes/Student/grades.dart';
+import '../Classes/Parent/parent.dart';
+import '../Classes/Student/student.dart';
 
 class NavHandler {
   const NavHandler();

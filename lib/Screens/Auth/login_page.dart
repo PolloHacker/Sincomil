@@ -1,14 +1,14 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:sincomil/Classes/nav_handler.dart';
+import 'package:sincomil/DataSource/nav_handler.dart';
 import 'package:sincomil/Screens/start_page.dart';
-import 'package:sincomil/Widgets/login.dart';
+import 'package:sincomil/Widgets/Commons/login.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import '../Classes/parent.dart';
-import '../Classes/student.dart';
-import '../Widgets/date_picker.dart';
-import 'home_page.dart';
+import '../../Classes/Parent/parent.dart';
+import '../../Classes/Student/student.dart';
+import '../../Widgets/Commons/date_picker.dart';
+import '../Student/home_page.dart';
 
 const List<String> colegios = <String>[
   'Selecione o Colégio',

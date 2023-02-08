@@ -2,9 +2,9 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:sincomil/Classes/parent.dart';
-import 'package:sincomil/Classes/student.dart';
-import 'package:sincomil/Widgets/expandable_list_tile.dart';
+import 'package:sincomil/Classes/Parent/parent.dart';
+import 'package:sincomil/Classes/Student/student.dart';
+import 'package:sincomil/Widgets/Commons/expandable_list_tile.dart';
 
 class PersonalInfoPage extends StatefulWidget {
   const PersonalInfoPage({super.key, required this.parent, required this.data});

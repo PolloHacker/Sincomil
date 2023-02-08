@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../Constants/app_themes.dart';
-import '../Constants/shared_constants.dart';
+import '../Constants/Theme/app_themes.dart';
+import '../Constants/SharedPrefs/shared_constants.dart';
 
 class AppSettings extends ChangeNotifier {
   String _fingerprint = "false";
