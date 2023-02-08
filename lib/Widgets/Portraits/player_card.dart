@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sincomil/Constants/SharedPrefs/shared_constants.dart';
 
-import '../../Classes/Student/grades.dart';
+import '../../Classes/Student/grades_entity.dart';
 import '../../Constants/constants.dart';
 
 class PlayerCard extends StatelessWidget {
@@ -19,13 +19,13 @@ class PlayerCard extends StatelessWidget {
   final List<String> nomes;
   final List<String> list;
   final String dropdownValue;
-  final List<Grades> notas;
+  final List<GradesEntity> notas;
 
   final Size _cardSize = const Size(400, 471);
   bool useCard = false;
   String carta = '0';
 
-  int media(List<Grades> data) {
+  int media(List<GradesEntity> data) {
     double media = 0;
     for (var element in data[list.indexOf(dropdownValue)].artes.grades) {
       media += element;

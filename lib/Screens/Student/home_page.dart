@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sincomil/Classes/Student/student.dart';
+import 'package:sincomil/Classes/Student/student_entity.dart';
 import 'package:sincomil/Constants/constants.dart';
 
 List<String> initList(List data) {
@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
       required this.list,
       required this.dropdownValue});
 
-  final List<Student> data;
+  final List<StudentEntity> data;
   final List<String> fotos;
   final DateFormat formatter = DateFormat('dd/MM/yyyy');
   final List<String> list;

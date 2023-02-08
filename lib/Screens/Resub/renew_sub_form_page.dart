@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../Classes/Parent/parent.dart';
-import '../../Classes/Student/student.dart';
+import '../../Classes/Parent/parent_entity.dart';
+import '../../Classes/Student/student_entity.dart';
 
 class RenewSubFormPage extends StatefulWidget {
   const RenewSubFormPage(
@@ -9,8 +9,8 @@ class RenewSubFormPage extends StatefulWidget {
       required this.parent,
       required this.student,
       required this.callback});
-  final Parent parent;
-  final Student student;
+  final ParentEntity parent;
+  final StudentEntity student;
   final Function callback;
 
   @override

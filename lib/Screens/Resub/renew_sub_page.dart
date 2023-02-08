@@ -2,14 +2,14 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:sincomil/Screens/Resub/renew_sub_form_page.dart';
 
-import '../../Classes/Parent/parent.dart';
-import '../../Classes/Student/student.dart';
+import '../../Classes/Parent/parent_entity.dart';
+import '../../Classes/Student/student_entity.dart';
 
 class RenewSubPage extends StatefulWidget {
   const RenewSubPage({super.key, required this.parent, required this.data});
 
-  final Parent parent;
-  final List<Student> data;
+  final ParentEntity parent;
+  final List<StudentEntity> data;
 
   @override
   State<RenewSubPage> createState() => _RenewSubPageState();
@@ -18,7 +18,7 @@ class RenewSubPage extends StatefulWidget {
 class _RenewSubPageState extends State<RenewSubPage> {
   List<String> situation = List.empty(growable: true);
 
-  void callback(Student stu, String value) {
+  void callback(StudentEntity stu, String value) {
     setState(() {
       situation[widget.data.indexOf(stu)] = value;
     });

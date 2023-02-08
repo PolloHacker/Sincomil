@@ -3,21 +3,21 @@ import 'package:sincomil/Widgets/Utils/nav_drawer.dart';
 import 'package:sincomil/Screens/Payments/payments_page.dart';
 import 'package:sincomil/Screens/Student/grades_page.dart';
 
-import '../Classes/Student/grades.dart';
-import '../Classes/Parent/parent.dart';
-import '../Classes/Parent/payments.dart';
-import '../Classes/Student/student.dart';
+import '../Classes/Student/grades_entity.dart';
+import '../Classes/Parent/parent_entity.dart';
+import '../Classes/Parent/payments_entity.dart';
+import '../Classes/Student/student_entity.dart';
 import 'Student/home_page.dart';
 
 //ignore: must_be_immutable
 class StartPage extends StatefulWidget {
-  final Parent parent;
-  final List<Student> data;
+  final ParentEntity parent;
+  final List<StudentEntity> data;
   final List<String> fotos;
   final List<String> fotosBG;
   final List<String> list;
-  final List<Grades> grades;
-  final List<Payments> payments;
+  final List<GradesEntity> grades;
+  final List<PaymentsEntity> payments;
   String value;
   StartPage(
       {super.key,

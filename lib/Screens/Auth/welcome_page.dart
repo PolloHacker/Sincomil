@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:sincomil/Classes/Parent/payments.dart';
+import 'package:sincomil/Classes/Parent/payments_entity.dart';
 import 'package:sincomil/Constants/constants.dart';
 import 'package:sincomil/Screens/start_page.dart';
 
@@ -27,7 +27,7 @@ class _WelcomePageState extends State<WelcomePage> with TickerProviderStateMixin
   final List<int> numeros = [];
   List<String> fotos = [];
   List<String> fotosBG = [];
-  List<Payments> payments = [];
+  List<PaymentsEntity> payments = [];
 
   Future<List<String>> _readFromStorage() async {
     var email = await storage.read(key: "KEY_USERNAME") ?? '';

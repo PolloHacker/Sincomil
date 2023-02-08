@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sincomil/Classes/Student/student.dart';
+import 'package:sincomil/Classes/Student/student_entity.dart';
 import 'package:sincomil/Provider/app_settings.dart';
 import 'package:sincomil/Screens/Portraits/card_collection_page.dart';
 import 'package:sincomil/Screens/Parent/help_page.dart';
@@ -9,16 +9,16 @@ import 'package:sincomil/Screens/Auth/login_page.dart';
 import 'package:sincomil/Screens/Parent/personal_info_page.dart';
 import 'package:sincomil/Screens/settings_page.dart';
 
-import '../../Classes/Student/grades.dart';
-import '../../Classes/Parent/parent.dart';
+import '../../Classes/Student/grades_entity.dart';
+import '../../Classes/Parent/parent_entity.dart';
 import '../../Screens/Resub/renew_sub_page.dart';
 
 class NavDrawer extends StatelessWidget {
-  final Parent parent;
-  final List<Student> data;
+  final ParentEntity parent;
+  final List<StudentEntity> data;
   final List<String> fotos;
   final List<String> list;
-  final List<Grades> notas;
+  final List<GradesEntity> notas;
 
   const NavDrawer(
       {super.key,

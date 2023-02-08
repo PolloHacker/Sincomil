@@ -1,4 +1,4 @@
-class Student {
+class StudentEntity {
   //id do aluno na base de dados
   final int id;
 
@@ -29,7 +29,7 @@ class Student {
   final bool orphan;
   final bool especial;
 
-  const Student(
+  const StudentEntity(
       {required this.id,
       required this.codigo,
       required this.foto,
@@ -49,8 +49,8 @@ class Student {
       required this.orphan,
       required this.especial});
 
-  factory Student.fromJson(Map<String, dynamic> json) {
-    return Student(
+  factory StudentEntity.fromJson(Map<String, dynamic> json) {
+    return StudentEntity(
         id: json['id'],
         codigo: json['codigo'],
         foto: json['foto'],

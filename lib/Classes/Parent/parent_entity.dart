@@ -1,4 +1,4 @@
-class Parent {
+class ParentEntity {
   final int id;
 
   final String cpf;
@@ -6,7 +6,7 @@ class Parent {
   final String email;
   final String password;
 
-  const Parent({
+  const ParentEntity({
     required this.id,
     required this.cpf,
     required this.nome,
@@ -14,8 +14,8 @@ class Parent {
     required this.password
   });
 
-  factory Parent.fromJson (Map<String, dynamic> json) {
-    return Parent(
+  factory ParentEntity.fromJson (Map<String, dynamic> json) {
+    return ParentEntity(
       id: json['id'],
       cpf: json['cpf'],
       nome: json['nome'],

@@ -5,8 +5,8 @@ import 'package:sincomil/DataSource/nav_handler.dart';
 import 'package:sincomil/Screens/start_page.dart';
 import 'package:sincomil/Widgets/Commons/login.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import '../../Classes/Parent/parent.dart';
-import '../../Classes/Student/student.dart';
+import '../../Classes/Parent/parent_entity.dart';
+import '../../Classes/Student/student_entity.dart';
 import '../../Widgets/Commons/date_picker.dart';
 import '../Student/home_page.dart';
 
@@ -342,8 +342,8 @@ class _LoginPageState extends State<LoginPage> {
                       pushing = false;
                     });
                   }
-                  final Parent parent = read[0];
-                  final List<Student> data = read[1];
+                  final ParentEntity parent = read[0];
+                  final List<StudentEntity> data = read[1];
                   final List<String> nomes = [];
                   final List<int> numeros = [];
                   for (var i = 0; i < data.length; i++) {

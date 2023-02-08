@@ -5,10 +5,10 @@ import 'package:sincomil/Widgets/Student/grades_radar.dart';
 import 'package:sincomil/Widgets/Student/grades_table.dart';
 import 'package:sincomil/Widgets/Portraits/player_card.dart';
 
-import '../../Classes/Student/grades.dart';
+import '../../Classes/Student/grades_entity.dart';
 
 class GradesPage extends StatelessWidget {
-  final List<Grades> notas;
+  final List<GradesEntity> notas;
   final List<String> list;
   final List<String> nomes;
   final List<String> fotos;

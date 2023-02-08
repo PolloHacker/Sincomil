@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../../Classes/Student/grades.dart';
+import '../../Classes/Student/grades_entity.dart';
 
 const gridColor = Color(0xff68739f);
 const titleColor = Color(0xff8c95db);
@@ -15,7 +15,7 @@ final List<Color> clrs = [fashionColor, artColor, boxingColor, entertainmentColo
 
 class RadarGraph extends StatefulWidget {
   final List<String> list;
-  final List<Grades> notas;
+  final List<GradesEntity> notas;
 
   const RadarGraph({super.key, required this.list, required this.notas});
 
@@ -162,7 +162,7 @@ class _RadarGraphState extends State<RadarGraph> {
     );
   }
 
-  List<RadarDataSet> showingDataSets(List<Grades> data) {
+  List<RadarDataSet> showingDataSets(List<GradesEntity> data) {
     return rawDataSets(data).asMap().entries.map((entry) {
       final index = entry.key;
       final rawDataSet = entry.value;
@@ -183,7 +183,7 @@ class _RadarGraphState extends State<RadarGraph> {
     }).toList();
   }
 
-  List<RawDataSet> rawDataSets(List<Grades> data) {
+  List<RawDataSet> rawDataSets(List<GradesEntity> data) {
     final dataSets = [
       RawDataSet(title: 'Grau máximo', color: titleColor.withOpacity(0.5), values: [10, 10, 10])
     ];

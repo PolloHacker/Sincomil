@@ -1,11 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
-import '../../Classes/Student/grades.dart';
+import '../../Classes/Student/grades_entity.dart';
 import 'grades_dialog.dart';
 
 class GradesTable extends StatelessWidget {
-  final List<Grades> notas;
+  final List<GradesEntity> notas;
   final List<String> list;
   final String dropdownValue;
 

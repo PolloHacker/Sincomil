@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:sincomil/Classes/Parent/payments.dart';
-import 'package:sincomil/Classes/Student/subject.dart';
+import 'package:sincomil/Classes/Parent/payments_entity.dart';
+import 'package:sincomil/Classes/Student/subject_entity.dart';
 import 'package:sincomil/Constants/constants.dart';
-import '../Classes/Student/grades.dart';
-import '../Classes/Parent/parent.dart';
-import '../Classes/Student/student.dart';
+import '../Classes/Student/grades_entity.dart';
+import '../Classes/Parent/parent_entity.dart';
+import '../Classes/Student/student_entity.dart';
 
 class NavHandler {
   const NavHandler();
@@ -17,27 +17,27 @@ class NavHandler {
         headers: <String, String>{'Content-Type': 'application/json; charset=utf-8'}, body: msg);
     if (result.statusCode == 200) {
       var data = jsonDecode(result.body);
-      var students = <Student>[];
-      Parent parent;
+      var students = <StudentEntity>[];
+      ParentEntity parent;
       for (var i = 0; i < data['student'].length; i++) {
-        students.add(Student.fromJson(data['student'][i]));
+        students.add(StudentEntity.fromJson(data['student'][i]));
       }
-      parent = Parent.fromJson(data['parent'][0]);
+      parent = ParentEntity.fromJson(data['parent'][0]);
       return [parent, students];
     } else {
       throw Exception('Email ou senha inválidos.');
     }
   }
 
-  Future<List<Payments>> getPayments(int id) async {
+  Future<List<PaymentsEntity>> getPayments(int id) async {
     final msg = json.encode(<String, int>{'id': id});
     http.Response result = await http.post(Uri.parse(Urls.payments),
         headers: <String, String>{'Content-Type': 'application/json; charset=utf-8'}, body: msg);
     if (result.statusCode == 200) {
       var data = jsonDecode(result.body);
-      var payments = <Payments>[];
+      var payments = <PaymentsEntity>[];
       for (var i = 0; i < data['payments'].length; i++) {
-        payments.add(Payments.fromJson(data['payments'][i]));
+        payments.add(PaymentsEntity.fromJson(data['payments'][i]));
       }
       return payments;
     } else {
@@ -91,8 +91,8 @@ class NavHandler {
     return paths;
   }
 
-  Future<List<Grades>> getGrades(List<String> nomes) async {
-    final grades = <Grades>[];
+  Future<List<GradesEntity>> getGrades(List<String> nomes) async {
+    final grades = <GradesEntity>[];
     for (String nome in nomes) {
       final msg = json.encode(<String, String>{"name": nome});
       http.Response result = await http.post(Uri.parse(Urls.grades),
@@ -112,7 +112,7 @@ class NavHandler {
         var quim = await getSubject(data['grades'][0]['quim_id']);
         var red = await getSubject(data['grades'][0]['red_id']);
         var socio = await getSubject(data['grades'][0]['socio_id']);
-        grades.add(Grades(
+        grades.add(GradesEntity(
             id: data['grades'][0]['id'],
             nome: data['grades'][0]['nome'],
             artes: artes,
@@ -135,8 +135,8 @@ class NavHandler {
     return grades;
   }
 
-  Future<Subject> getSubject(int id) async {
-    final Subject subjects;
+  Future<SubjectEntity> getSubject(int id) async {
+    final SubjectEntity subjects;
 
     final msg = json.encode(<String, int>{"id": id});
     http.Response result = await http.post(Uri.parse(Urls.subject),
@@ -149,7 +149,7 @@ class NavHandler {
         }
         data['subject'][0]['grades'].add(double.parse(element));
       });
-      subjects = Subject.fromJson(data['subject'][0]);
+      subjects = SubjectEntity.fromJson(data['subject'][0]);
     } else {
       throw Exception('id inválido');
     }

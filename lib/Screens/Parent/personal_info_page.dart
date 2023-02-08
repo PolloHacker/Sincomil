@@ -2,15 +2,15 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:sincomil/Classes/Parent/parent.dart';
-import 'package:sincomil/Classes/Student/student.dart';
+import 'package:sincomil/Classes/Parent/parent_entity.dart';
+import 'package:sincomil/Classes/Student/student_entity.dart';
 import 'package:sincomil/Widgets/Commons/expandable_list_tile.dart';
 
 class PersonalInfoPage extends StatefulWidget {
   const PersonalInfoPage({super.key, required this.parent, required this.data});
 
-  final Parent parent;
-  final List<Student> data;
+  final ParentEntity parent;
+  final List<StudentEntity> data;
 
   @override
   State<PersonalInfoPage> createState() => _PersonalInfoPageState();
@@ -38,7 +38,8 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
       });
       authenticated = await auth.authenticate(
         localizedReason: 'Coloque seu dedo no sensor digital',
-        options: const AuthenticationOptions(stickyAuth: true, biometricOnly: true),
+        options:
+            const AuthenticationOptions(stickyAuth: true, biometricOnly: true),
       );
       setState(() {
         _authorized = 'Authenticating';
@@ -66,7 +67,8 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
         if (newPwdController.text == confPwdController.text) {
           snackBar = const SnackBar(content: Text("Sua senha foi atualizada"));
         } else {
-          snackBar = const SnackBar(content: Text("As senhas não correspondem"));
+          snackBar =
+              const SnackBar(content: Text("As senhas não correspondem"));
         }
       } else {
         snackBar = const SnackBar(content: Text("A senha é muito curta"));
@@ -91,13 +93,21 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
             ListTile(
               leading: const Icon(Icons.account_circle_rounded),
               title: Row(
-                children: [const Text("Nome"), const Spacer(), Text(widget.parent.nome)],
+                children: [
+                  const Text("Nome"),
+                  const Spacer(),
+                  Text(widget.parent.nome)
+                ],
               ),
             ),
             ListTile(
               leading: const Icon(Icons.email_rounded),
               title: Row(
-                children: [const Text("E-mail"), const Spacer(), Text(widget.parent.email)],
+                children: [
+                  const Text("E-mail"),
+                  const Spacer(),
+                  Text(widget.parent.email)
+                ],
               ),
             ),
             _pwd
@@ -109,17 +119,21 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                         children: [
                           const Text("Mudar senha"),
                           Container(
-                              padding: const EdgeInsets.only(top: 10, bottom: 10),
+                              padding:
+                                  const EdgeInsets.only(top: 10, bottom: 10),
                               child: TextField(
                                 controller: oldPwdController,
                                 obscureText: !_showOldPwd,
                                 decoration: InputDecoration(
                                     border: const OutlineInputBorder(),
-                                    prefixIcon: const Icon(Icons.lock_outline_rounded),
+                                    prefixIcon:
+                                        const Icon(Icons.lock_outline_rounded),
                                     suffixIcon: IconButton(
                                       icon: Icon(
                                         // Based on passwordVisible state choose the icon
-                                        _showOldPwd ? Icons.visibility_rounded : Icons.visibility_off_rounded,
+                                        _showOldPwd
+                                            ? Icons.visibility_rounded
+                                            : Icons.visibility_off_rounded,
                                       ),
                                       onPressed: () {
                                         // Update the state i.e. toogle the state of passwordVisible variable
@@ -137,11 +151,14 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                 obscureText: !_showNewPwd,
                                 decoration: InputDecoration(
                                     border: const OutlineInputBorder(),
-                                    prefixIcon: const Icon(Icons.lock_outline_rounded),
+                                    prefixIcon:
+                                        const Icon(Icons.lock_outline_rounded),
                                     suffixIcon: IconButton(
                                       icon: Icon(
                                         // Based on passwordVisible state choose the icon
-                                        _showNewPwd ? Icons.visibility_rounded : Icons.visibility_off_rounded,
+                                        _showNewPwd
+                                            ? Icons.visibility_rounded
+                                            : Icons.visibility_off_rounded,
                                       ),
                                       onPressed: () {
                                         // Update the state i.e. toogle the state of passwordVisible variable
@@ -159,11 +176,14 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                 obscureText: !_showConfPwd,
                                 decoration: InputDecoration(
                                     border: const OutlineInputBorder(),
-                                    prefixIcon: const Icon(Icons.lock_outline_rounded),
+                                    prefixIcon:
+                                        const Icon(Icons.lock_outline_rounded),
                                     suffixIcon: IconButton(
                                       icon: Icon(
                                         // Based on passwordVisible state choose the icon
-                                        _showConfPwd ? Icons.visibility_rounded : Icons.visibility_off_rounded,
+                                        _showConfPwd
+                                            ? Icons.visibility_rounded
+                                            : Icons.visibility_off_rounded,
                                       ),
                                       onPressed: () {
                                         // Update the state i.e. toogle the state of passwordVisible variable
@@ -194,9 +214,11 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                     confPwdController.text.isNotEmpty) {
                                   snackBar = checkPass();
                                 } else {
-                                  snackBar = const SnackBar(content: Text("Há campos vazios."));
+                                  snackBar = const SnackBar(
+                                      content: Text("Há campos vazios."));
                                 }
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                               },
                               child: const Text("Confirmar"))
                         ],
@@ -212,9 +234,12 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                         const Spacer(),
                         Text(_showPwd
                             ? widget.parent.password
-                            : widget.parent.password.replaceAll(RegExp(r'[a-zA-Z0-9]'), '*')),
+                            : widget.parent.password
+                                .replaceAll(RegExp(r'[a-zA-Z0-9]'), '*')),
                         IconButton(
-                            icon: Icon(_showPwd ? Icons.visibility_rounded : Icons.visibility_off_rounded),
+                            icon: Icon(_showPwd
+                                ? Icons.visibility_rounded
+                                : Icons.visibility_off_rounded),
                             onPressed: () async {
                               await _authenticateWithBiometrics();
                               if (_authorized == 'Authorized') {
@@ -252,8 +277,10 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                 ]),
                 child: Column(
                   children: widget.data
-                      .map((e) =>
-                          ListTile(leading: const Icon(Icons.supervised_user_circle_rounded), title: Text(e.nome)))
+                      .map((e) => ListTile(
+                          leading:
+                              const Icon(Icons.supervised_user_circle_rounded),
+                          title: Text(e.nome)))
                       .toList(),
                 ),
               ),

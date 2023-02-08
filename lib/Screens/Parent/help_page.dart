@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../Classes/Parent/parent.dart';
-import '../../Classes/Student/student.dart';
+import '../../Classes/Parent/parent_entity.dart';
+import '../../Classes/Student/student_entity.dart';
 import '../../Constants/phones.dart';
 import '../../Widgets/Commons/expandable_list_tile.dart';
 
 class HelpPage extends StatefulWidget {
   const HelpPage({super.key, required this.parent, required this.students});
-  final Parent parent;
-  final List<Student> students;
+  final ParentEntity parent;
+  final List<StudentEntity> students;
 
   @override
   State<HelpPage> createState() => _HelpPageState();

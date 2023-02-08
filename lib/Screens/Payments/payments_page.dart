@@ -3,13 +3,13 @@ import 'package:intl/intl.dart';
 import 'package:sincomil/Screens/Payments/print_pdf_page.dart';
 import 'package:sincomil/Widgets/Commons/expandable_list_tile.dart';
 
-import '../../Classes/Parent/payments.dart';
-import '../../Classes/Student/student.dart';
+import '../../Classes/Parent/payments_entity.dart';
+import '../../Classes/Student/student_entity.dart';
 import '../../Constants/constants.dart';
 
 class PaymentsPage extends StatefulWidget {
-  final List<Student> data;
-  final List<Payments> payments;
+  final List<StudentEntity> data;
+  final List<PaymentsEntity> payments;
   final String dropdownValue;
   final List<String> list;
   const PaymentsPage(
@@ -22,7 +22,7 @@ class PaymentsPage extends StatefulWidget {
 class _PaymentsPageState extends State<PaymentsPage> {
   String mensalidadeValue = 'Selecione';
   String sitPg = 'Todos';
-  List<Payments> rows = [];
+  List<PaymentsEntity> rows = [];
 
   @override
   void initState() {
@@ -117,8 +117,8 @@ class _PaymentsPageState extends State<PaymentsPage> {
             }));
   }
 
-  List<Payments> getCount() {
-    List<Payments> filteredPayments =
+  List<PaymentsEntity> getCount() {
+    List<PaymentsEntity> filteredPayments =
         widget.payments.where((element) => element.aluno == widget.dropdownValue).toList();
 
     if (mensalidadeValue != tipoMens[0]) {
@@ -140,7 +140,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
     return filteredPayments;
   }
 
-  List<Widget> getChildren(int index, List<Payments> rows) {
+  List<Widget> getChildren(int index, List<PaymentsEntity> rows) {
     final actions = rows[index].asMap().entries.skip(2).map((e) {
       return Row(
         children: [

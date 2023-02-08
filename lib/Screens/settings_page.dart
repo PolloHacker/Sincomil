@@ -5,12 +5,12 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sincomil/Constants/SharedPrefs/shared_constants.dart';
 import 'package:sincomil/Provider/app_settings.dart';
-import '../Classes/Parent/parent.dart';
-import '../Classes/Student/student.dart';
+import '../Classes/Parent/parent_entity.dart';
+import '../Classes/Student/student_entity.dart';
 
 class SettingsPage extends StatefulWidget {
-  final Parent parent;
-  final List<Student> data;
+  final ParentEntity parent;
+  final List<StudentEntity> data;
 
   const SettingsPage({super.key, required this.parent, required this.data});
 

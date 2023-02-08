@@ -1,25 +1,25 @@
-import 'package:sincomil/Classes/Student/subject.dart';
+import 'package:sincomil/Classes/Student/subject_entity.dart';
 
-class Grades {
+class GradesEntity {
   final int id;
 
   final String nome;
 
-  final Subject artes;
-  final Subject bio;
-  final Subject ef;
-  final Subject filo;
-  final Subject fis;
-  final Subject geo;
-  final Subject hist;
-  final Subject lem;
-  final Subject port;
-  final Subject mat;
-  final Subject quim;
-  final Subject red;
-  final Subject socio;
+  final SubjectEntity artes;
+  final SubjectEntity bio;
+  final SubjectEntity ef;
+  final SubjectEntity filo;
+  final SubjectEntity fis;
+  final SubjectEntity geo;
+  final SubjectEntity hist;
+  final SubjectEntity lem;
+  final SubjectEntity port;
+  final SubjectEntity mat;
+  final SubjectEntity quim;
+  final SubjectEntity red;
+  final SubjectEntity socio;
 
-  const Grades(
+  const GradesEntity(
       {required this.id,
       required this.nome,
       required this.artes,
@@ -36,8 +36,8 @@ class Grades {
       required this.red,
       required this.socio});
 
-  factory Grades.fromJson(Map<String, dynamic> json) {
-    return Grades(
+  factory GradesEntity.fromJson(Map<String, dynamic> json) {
+    return GradesEntity(
         id: json['id'],
         nome: json['nome'],
         artes: json['artes'],
@@ -55,7 +55,7 @@ class Grades {
         socio: json['socio']);
   }
 
-  Map<int, Subject> asMap() {
+  Map<int, SubjectEntity> asMap() {
     return {
       0: artes,
       1: bio,

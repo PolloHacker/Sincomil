@@ -1,4 +1,4 @@
-class Payments {
+class PaymentsEntity {
   final int id;
   final String aluno;
   final String mensalidade;
@@ -10,7 +10,7 @@ class Payments {
   final String valorPg;
   final String tipoPg;
 
-  Payments(
+  PaymentsEntity(
       {required this.id,
       required this.aluno,
       required this.mensalidade,
@@ -22,8 +22,8 @@ class Payments {
       required this.valorPg,
       required this.tipoPg});
 
-  factory Payments.fromJson(Map<String, dynamic> json) {
-    return Payments(
+  factory PaymentsEntity.fromJson(Map<String, dynamic> json) {
+    return PaymentsEntity(
         id: json['id'],
         aluno: json['aluno'],
         mensalidade: json['mensalidade'],

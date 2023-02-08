@@ -4,8 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sincomil/Constants/constants.dart';
 import 'package:sincomil/Constants/SharedPrefs/shared_constants.dart';
 
-import '../../Classes/Student/grades.dart';
-import '../../Classes/Student/student.dart';
+import '../../Classes/Student/grades_entity.dart';
+import '../../Classes/Student/student_entity.dart';
 import '../../Provider/app_settings.dart';
 import '../../Widgets/Portraits/portrait_card.dart';
 
@@ -13,10 +13,10 @@ class CardColection extends StatefulWidget {
   const CardColection(
       {super.key, required this.students, required this.fotos, required this.list, required this.notas});
 
-  final List<Student> students;
+  final List<StudentEntity> students;
   final List<String> fotos;
   final List<String> list;
-  final List<Grades> notas;
+  final List<GradesEntity> notas;
 
   @override
   State<CardColection> createState() => _CardColectionState();
@@ -31,7 +31,7 @@ class _CardColectionState extends State<CardColection> {
   String direction = '';
   List<bool> first = [];
 
-  double media(List<Grades> data) {
+  double media(List<GradesEntity> data) {
     double media = 0;
     double gradeCount = 0;
     Map<String, List<double>> subjects = {

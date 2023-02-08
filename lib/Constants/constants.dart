@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sincomil/Classes/Student/portrait.dart';
+import 'package:sincomil/Classes/Student/portrait_entity.dart';
 
 const buttonColor = Color.fromRGBO(31, 117, 42, 1.0);
 const whitePrimary = Color.fromRGBO(255, 255, 255, 1.0);
@@ -51,49 +51,49 @@ const cartas = <String, Color>{
   'bronzecommon': Color.fromRGBO(43, 34, 23, 1),
 };
 
-final List<Portrait> allCards = [
-  Portrait(name: 'bronzecommon', description: 'Esta é a carta padrão'),
-  Portrait(name: 'bronze', description: 'Esta carta é concedida aos alunos com pontuação maior do que 60'),
-  Portrait(name: 'silvercommon', description: 'Esta carta é concedida aos alunos com pontuação maior do que 70'),
-  Portrait(name: 'silver', description: 'Esta carta é concedida aos alunos com pontuação maior do que 75'),
-  Portrait(name: 'goldcommon', description: 'Esta carta é concedida aos alunos com pontuação maior do que 80'),
-  Portrait(name: 'gold', description: 'Esta carta é concedida aos alunos com pontuação maior do que 85'),
-  Portrait(
+final List<PortraitEntity> allCards = [
+  PortraitEntity(name: 'bronzecommon', description: 'Esta é a carta padrão'),
+  PortraitEntity(name: 'bronze', description: 'Esta carta é concedida aos alunos com pontuação maior do que 60'),
+  PortraitEntity(name: 'silvercommon', description: 'Esta carta é concedida aos alunos com pontuação maior do que 70'),
+  PortraitEntity(name: 'silver', description: 'Esta carta é concedida aos alunos com pontuação maior do que 75'),
+  PortraitEntity(name: 'goldcommon', description: 'Esta carta é concedida aos alunos com pontuação maior do que 80'),
+  PortraitEntity(name: 'gold', description: 'Esta carta é concedida aos alunos com pontuação maior do que 85'),
+  PortraitEntity(
       name: 'bronzeif',
       description: 'Esta carta é concedida aos alunos que conseguiram 2 notas consecutivas maiores ou iguais a 7'),
-  Portrait(
+  PortraitEntity(
       name: 'silverif',
       description: 'Esta carta é concedida aos alunos que conseguiram 2 notas consecutivas maiores ou iguais a 8'),
-  Portrait(
+  PortraitEntity(
       name: 'goldif',
       description: 'Esta carta é concedida aos alunos que conseguiram 2 notas consecutivas maiores ou iguais a 9'),
-  Portrait(
+  PortraitEntity(
       name: 'headliners', description: 'Esta carta é concedida aos alunos que foram agraciados com a medalha garança'),
-  Portrait(name: 'shapeshifter', description: 'Esta carta é concedida a todos os atletas.'),
-  Portrait(
+  PortraitEntity(name: 'shapeshifter', description: 'Esta carta é concedida a todos os atletas.'),
+  PortraitEntity(
       name: 'flashback', description: 'Esta carta é concedida aos alunos que obtiveram o alamar ao fim do trimestre'),
-  Portrait(name: 'motm', description: 'Esta carta é concedida aos alunos de destaque'),
-  Portrait(
+  PortraitEntity(name: 'motm', description: 'Esta carta é concedida aos alunos de destaque'),
+  PortraitEntity(
       name: 'ice',
       description:
           'Esta carta é concedida aos alunos que ficaram entre as 10 melhores médias de sua série no trimestre'),
-  Portrait(
+  PortraitEntity(
       name: 'fire',
       description:
           'Esta carta é concedida aos alunos que ficaram entre as 3 melhores médias de sua série no trimestre'),
-  Portrait(
+  PortraitEntity(
       name: 'tots2',
       description:
           'Esta carta é concedida aos alunos que ficaram entre as 10 melhores médias de sua série no colégio no ano'),
-  Portrait(
+  PortraitEntity(
       name: 'toty2',
       description:
           'Esta carta é concedida aos alunos que ficaram entre as 10 melhores médias de sua série no SCMB no ano'),
-  Portrait(
+  PortraitEntity(
       name: 'tots',
       description:
           'Esta carta é concedida aos alunos que ficaram entre as 3 melhores médias de sua série no colégio no ano'),
-  Portrait(
+  PortraitEntity(
       name: 'toty',
       description:
           'Esta carta é concedida aos alunos que ficaram entre as 3 melhores médias de sua série no SCMB no ano'),

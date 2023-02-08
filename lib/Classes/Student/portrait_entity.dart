@@ -1,10 +1,10 @@
-class Portrait {
+class PortraitEntity {
   final String name;
   final String description;
   DateTime? time;
   int? qnt;
 
-  Portrait (
+  PortraitEntity (
       {required this.name,
       required this.description});
 }
